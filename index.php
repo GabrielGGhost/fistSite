@@ -3,7 +3,7 @@
 require_once("vendor/autoload.php");
 
 use Slim\Slim;
-use Dev\DB\Sql;
+use Dev\Page;
 
 $app = new Slim();
 
@@ -11,15 +11,10 @@ $app->config('debug', true);
 
 $app->get('/', function() {
     
+	$page = new Page();
 
-	$sql = new Sql();
-
-	$sql->query("INSERT INTO tb_ingredient(ingredient) VALUES ('vinagre');");
-
-	$results = $sql->select("SELECT * FROM tb_ingredient");
-
-	var_dump($results);
-	exit;
+	$page->setTpl("index");
+	
 
 });
 
