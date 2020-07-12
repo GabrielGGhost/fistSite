@@ -13,13 +13,13 @@ class Page {
 		'data'=>[]];
 	private $options = [];
 
-	public function __construct($options = array(),$tpl_dir = "/views/"){
+	public function __construct($options = array(),$tpl_dir = "/views/site/"){
 
 		$this->options = array_merge($this->defaults, $options);
 
 		$config = array(
 		    "base_url"      => null,
-		    "tpl_dir"       => $_SERVER['DOCUMENT_ROOT']. $tpl_dir,
+		    "tpl_dir"       => $_SERVER['DOCUMENT_ROOT'] . $tpl_dir,
 		    "cache_dir"     => $_SERVER['DOCUMENT_ROOT']."/views-cache/",
 		    "debug"         => false
 		);
