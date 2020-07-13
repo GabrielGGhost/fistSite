@@ -1,0 +1,462 @@
+body{ /*Formatar body */
+  margin: 0; /* Definir a margin para 0 */
+  font-family: 'Open Sans', sans-serif; /* Font como Open Sans, se não houver use, sans-serif*/
+  line-height: 1.5; /*Definir a altura entre as linhas para 1.4em*/
+}
+
+img{
+  max-width: 100%; /*Imagem com o tamanho máximo dela mesma*/
+}
+
+.container{/*Formatar a classe conteiner*/
+  margin-right: auto;/*Colocar margin à direita automática*/
+  margin-left: auto; /*Colocar margin à esquerda automática*/
+  padding-left: 1em; /*Colocar padding à esquerda automática*/
+  padding-right: 1em; /*Colocar padding à direita automática*/
+  max-width: 980px; /*Imedira que o tamanho dele ultrapasse 580px*/
+}
+
+/**/
+.header{/*Formatar header*/
+  background-color: #fff; /*Define o background para branco*/
+  width: 100%; /*Define o tamanho do header para sempre 100%*/
+}
+
+.js .header{
+  position: fixed;
+  width: 100%;
+  Z-index: 10;
+}
+
+.js .laptop-slider{
+  overflow: hidden;
+}
+
+.js .laptop-slider .slideshow{
+  position: relative;
+  width: 100%;
+  margin: auto;
+  max-width: 950px;
+}
+
+.js .laptop-slider figure{
+  opacity: 0;
+  transition: 1s opacity;
+  width: 100%;
+  top: 0;
+  left: 0;
+  position: absolute;
+}
+
+.js .laptop-slider figure.show{
+  opacity: 1;
+  position: static;
+  max-width: calc(100% - 80px);
+}
+
+.js .laptop-slider .prev,
+.js .laptop-slider .next{
+  Z-index: 3;
+  position: absolute;
+  top: 50%;
+  cursor:pointer;
+}
+
+.js .laptop-slider .prev{
+  left: 10px;
+}
+
+.js .laptop-slider .next{
+  right: 10px;
+}
+
+.logo-text{/*Formatar o texto logo*/
+  text-transform: uppercase; /*Deixa o texto em maiusculo*/
+  background-color: #63c6ae; /*Define o fundo do logo verde*/
+  font-size: 24px; /*Define o tamanho da fonte pra 24px*/
+  margin: 0; /*Zera a margin*/
+  padding: 20px; /*Define o padding pra 20px para todos os lados*/
+  display: block; /*Define o display para inline-block para alinhar o texto*/
+  color: white; /*Definir a cor para branco*/
+  float: left; /*Fazer flutuar para esquerda*/
+  text-align: right;/*Mandar o texto pra direita*/
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.header__nav{/*Formatar a nav*/
+  clear: left; /*Ignora um comando left dos irmãos*/
+}
+
+.header__nav ul{ /*Formatar as UL's dentro de header__nav*/
+  margin: 0; /*Zera as margins*/
+  padding: 0; /*Zera os paddings*/
+}
+
+.header__nav li{ /*Formatar todos os LI's dentro da header__nav*/
+  list-style-type: none; /*Remove todos os bullets das listas*/
+  background-color: #242c2c; /*Define o fundo parapreto*/
+  text-align: center; /*Alinhar o texto sempre ao centro*/
+  border-bottom: 1px dotted rgba(255, 255, 255, .2); /*Definir uma borda inferior pra 1px, sólida e um branco transparent*/
+
+
+}
+/**/
+.header__nav a{ /*Formatar todos os links dentro da header__nav*/
+  text-decoration: none; /*Definir o texto decorativo para nada*/
+  text-transform: uppercase; /*Definir para tudo maíusculo*/
+  color: #586165; /*Define a cor para cinza*/
+  font-size: 14px; /*Define o tamanho para 14px*/
+  font-weight: 600; /*Define o bold para 600*/
+  display: block; /*Define o display pra bloco*/
+  padding: 25px 0; /*Define o padding 25px pra cima e pra baixo e 0 para os lados*/
+  transition: .5s linear;
+}
+
+.header__nav a:hover{/*Formatar o hove dos links*/
+  color: #63c8ae;
+}
+
+.header__btnMenu{ /*Formatar o botão*/
+  float: right;
+  margin: 1em;
+  background-color: transparent;
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+
+.hero{ /*Formatar a section .hero*/
+  height: 80vh; /*Definir o tamanho para 80% do tamanho da viewport */
+  padding: 40px 20px; /*Definir o padding para 40 pra cima e pra baixo e 20 pros lados*/
+  text-align: center; /*Definir o texto pro centro*/
+  display: flex; /*Cria uma grid de flex em linha*/
+  flex-direction: column;/*Define a flex-grid pra colunas*/
+  justify-content: center; /*Deixar tudo no centro vertical*/
+  align-items: center;
+
+
+  background-image: linear-gradient(45deg, white 50%, transparent 50%), /*Define um background com 45 graus, branco com metade da tela e transparente do outro lado*/
+                    linear-gradient(-45deg, white 50%, transparent 50%),/*Define um background com -45 graus, branco com metade da tela e transparente do outro lado*/
+                    url('/res/site/img/01.jpg'); /*Define um fundo de imagem*/
+  background-size: 40px 40px, 40px 40px, cover; /*Define os lados 40px pra cima e pra baixo para a primeira e a segunda e usar a imagem toda para a última*/
+  background-repeat: no-repeat; /*Não repetir nenhum dos fundos*/
+  background-position: left calc(50% + 20px) bottom,left calc(50% - 20px) bottom, center;/*Define o calculo da esqueda da metade da posição + 20px(metade do tamanho) de um lado e -20px do outro e centro pra foto*/
+}
+
+.hero__title{ /*Formatar o titulo de hero*/
+  background-color: #63c6ae; /*Define a cor de fundo do titulo pra verde marinho*/
+  color: white; /*Define a cor do texto para branco*/
+  font-size: 28px; /*Define o tamanho da fonte pra 16px*/
+  font-weight: 600; /*600 para o bold*/
+  padding: 30px 20px;/*Define o padding pra 20 para todos os lados*/
+  text-transform: uppercase;
+}
+
+.hero__text{
+  background-color: #242a2c;
+  margin: 50px 30px 35px; /*Define as margins para */
+  color: white;
+  padding: 16px;
+}
+
+.hero__btn{ /*Formatar o botão*/
+  border: 1px solid rgba(255, 255, 255, .3); /*Define uma borda de 1px, sólida com um branco transparente*/
+  background-color: rgba(0, 0, 0, 0.2); /*Define um fundo preto transparente*/
+  border-radius: 5px; /*Define uma borda arredondada*/
+  padding: 15px 25px; /*Define o padding para 15 pra cima e pra baixo e 25 pros lados*/
+  display: inline-block; /*Define um inline-block pra ficar um do lado do outro(horinzontal)*/
+  text-decoration: none; /*Tira as decorações de texto*/
+  color: white; /*Define pra um branco*/
+  font-size: 16px; /*Define a fonte pra 16px*/
+  font-weight: 600; /*Bold em 600*/
+  text-transform: uppercase; /*Maiusculo*/
+}
+
+.people-cards{ /*Painel de cards*/
+  margin-top: 2.5em; /*Define a margin do em 2.5em para todos os lados*/
+}
+
+.people-cards__card{
+  transition: .3s linear;/*Colocar uma transição nos carts*/
+}
+
+.people-cards__card:hover{/*Formatar o hover*/
+  outline: 5px solid #63c6ae;/*Linha de fora do o card*/
+  outline-offset: -5px; /*Internizar a linha*/
+}
+
+.people-cards__card:hover .people-cards__avatar img{/*Formatar a img dentro de people_cards__acavatr quando passar o mouse em cima de people cards*/
+  transform:translateY(-50%); /*Movem para cima metade do damanho da imagem*/
+
+}
+
+.people-cards__card:hover .people-cards__title,
+.people-cards__card:hover .people-cards__text{ /*Formatar people-cards__text e title dentro de people-card quando  o mouse for passado por cima*/
+  color: #63c6ae;
+}
+
+.people-cards__image{ /*Formatar a imagem do card*/
+    width: 100%; /*Define o tamanho 100% da tela*/
+}
+
+.people-cards__avatar{/*Formatar o avatar*/
+  margin: -55px auto; /*-55px pra cima e pra baixo e centraliza a imagem*/
+  width: 88px; /*Tamanho de 88px*/
+  height: 88px; /*altura de 88px*/
+  overflow: hidden; /*Esconde o que estiver pra fora*/
+}
+
+.people-cards__content{ /*Formatar o a basedo texto*/
+  text-align: center; /*Deixar tudo no centro*/
+  padding: 40px 25px 10px; /*Distanciar 40px para cima, 25 pros lados e 10 pra baixo*/
+  border-left: 1px solid #dbe1e7; /*Define uma borda de 1px esquerda sólida cinza*/
+  border-right: 1px solid #dbe1e7; /*Define uma borda de 1px direita sólida cinza*/
+}
+
+.people-cards__content:last-child{ /*Formatar o útimo people-cards_content*/
+  border-bottom: 1px solid #dbe1e7; /*Define uma borda de 1px direita sólida cinza*/
+
+}
+
+.people-cards__title{/*Formatar o título dos cards*/
+  color: #737c85; /*Formatar a cor para cinza*/
+  font-size: 21px; /*Definir o tamanho para 21px*/
+  font-w
+}
+
+.people-cards__text{ /*Formatar texto nos cards*/
+  color: #737c85; /*Definir a cor para cinza*/
+  font-size: 21px; /*Definir o tamanho para 21px*/
+  font-weight: normal;
+}
+
+.content{ /*Formatar as classes content*/
+  background: #f8f9f9; /*Fundo cinza*/
+  padding: 20px 0 80px; /*Padding 20 pra cima, 0 pros lados e 80 pra baixo*/
+  border-top: 1px solid #e3e3e3; /*Borda de cima de 1px, sólida e cinza*/
+}
+
+.content h3{ /*Formatar H3 das classes content*/
+  color: #737c85; /*Definir cor metalica*/
+  font-size: 21px; /*Tamanho da fonte 21px*/
+  padding-top: 40px; /*Padding de 40px pra todos os lados*/
+  font-weight: 600; /*Bold em 600*/
+}
+
+.content p{ /*Formatar todos os paragrafos em contents*/
+  color: #929da5; /*Definir cor de texto para metalico claro*/
+  font-size: 14px; /*Definir a fonte com 14px*/
+  word-spacing: 2px; /*Separar as letras por 2px*/
+}
+
+.button{ /*Formatar todas as classes de botões*/
+  padding: 15px 40px; /*Paddin 15 pra cima e pra baixo, 40 pros lados*/
+  border-radius: 3px; /*Borda dos cantos*/
+  color: white; /*Cor brancar pras letras*/
+  text-decoration: none; /*Sem decoração de texto*/
+  font-weight: 600; /*Bold em 600*/
+  font-size: 16px; /*Tamanho de fonte pra 16px*/
+  margin-right: 15px; /*Margin 15 pra todos os lados*/
+  display: inline-block; /*Alinhar um do lado do outro*/
+  transition: .5s linear; /*Transição suave*/
+}
+
+.button:hover{ /*Formatar passar mouse em cima do botão*/
+  background-color: #929da5; /*Cor de fundo cinza metalico*/
+}
+
+.button-primary{ /*Formatar botão primario*/
+  background-color: #69c6ae; /*Fundo pra verde marinho*/
+  color: white; /*Cor de texto branco*/
+}
+
+.button-secondary{ /*Formatar botão secundário*/
+  background-color: #455357; /*Fundo metálico escuro*/
+  color: white; /*Texto branco*/
+}
+
+.last-articles__title{ /*Formatar o titulo das classes las-articles*/
+  background-color: #63c6ae; /*Fundo verde marinho*/
+  padding: 5px 0; /*Padding 5px pra cima e baixo e 0 pros lados*/
+}
+
+.last-articles__title h2{ /*Formatar h2 de last articles__title*/
+  font-size: 24px; /*Tamanho da fonte 24px*/
+  color: white; /*Cor branca pros textos*/
+  text-transform: uppercase;/*Texto todo maiusculo*/
+  font-weight: 400;/*Bold em 400*/
+}
+
+.last-articles_thumbs{/*Formatar thumbs*/
+  display: grid;/*Definir layout de grid*/
+  grid-template-columns: repeat(auto-fill, minmax(250px,1fr));/*Repetir as colunas que se encaixam e que tenham no minimo 250px e no máximo uma fração*/
+  grid-auto-rows: auto; /*Novas colunas tem tamanho automático*/
+  grid-gap: 0; /*Vão entre as imagens de 0*/
+}
+
+.last-articles_thumbs img{/*Formatar as imagens dentro da classe last-articles_thumbs*/
+  display: block;/*Retirar as linhas entre as imagens*/
+  width: 100%; /*Sempre o máximo do tamanho possível*/
+}
+
+.laptop-slider{/*Formatar a classe laptop-slider*/
+  background-color: #242a2c; /*Definir fundo metalico escuro*/
+  padding: 12px 0  100px; /*paddindo 12 pra cima, 0 pros lados e 100 pra baixo*/
+  width: 100%;
+  overflow: auto; /*Se precisar de barra de rolagem, colocará*/
+}
+
+.slideshow{ /*Formatar classe slideshow*/
+  white-space: nowrap; /*Impedir que as imagens fiquem uma embaixo da outra*/
+}
+
+.slideshow figure{/*Formatar as figurar em slideshow*/
+  display: inline-block; /*Colocar uma embaixo da outra*/
+}
+
+.quote-container{ /*Formatar o quote-container*/
+  background-color: #63c6ae; /*Fundo verde marinho*/
+  padding: 50px 0; /*Padding 50px pra cima e baixo e 0 pros lados*/
+  border-bottom: 12px solid #48b9a1; /*Colocar borda inferior de 10px sólida verde marinho escuro*/
+}
+
+.quote-slideshow h2{ /*Formatar h2 de quote-slideshow*/
+  color: white; /*Definir texto branco*/
+  font-size: 20px; /*Tamanho de fonte de 30px*/
+  font-style: italic; /*Fazer  italico*/
+  font-weight: normal; /*Sem bold*/
+}
+
+.quote-slideshow figcaption{ /*Formatar figcaption dentro de quote-slidshow*/
+  color: white; /*Texto de cor branca*/
+  font-size: 18px; /*Tamanho de fonte em 18px*/
+  text-align: center; /*Alinhar o texto ao centro*/
+}
+
+.no-js .quote-slideshow figure + figure{ /*Pegar a figure que vem após a figure dentro do quote-slideshow dentro do no-js*/
+  margin-top: 5em;/*Margim do topo em 5em*/
+}
+
+
+.js .quote-slideshow{ /*Formatar a classe quote-slideshow*/
+    position: relative; /*Manter a posição relativa*/
+    width: 100%; /*A posição para 100%*/
+    margin: auto; /*Marins automaticas*/
+    max-width: 950px; /*Máximo de 950px de tamanho*/
+    box-sizing: border-box; /*Impedir que ocupe mais espaço e fique fora da tela*/
+    padding: 0 50px; /*0 pra cima e baixo e 50 pros lados*/
+    color: white; /*Cor de texto branca para as setas*/
+}
+.js .quote-slideshow figure h2{ /*Formatar o h2*/
+    margin-top: 0; /*0 de margem superior*/
+}
+.js .quote-slideshow figure{ /*Formatar figura*/
+    opacity: 0; /*Opacidade 0*/
+    transition: 1s opacity; /*Transição de opacidade*/
+    position: absolute; /*Ficar absoluto em relação ao pai relativo*/
+    top: 0; /*Topo de 0*/
+    left: 50px; /*Esquedo de 50*/
+    right: 50px; /*Direita de 50*/
+    margin: 0; /*Margin de 0 pra todos os lados*/
+}
+.js .quote-slideshow figure.show{ /*Formatar a figura aparecida*/
+    opacity: 1; /*Opacidade em 1*/
+    position: static; /*Tornar ele estatico*/
+
+}
+.js .quote-slideshow .prev, .js .quote-slideshow .next{
+    z-index: 3;
+    position: absolute;
+    top: 50%;
+    cursor: pointer;
+}
+.js .quote-slideshow .prev{
+    left: 10px;
+}
+.js .quote-slideshow .next{
+    right: 10px;
+}
+
+
+.footer{ /*Formatar footer*/
+  background-color: #242a2c; /*Fundo cinza escuro*/
+  padding: 50px 0 250px; /*Padding 50px pra cima, 0 pros lados e 250 pra baixo*/
+  color: #454e51; /*Cor cinza claro*/
+  font-size: 14px; /*Definir tamanho de fonte pra 14px*/
+}
+
+.footer-links li{ /*Formatar o LI dentro de footer-links*/
+  list-style: none; /**/
+}
+
+.footer-links a{/*Formatar links dos footer-links*/
+  color: #454e51; /*Cor cinza claro*/
+  display: block; /*Ocupar todo o espaço*/
+  font-weight: 600;/*Bold em 600;*/
+  text-decoration: none;/*Sem decoração de texto*/
+}
+
+.js .header__nav{
+  transition: max-height 1s;
+}
+
+
+
+@media screen and (min-width:1025px) { /*Se a tela tiver no mínimo 1024px*/
+
+  .header{ /*Alterar o header para:*/
+    position: fixed; /*Fixar a posição da div*/
+  }
+
+  .logo-text{/*Alterar o logo-text para:*/
+    width: 25%; /*Tamanho de 25%*/
+    box-sizing: border-box; /*Não somar o padding ao tamanho total */
+  }
+
+  .header__btnMenu{/*Alterar o logo-text para:*/
+    display: none; /*Deixar o botão invisível*/
+  }
+
+  .header__nav{/*Alterar o logo-text para:*/
+    float: left; /*Flutuar para a esquerda*/
+    width: 75%;/*Ocupar 75% do tamanho total da tela*/
+    clear: none; /*Limpar o clear anterior*/
+    max-width: 800px;
+  }
+
+  .header__nav ul{/*Alterar os ul's dentro header__nav:*/
+    display: flex;/*Definir um dispolay flex*/
+    justify-content: space-around; /*Ocupar todo o espaço disponível*/
+
+  }
+
+
+
+  .header__nav a{/*Alterar os links dentro de header__nav:*/
+    background-color: white;/*Definir um fundo branco*/
+  }
+  .header__nav li{
+    border-bottom: none;
+    flex-grow: 1; /*Redistribuir o espaço vazio entre as li's*/
+  }
+
+  .people-cards{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 20px;
+  }
+
+  .last-articles_thumbs{
+    grid-template-columns: repeat(6, 1fr);
+  }
+
+  .footer .container{
+    display: flex;
+  }
+
+  .footer .container > * {
+    margin: 1.5em;
+  }
+}
