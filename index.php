@@ -11,18 +11,10 @@ $app = new Slim();
 
 $app->config('debug', true);
 
+require_once("functions.php");
 require_once("admin-users.php");
 require_once("admin-ingredients.php");
 require_once("admin.php");
-
-$app->get('/', function() {
-    
-	$page = new Page();
-
-	$page->setTpl("index");
-
-
-});
 
 $app->run();
 

@@ -17,7 +17,7 @@ class Model {
 				break;
 			
 			case 'set':
-				$this->$values[$fieldname] = $args[0];
+				$this->values[$fieldname] = $args[0];
 				break;
 		}
 	}
@@ -27,7 +27,8 @@ class Model {
 
 		foreach ($data as $key => $value) {
 			
-			$this->{"set" . $key}($value);
+			$this->{"set".$key}($value);
+
 		}
 	}
 

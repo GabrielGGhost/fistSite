@@ -31,29 +31,32 @@
                </div>
               <?php } ?>
             <div class="form-group">
-              <label for="desperson">Nome</label>
-              <input type="text" class="form-control" id="desperson" name="name" placeholder="Digite o nome">
+              <div class="form-double">
+                <label for="desperson">Nome</label> 
+                <input type="text" class="form-control" id="desperson" name="name" placeholder="Digite o nome" value="<?php echo htmlspecialchars( $registerError["name"], ENT_COMPAT, 'UTF-8', FALSE ); ?>" maxlength="25">
+              </div>
+              <div class="form-double">
               <label for="desperson">Sobrenome</label>
-              <input type="text" class="form-control" id="desperson" name="surname" placeholder="Digite o nome">
+              <input type="text" class="form-control" id="desperson" name="surname" placeholder="Digite o sobrenome" value="<?php echo htmlspecialchars( $registerError["surname"], ENT_COMPAT, 'UTF-8', FALSE ); ?>" maxlength="50">  
+              </div>
             </div>
             <div class="form-group">
-              
-            </div>
-            <div class="form-group">
-              <label for="deslogin">Login</label>
-              <input type="text" class="form-control" id="deslogin" name="login" placeholder="Digite o login">
+              <div class="form-double">
+                <label for="deslogin">Login</label>
+                <input type="text" class="form-control" id="deslogin" name="login" placeholder="Digite o login" value="<?php echo htmlspecialchars( $registerError["login"], ENT_COMPAT, 'UTF-8', FALSE ); ?>" maxlength="15">
+              </div>
+              <div class="form-double">
+                <label for="despassword">Senha</label>
+                <input type="password" class="form-control" id="despassword" name="password" placeholder="Digite a senha" maxlength="15">
+              </div>
             </div>
             <div class="form-group">
               <label for="nrphone">Telefone</label>
-              <input type="tel" class="form-control" id="nrphone" name="phone" placeholder="Digite o telefone">
+              <input type="tel" class="form-control" id="nrphone" name="phone" placeholder="Digite o telefone" value="<?php echo htmlspecialchars( $registerError["phone"], ENT_COMPAT, 'UTF-8', FALSE ); ?>" maxlength="15">
             </div>
             <div class="form-group">
               <label for="desemail">E-mail</label>
-              <input type="email" class="form-control" id="desemail" name="email" placeholder="Digite o e-mail">
-            </div>
-            <div class="form-group">
-              <label for="despassword">Senha</label>
-              <input type="password" class="form-control" id="despassword" name="password" placeholder="Digite a senha">
+              <input type="email" class="form-control" id="desemail" name="email" placeholder="Digite o e-mail" value="<?php echo htmlspecialchars( $registerError["email"], ENT_COMPAT, 'UTF-8', FALSE ); ?>" maxlength="126">
             </div>
             <div class="checkbox">
               <label>

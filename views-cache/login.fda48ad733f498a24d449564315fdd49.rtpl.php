@@ -31,6 +31,11 @@
   </div>
   <!-- /.login-logo -->
   <div class="login-box-body">
+    <?php if( $createError != '' ){ ?>
+      <div class="alert alert-danger">
+        <?php echo htmlspecialchars( $createError, ENT_COMPAT, 'UTF-8', FALSE ); ?>
+      </div>
+    <?php } ?>
     <p class="login-box-msg">Sign in to start your session</p>
 
     <form action="/admin/login" method="post">
@@ -67,7 +72,7 @@
     </div>
     <!-- /.social-auth-links -->
 
-    <a href="#">I forgot my password</a><br>
+    <a href="/admin/forgot">I forgot my password</a><br>
     <a href="register.html" class="text-center">Register a new membership</a>
 
   </div>
