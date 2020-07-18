@@ -37,8 +37,14 @@
             </div>
             <div class="form-group">
               <div>
+                <div class="form-double">
                 <label for="deslogin">Login</label>
                 <input type="text" class="form-control" id="deslogin" name="login" placeholder="Digite o login"  value="<?php echo htmlspecialchars( $user["login"], ENT_COMPAT, 'UTF-8', FALSE ); ?>">
+              </div>
+              <div class="form-double">
+                <label for="active">Ativo</label>
+                <input type="text" class="form-control" id="isactive" name="active" <?php if( $user["active"] == 1 ){ ?> value="sim" <?php } ?> value="Não" disabled>
+              </div>
               </div>
               <div>
                 <label for="nrphone">Telefone</label>

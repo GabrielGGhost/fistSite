@@ -17,7 +17,7 @@ class User extends Model {
 
 		$sql = new Sql();
 
-		return $sql->select("SELECT idUser, name, surname, name, email, login, inadmin 
+		return $sql->select("SELECT idUser, name, surname, name, email, login, inadmin, active 
 									FROM tb_users u
 										INNER JOIN tb_person p
 											ON p.idPerson = u.idPerson");
@@ -193,7 +193,7 @@ class User extends Model {
 
 		$sql = new Sql();
 
-		$results = $sql->select("SELECT idUser, name, surname, phone, email, login, inadmin 
+		$results = $sql->select("SELECT idUser, name, surname, phone, email, login, inadmin, active 
 									FROM tb_users u
 										INNER JOIN tb_person p
 											ON p.idPerson = u.idPerson
@@ -352,6 +352,18 @@ class User extends Model {
 						':IDUSER'=>$this->getidUser()
 					]);
 
+
+	}
+
+	public function des_active(){
+		$sql = new Sql();
+
+		$sql->query("UPDATE tb_users
+						SET active  = !:ACTIVE
+							WHERE idUser = :IDUSER", [
+								':ACTIVE'=>$this->getactive(),
+								':IDUSER'=>$this->getidUser()
+							]);
 
 	}
 }

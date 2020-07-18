@@ -17,5 +17,13 @@ $app->get("/admin/ingredients", function(){
 
 });
 
+$app->get("/admin/ingredients/create", function(){
+
+	$page = new PageAdmin();
+
+	$page->setTpl("ingredients-create");
+});
+
+
 
 ?>

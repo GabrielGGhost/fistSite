@@ -257,8 +257,8 @@ desired effect
         <li class="header">HEADER</li>
         <!-- Optionally, you can add icons to the links -->
         <li class="active"><a href="#"><i class="fa fa-link"></i> <span>Menu</span></a></li>
-        <li><a href="/admin/users"><i class="fa fa-link"></i> <span>Usuários</span></a></li>
-        <li><a href="/admin/ingredients"><i class="fa fa-link"></i> <span>Ingredientes</span></a></li>
+        <li><a href="/admin/users"><i class="fa fa-users"></i> <span>Usuários</span></a></li>
+        <li><a href="/admin/ingredients"> <span>Ingredientes</span></a></li>
         <li><a href="#"><i class="fa fa-link"></i> <span>Another Link</span></a></li>
         <li class="treeview">
           <a href="#"><i class="fa fa-link"></i> <span>Multilevel</span>

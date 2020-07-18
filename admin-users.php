@@ -165,5 +165,20 @@ $app->post('/admin/users/:idUser', function($idUser){
 	exit;
 });
 
+$app->get('/admin/users/:idUser/des-active', function($idUser){
+
+	User::verifyLogin();
+
+	$user = new User();
+
+	$user->get((int)$idUser);
+
+	$user->des_active();
+
+	header("Location: /admin/users");
+	exit;
+});
+
+
 
 ?>
