@@ -55,7 +55,7 @@ $app->post('/admin/login', function(){
 
 });
 
-$app->post('/admin/logout', function(){
+$app->get('/admin/logout', function(){
 
 	User::logout();
 

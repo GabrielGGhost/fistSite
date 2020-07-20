@@ -402,7 +402,31 @@ img{
   transition: max-height 1s;
 }
 
+.ingredients_thumbs{
+  padding-top: 30%;
+  margin-left: 13px;
+  margin-right: 13px;
+  text-align: center;
+}
+.ingredients_thumbs img{
+  border-radius: 10px;
+}
 
+.ingredients_thumbs h4{
+  text-align: center;
+}
+
+.ingredients_thumbs p{
+  text-align: center;
+}
+
+.ingredient-box{
+    border: 3px solid gray;
+    padding-bottom: 10px;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    border-radius: 10px;
+}
 
 @media screen and (min-width:1025px) { /*Se a tela tiver no mínimo 1024px*/
 

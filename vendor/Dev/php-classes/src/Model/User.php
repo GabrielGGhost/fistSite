@@ -79,7 +79,7 @@ class User extends Model {
 
 		if (count($results) === 0) {
 			throw new \Exception("Usuário ou senha inválidos!");
-			header("Location \admin\Login");
+			header("Location: \admin\Login");
 			exit;
 		}
 
@@ -99,7 +99,7 @@ class User extends Model {
 
 		} else {
 			throw new \Exception("Usuário ou senha inválidao!");
-			header("Location \admin\Login");
+			header("Location: \admin\Login");
 			exit;
 		}
 	}
@@ -168,13 +168,15 @@ class User extends Model {
 													  :SURNAME,
 													  :LOGIN,
 													  :PHONE,
-													  :EMAIL)", [
+													  :EMAIL,
+													  :INADMIN)", [
 														':IDUSER'=>$this->getidUser(),
 														':NAME'=>utf8_decode($this->getname()),
 														':SURNAME'=>utf8_decode($this->getsurname()),
 														':LOGIN'=>utf8_decode($this->getlogin()),
 														':PHONE'=>utf8_decode($this->getphone()),
-														':EMAIL'=>utf8_decode($this->getemail())
+														':EMAIL'=>utf8_decode($this->getemail()),
+														':INADMIN'=>$this->getinadmin()
 													]);
 
 
@@ -198,7 +200,8 @@ class User extends Model {
 										INNER JOIN tb_person p
 											ON p.idPerson = u.idPerson
 												WHERE u.idUser = :IDUSER", [
-													':IDUSER'=>$idUser]);
+													':IDUSER'=>$idUser
+												]);
 
 		$data = $results[0];
 
@@ -364,6 +367,103 @@ class User extends Model {
 								':ACTIVE'=>$this->getactive(),
 								':IDUSER'=>$this->getidUser()
 							]);
+
+	}
+
+	public static function checkExistentLogin($login):bool{
+		$sql = new Sql();
+
+		$results = $sql->select("SELECT *
+									FROM tb_users
+										WHERE login = :LOGIN",[
+											':LOGIN'=>$login
+										]);
+
+		if(count($results) === 0) return false;
+
+		return true;
+	}
+
+	public function getValues(){
+
+		$this->checkPhoto();
+
+		$values = parent::getValues();
+
+		return $values;
+
+	}
+
+	public function checkPhoto() {
+
+		if(file_exists(
+			$_SERVER['DOCUMENT_ROOT'] .
+			DIRECTORY_SEPARATOR .
+			"res" .
+			DIRECTORY_SEPARATOR .
+			"site" .
+			DIRECTORY_SEPARATOR .
+			"img" .
+			DIRECTORY_SEPARATOR .
+			"profile_pictures" .
+			DIRECTORY_SEPARATOR .
+			$this->getidUser() .
+			".jpg"
+		)) {
+
+			$url = "/res/site/img/profile_pictures/" . $this->getidUser() . ".jpg";
+		} else {
+
+			$url = "/res/site/img/default.jpg";
+
+		}
+
+		return $this->setpathPhoto($url);
+	}
+
+	public function setPhoto($file){
+
+	$extension = explode('.', $file['name']);
+	$extension = end($extension);
+
+	switch ($extension) {
+		case 'jpg':
+		case 'jpeg':
+			$image = imagecreatefromjpeg($file["tmp_name"]);
+			break;
+
+		case 'gif':
+			$image = imagecreatefromgif($file["tmp_name"]);
+			break;
+
+		case 'png':
+			$image = imagecreatefrompng($file["tmp_name"]);
+			break;
+		default:
+			throw new \Exception("Formtato de imagem não aceito!");
+			header("Location: /admin/users/" . $this->getidUser());
+			exit;
+
+	}
+
+	$destFolder = $_SERVER['DOCUMENT_ROOT'] .
+					DIRECTORY_SEPARATOR .
+					"res" . 
+					DIRECTORY_SEPARATOR .
+					"site" .
+					DIRECTORY_SEPARATOR .
+					"img" .
+					DIRECTORY_SEPARATOR .
+					"profile_pictures" .
+					DIRECTORY_SEPARATOR .
+					$this->getidUser() .
+					".jpg";
+
+	imagejpeg($image, $destFolder);
+
+	imagedestroy($image);
+
+	$this->checkPhoto();
 
 	}
 }

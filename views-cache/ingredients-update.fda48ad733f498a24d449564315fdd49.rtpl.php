@@ -1,4 +1,4 @@
-<!-- Content Wrapper. Contains page content -->
+<?php if(!class_exists('Rain\Tpl')){exit;}?><!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
 <!-- Content Header (Page header) -->
 <section class="content-header">
@@ -18,27 +18,30 @@
         </div>
         <!-- /.box-header -->
         <!-- form start -->
-        <form role="form" action="/admin/ingredients/{$ingredient.idIngredient}" method="post" enctype="multipart/form-data">
-          {if="$createError != ''"}
+        <form role="form" action="/admin/ingredients/<?php echo htmlspecialchars( $ingredient["idIngredient"], ENT_COMPAT, 'UTF-8', FALSE ); ?>" method="post" enctype="multipart/form-data">
+          <?php if( $createError != '' ){ ?>
+
             <div class="alert alert-danger">
-              {$createError}
+              <?php echo htmlspecialchars( $createError, ENT_COMPAT, 'UTF-8', FALSE ); ?>
+
             </div>
-          {/if}
+          <?php } ?>
+
           <div class="box-body">
             <div class="form-group">
               <div class="form-double">
                 <label for="name">Ingrediente</label>
-                <input type="text" class="form-control" id="name" name="name" placeholder="Digite o nome do produto" maxlength="50" value="{$ingredient.name}">
+                <input type="text" class="form-control" id="name" name="name" placeholder="Digite o nome do produto" maxlength="50" value="<?php echo htmlspecialchars( $ingredient["name"], ENT_COMPAT, 'UTF-8', FALSE ); ?>">
               </div>
               <div class="form-double">
               <label for="name">Ativo</label>
-              <input type="text" class="form-control" id="name" name="name" placeholder="Digite o nome do produto" maxlength="50" {if="$ingredient.active == 1"} value="sim" {/if} value="Não" disabled>
+              <input type="text" class="form-control" id="name" name="name" placeholder="Digite o nome do produto" maxlength="50" <?php if( $ingredient["active"] == 1 ){ ?> value="sim" <?php } ?> value="Não" disabled>
               </div>
             </div>
             <br> <br> <br>
             <div class="form-group">
               <label for="description">Descrição</label>
-              <textarea placeholder="Escreva algo sobre este ingrediente" class="form-control" id="description" name="description" maxlength="264">{$ingredient.description}</textarea>
+              <textarea placeholder="Escreva algo sobre este ingrediente" class="form-control" id="description" name="description" maxlength="264"><?php echo htmlspecialchars( $ingredient["description"], ENT_COMPAT, 'UTF-8', FALSE ); ?></textarea>
             </div>
           </div>
           <!-- /.box-body -->

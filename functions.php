@@ -4,9 +4,9 @@ use Dev\Model\User;
 
 
 
-function encodeData($users){
+function encodeData($data){
 
-	foreach ($users as $key => &$value) {
+	foreach ($data as $key => &$value) {
 
 		foreach ($value as $key => &$value) {
 
@@ -14,7 +14,7 @@ function encodeData($users){
 		}
 	}
 
-	return $users;
+	return $data;
 }
 
 ?>

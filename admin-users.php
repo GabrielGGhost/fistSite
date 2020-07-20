@@ -27,7 +27,8 @@ $app->get('/admin/users/create', function(){
 
 	$page->setTpl("users-create", [
 		'createError'=>User::getError(),
-		'registerError'=>(isset($_SESSION['registerValues'])) ? $_SESSION['registerValues'] : ['name'=>'', 'surname'=>'', 'login'=>'', 'password'=>'', 'phone'=>'', 'email'=>'', 'inadmin'=>false]
+		'registerError'=>(isset($_SESSION['registerValues'])) ? $_SESSION['registerValues'] : ['name'=>'', 'surname'=>'', 'login'=>'', 'password'=>'', 'phone'=>'', 'email'=>'', 'inadmin'=>false
+		]
 	]);
 });
 
@@ -103,66 +104,86 @@ $app->get('/admin/users/:idUser', function($idUser){
 
 	User::verifyLogin();
 
-	$page = new PageAdmin();
 	$user = new User();
+
+	$page = new PageAdmin();
 
 	$user->getUser((int)$idUser);
 
 	$page->setTpl("users-update", [
-		'user'=>$user->getValues(),
-		'createError'=>User::getError()
+		'createError'=>User::getError(),
+		'user'=>$user->getValues()
 	]);
 });
 
 $app->post('/admin/users/:idUser', function($idUser){
 
-	User::verifyLogin();
+	try{
 
-	$user = new User();
+		User::verifyLogin();
 
-	$user->getUser((int)$idUser);
+		$user = new User();
 
-	$_POST["inadmin"] = (isset($_POST["inadmin"]))? 1 : 0;
+		$user->getUser((int)$idUser);
 
-	if (!isset($_POST['name']) || $_POST['name'] === '') {
-		User::setError('Informe um nome ao usuário!');
-		header("Location: /admin/users/$idUser");
-		exit;
-	}
+		$_POST["inadmin"] = (isset($_POST["inadmin"]))? 1 : 0;
 
-	if (!isset($_POST['surname']) || $_POST['surname'] === '') {
-		User::setError('Informe um sobrenome ao usuário!');
-		header("Location: /admin/users/$idUser");
-		exit;
-	}
-
-	if (!isset($_POST['login']) || $_POST['login'] === '') {
-		User::setError('Informe um login ao usuário!');
-		header("Location: /admin/users/$idUser");
-		exit;
-	}
-
-	if (!isset($_POST['email']) || $_POST['email'] === '') {
-		User::setError('Informe um email ao usuário!');
-		header("Location: /admin/users/$idUser");
-		exit;
-	}
-
-	if($_POST['email'] !== $user->getemail()){
-
-		if (User::verifyEmail($_POST['email'])) {
-			User::setError('Email já cadastrado no sistema!');
+		if (!isset($_POST['name']) || $_POST['name'] === '') {
+			User::setError('Informe um nome ao usuário!');
 			header("Location: /admin/users/$idUser");
 			exit;
 		}
+
+		if (!isset($_POST['surname']) || $_POST['surname'] === '') {
+			User::setError('Informe um sobrenome ao usuário!');
+			header("Location: /admin/users/$idUser");
+			exit;
+		}
+
+		if (!isset($_POST['login']) || $_POST['login'] === '') {
+			User::setError('Informe um login ao usuário!');
+			header("Location: /admin/users/$idUser");
+			exit;
+		}
+
+		if (!isset($_POST['email']) || $_POST['email'] === '') {
+			User::setError('Informe um email ao usuário!');
+
+			header("Location: /admin/users/$idUser");
+			exit;
+		}
+
+		if($_POST['email'] !== $user->getemail()){
+
+			if (User::verifyEmail($_POST['email'])) {
+				User::setError('Email já cadastrado no sistema!');
+				header("Location: /admin/users/$idUser");
+				exit;
+			}
+		}
+
+		if($_POST['login'] !== $user->getlogin()){
+			if(User::checkExistentLogin($_POST['login'])){
+				User::setError('Login já cadastrado no sistema!');
+				header("Location: /admin/users/$idUser");
+				exit;
+			}
+		}
+
+		$user->setData($_POST);
+
+		$user->update();
+
+		if($_FILES['file']['name'] !== '') $user->setPhoto($_FILES["file"]);
+
+		header("Location: /admin/users");
+		exit;
+	} catch (Exception $ex) {
+		User::setError($ex->getMessage());
+		header("Location: /admin/users/$idUser");
+		exit;
 	}
 
-	$user->setData($_POST);
-
-	$user->update();
-
-	header("Location: /admin/users");
-	exit;
 });
 
 $app->get('/admin/users/:idUser/des-active', function($idUser){
