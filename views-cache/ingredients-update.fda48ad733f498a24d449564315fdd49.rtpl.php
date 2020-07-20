@@ -43,6 +43,15 @@
               <label for="description">Descrição</label>
               <textarea placeholder="Escreva algo sobre este ingrediente" class="form-control" id="description" name="description" maxlength="264"><?php echo htmlspecialchars( $ingredient["description"], ENT_COMPAT, 'UTF-8', FALSE ); ?></textarea>
             </div>
+            <div class="form-group">
+              <label for="file">Imagem</label>
+              <input type="file" class="form-control" id="file" name="file">
+              <div class="box box-widget">
+                <div class="box-body">
+                  <img class="img-responsive" id="image-preview" src="<?php echo htmlspecialchars( $ingredient["pathPhoto"], ENT_COMPAT, 'UTF-8', FALSE ); ?>" alt="Photo">
+                </div>
+              </div>
+            </div>
           </div>
           <!-- /.box-body -->
           <div class="box-footer">

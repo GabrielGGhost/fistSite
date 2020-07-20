@@ -1,4 +1,6 @@
-<?php if(!class_exists('Rain\Tpl')){exit;}?><!-- Content Wrapper. Contains page content -->
+<?php if(!class_exists('Rain\Tpl')){exit;}?>
+
+<!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
 <!-- Content Header (Page header) -->
 <section class="content-header">
@@ -17,20 +19,26 @@
           <h3 class="box-title">Editar Usuário</h3>
         </div>
         <!-- /.box-header -->
+        <?php if( $createError != '' ){ ?>
+          <div class="alert alert-danger">
+            <?php echo htmlspecialchars( $createError, ENT_COMPAT, 'UTF-8', FALSE ); ?>
+          </div>
+        <?php } ?>
+
         <!-- form start -->
         <form role="form" action="/admin/users/<?php echo htmlspecialchars( $user["idUser"], ENT_COMPAT, 'UTF-8', FALSE ); ?>" method="post" enctype="multipart/form-data">
           <div class="box-body">
-             <?php if( $createError != '' ){ ?>
-               <div class="alert alert-danger">
-                 <?php echo htmlspecialchars( $createError, ENT_COMPAT, 'UTF-8', FALSE ); ?>
-               </div>
-             <?php } ?>
             <div class="form-group">
-              <label for="file">Foto de perfil</label>
-              <input type="file" class="form-control" id="file" name="file">
-              <div class="box box-widget">
-                <div class="box-body">
-                  <img class="img-responsive" id="image-preview" src="<?php echo htmlspecialchars( $user["pathPhoto"], ENT_COMPAT, 'UTF-8', FALSE ); ?>" alt="Photo">
+              <div class="form-double">
+                <label for="file">Foto de perfil</label>
+                <input type="file" class="form-control" id="file" name="file">
+
+              </div>
+              <div class="form-double">
+                <div class="box box-widget">
+                  <div class="box-body">
+                    <img class="img-responsive" id="image-preview" src="<?php echo htmlspecialchars( $user["pathPhoto"], ENT_COMPAT, 'UTF-8', FALSE ); ?>" alt="Photo">
+                  </div>
                 </div>
               </div>
             </div>

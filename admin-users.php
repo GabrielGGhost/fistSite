@@ -3,6 +3,7 @@
 use \Dev\Model\User;
 use \Dev\PageAdmin;
 
+
 $app->get('/admin/users', function(){
 
 	User::verifyLogin();
@@ -199,7 +200,5 @@ $app->get('/admin/users/:idUser/des-active', function($idUser){
 	header("Location: /admin/users");
 	exit;
 });
-
-
 
 ?>

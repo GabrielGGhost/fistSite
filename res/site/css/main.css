@@ -155,7 +155,7 @@ img{
 }
 
 .hero__text{
-  background-color: #242a2c;
+  background-color: rgba(0, 0, 0, 0.5);
   margin: 50px 30px 35px; /*Define as margins para */
   color: white;
   padding: 16px;

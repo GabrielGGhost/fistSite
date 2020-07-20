@@ -31,8 +31,8 @@
 
           <nav class="header__nav">
             <ul>
-              <li><a href="#"></i>design folio</a></li>
-              <li><a href="#">services</a></li>
+              <li><a href="#"></i>Receitas</a></li>
+              <li><a href="/ingredients">Ingredientes</a></li>
               <li><a href="#">our business</a></li>
               <li><a href="#">how we help</a></li>
               <li><a href="#">take the tour</a></li>

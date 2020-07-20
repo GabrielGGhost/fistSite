@@ -5,6 +5,8 @@ namespace Dev\Model;
 use \Dev\DB\Sql;
 use \Dev\Model;
 use \Dev\Mailer;
+use \CoffeeCode\Cropper\Cropper;
+use \Faker\Factory;
 
 class User extends Model {
 
@@ -195,7 +197,7 @@ class User extends Model {
 
 		$sql = new Sql();
 
-		$results = $sql->select("SELECT idUser, name, surname, phone, email, login, inadmin, active 
+		$results = $sql->select("SELECT idUser, name, surname, phone, email, login, inadmin, active, pictureId 
 									FROM tb_users u
 										INNER JOIN tb_person p
 											ON p.idPerson = u.idPerson
@@ -407,46 +409,91 @@ class User extends Model {
 			DIRECTORY_SEPARATOR .
 			"profile_pictures" .
 			DIRECTORY_SEPARATOR .
-			$this->getidUser() .
+			$this->getpictureId() .
 			".jpg"
 		)) {
 
-			$url = "/res/site/img/profile_pictures/" . $this->getidUser() . ".jpg";
+			$url = "/res/site/img/profile_pictures/" . $this->getpictureId() . ".jpg";
 		} else {
 
 			$url = "/res/site/img/default.jpg";
 
 		}
 
-		return $this->setpathPhoto($url);
+		$this->setpathPhoto($url);
+
+		$this->resizePicture();
 	}
 
 	public function setPhoto($file){
 
-	$extension = explode('.', $file['name']);
-	$extension = end($extension);
+		$this->unlinkImage();
 
-	switch ($extension) {
-		case 'jpg':
-		case 'jpeg':
-			$image = imagecreatefromjpeg($file["tmp_name"]);
-			break;
+		$high = 200;
+		$width = 200;
 
-		case 'gif':
-			$image = imagecreatefromgif($file["tmp_name"]);
-			break;
+		$extension = explode('.', $file['name']);
+		$extension = end($extension);
 
-		case 'png':
-			$image = imagecreatefrompng($file["tmp_name"]);
-			break;
-		default:
-			throw new \Exception("Formtato de imagem não aceito!");
-			header("Location: /admin/users/" . $this->getidUser());
-			exit;
+		switch ($extension) {
+			case 'jpg':
+			case 'pjpeg';
+			case 'jpeg':
+				$image = imagecreatefromjpeg($file["tmp_name"]);
+				break;
 
+			case 'gif':
+				$image = imagecreatefromgif($file["tmp_name"]);
+				break;
+
+			case 'png':
+				$image = imagecreatefrompng($file["tmp_name"]);
+				break;
+			default:
+				throw new \Exception("Formtato de imagem não aceito!");
+				header("Location: /admin/users/" . $this->getidUser());
+				exit;
+
+		}
+
+		$picture_name = $this->getidUser() . "_" . uniqid() .
+						".jpg";
+
+		$destFolder = $_SERVER['DOCUMENT_ROOT'] .
+						DIRECTORY_SEPARATOR .
+						"res" . 
+						DIRECTORY_SEPARATOR .
+						"site" .
+						DIRECTORY_SEPARATOR .
+						"img" .
+						DIRECTORY_SEPARATOR .
+						"profile_pictures" .
+						DIRECTORY_SEPARATOR .
+						$picture_name;
+
+		imagejpeg($image, $destFolder);
+		imagedestroy($image);
+		$this->setpictureId($picture_name);
+		$this->checkPhoto();
 	}
 
-	$destFolder = $_SERVER['DOCUMENT_ROOT'] .
+	public function updatePictureDB($pictureId, $idUser = NULL){
+
+		(isset($idUser)) ? $this->setidUser($idUser): $this->setidUser($this->getidUser());
+		
+		$sql = new Sql();
+
+		$sql->query("UPDATE tb_users
+						SET pictureId = :ID
+							WHERE idUser = :IDUSER", [
+							':ID'=>$pictureId,
+							':IDUSER'=>$this->getidUser()
+						]);
+	}
+
+	public function unlinkImage(){
+
+		$file = $_SERVER['DOCUMENT_ROOT'] .
 					DIRECTORY_SEPARATOR .
 					"res" . 
 					DIRECTORY_SEPARATOR .
@@ -456,17 +503,45 @@ class User extends Model {
 					DIRECTORY_SEPARATOR .
 					"profile_pictures" .
 					DIRECTORY_SEPARATOR .
-					$this->getidUser() .
+					$this->getpictureId() .
 					".jpg";
 
-	imagejpeg($image, $destFolder);
+		if(file_exists($file)) unlink($file);
+	}
 
-	imagedestroy($image);
 
-	$this->checkPhoto();
+	public function resizePicture(){
+
+		$path = $_SERVER['DOCUMENT_ROOT'] .
+					DIRECTORY_SEPARATOR .
+					"res" .
+					DIRECTORY_SEPARATOR .
+					"site" .
+					DIRECTORY_SEPARATOR .
+					"img" .
+					DIRECTORY_SEPARATOR .
+					"profile_pictures" .
+					DIRECTORY_SEPARATOR .
+					$this->getpictureId();
+
+		$dir = $_SERVER['DOCUMENT_ROOT'] .
+					DIRECTORY_SEPARATOR .
+					"res" .
+					DIRECTORY_SEPARATOR .
+					"site" .
+					DIRECTORY_SEPARATOR .
+					"img" .
+					DIRECTORY_SEPARATOR .
+					"profile_pictures";
+
+		$c = new Cropper($dir);
+
+		$c->make($path, 200, $this->getidUser(),  200);
 
 	}
 }
+
+
 
 
 ?>

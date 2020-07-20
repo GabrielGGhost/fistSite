@@ -2,7 +2,7 @@
           <h1 class="hero__title">
             Cutting edge <abbr title="WordPress">WP</abbr> business theme
           </h1>
-          <p class="hero__text">Gutful of bottlo no dramas he's got a massive hooroo.</p>
+          <p class="hero__text">"A vida tem o sabor que você cozinha".</p>
           <a href="#" class="hero__btn">Buy it now</a>
         </section>
 

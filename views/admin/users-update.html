@@ -1,3 +1,5 @@
+
+
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
 <!-- Content Header (Page header) -->
@@ -17,20 +19,26 @@
           <h3 class="box-title">Editar Usuário</h3>
         </div>
         <!-- /.box-header -->
+        {if="$createError != ''"}
+          <div class="alert alert-danger">
+            {$createError}
+          </div>
+        {/if}
+
         <!-- form start -->
         <form role="form" action="/admin/users/{$user.idUser}" method="post" enctype="multipart/form-data">
           <div class="box-body">
-             {if="$createError != ''"}
-               <div class="alert alert-danger">
-                 {$createError}
-               </div>
-             {/if}
             <div class="form-group">
-              <label for="file">Foto de perfil</label>
-              <input type="file" class="form-control" id="file" name="file">
-              <div class="box box-widget">
-                <div class="box-body">
-                  <img class="img-responsive" id="image-preview" src="{$user.pathPhoto}" alt="Photo">
+              <div class="form-double">
+                <label for="file">Foto de perfil</label>
+                <input type="file" class="form-control" id="file" name="file">
+
+              </div>
+              <div class="form-double">
+                <div class="box box-widget">
+                  <div class="box-body">
+                    <img class="img-responsive" id="image-preview" src="{$user.pathPhoto}" alt="Photo">
+                  </div>
                 </div>
               </div>
             </div>
