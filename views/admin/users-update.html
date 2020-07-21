@@ -23,8 +23,12 @@
           <div class="alert alert-danger">
             {$createError}
           </div>
+        {/if}alert-success
+        {if="$createSuccess != ''"}
+          <div class="alert alert-success">
+            {$createSuccess}
+          </div>
         {/if}
-
         <!-- form start -->
         <form role="form" action="/admin/users/{$user.idUser}" method="post" enctype="multipart/form-data">
           <div class="box-body">
@@ -37,7 +41,7 @@
               <div class="form-double">
                 <div class="box box-widget">
                   <div class="box-body">
-                    <img class="img-responsive" id="image-preview" src="{$user.pathPhoto}" alt="Photo">
+                    <img class="img-responsive" id="image-preview" src="{$user.pathPhoto}" alt="Photo" style="border:2px solid black; border-radius: 10px">
                   </div>
                 </div>
               </div>

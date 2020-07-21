@@ -12,16 +12,18 @@
 </section>
 
 <!-- Main content -->
-<section class="content">
-
   <div class="row">
+  <section class="content">
   	<div class="col-md-12">
   		<div class="box box-primary">
-            
             <div class="box-header">
               <a href="/admin/users/create" class="btn btn-success">Cadastrar Usuário</a>
             </div>
-
+            <?php if( $createSuccess != '' ){ ?>
+              <div class="alert alert-success">
+                <?php echo htmlspecialchars( $createSuccess, ENT_COMPAT, 'UTF-8', FALSE ); ?>
+              </div>
+            <?php } ?>
             <div class="box-body no-padding">
               <table class="table table-striped">
                 <thead>

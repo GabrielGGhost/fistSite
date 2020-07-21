@@ -4,10 +4,13 @@ namespace Dev\Model;
 
 use Dev\Model;
 use Dev\DB\Sql;
+use \CoffeeCode\Cropper\Cropper;
+use \Faker\Factory;
 
 class Ingredient extends Model {
 
-	const SESSION_ERROR = "UserError";
+	const SESSION_ERROR = "IngredientError";
+	const SESSION_SUCCESS = "IngredientSuccess";
 
 	public function listAll(){
 
@@ -33,7 +36,25 @@ class Ingredient extends Model {
 	}
 
 	public static function clearMsgError(){
-		$_SESSION[User::SESSION_ERROR] = NULL;
+		$_SESSION[Ingredient::SESSION_ERROR] = NULL;
+	}
+///////////////////////////////////////////////////////////////////
+	public static function setSuccess($msg) {
+
+		$_SESSION[Ingredient::SESSION_SUCCESS] = $msg;
+	}
+
+	public static function getSuccess(){
+
+		$msg = (isset($_SESSION[Ingredient::SESSION_SUCCESS])) ? $_SESSION[Ingredient::SESSION_SUCCESS] : "";
+		
+		Ingredient::clearMsgSuccess();
+
+		return $msg;
+	}
+
+	public static function clearMsgSuccess(){
+		$_SESSION[Ingredient::SESSION_SUCCESS] = NULL;
 	}
 
 	public function save(){
@@ -116,6 +137,157 @@ class Ingredient extends Model {
 							':STATUS'=>!$this->getactive(),
 							':IDINGREDIENT'=>$this->getidIngredient()
 						]);
+	}
+
+	public function getValues(){
+
+		$this->checkPhoto();
+
+		$values = parent::getValues();
+
+		return $values;
+
+	}
+
+	public function checkPhoto() {
+
+		if(file_exists(
+			$_SERVER['DOCUMENT_ROOT'] .
+			DIRECTORY_SEPARATOR .
+			"res" .
+			DIRECTORY_SEPARATOR .
+			"site" .
+			DIRECTORY_SEPARATOR .
+			"img" .
+			DIRECTORY_SEPARATOR .
+			"igrendients_pictures" .
+			DIRECTORY_SEPARATOR .
+			$this->getpictureId() .
+			".jpg"
+		)) {
+
+			$url = "/res/site/img/igrendients_pictures/" . $this->getpictureId() . ".jpg";
+		} else {
+
+			$url = "/res/site/img/defaults/ingredient-default.jpg";
+
+		}
+
+		$this->setpathPhoto($url);
+
+		$this->resizePicture();
+	}
+
+	public function setPhoto($file){
+
+		$this->unlinkImage();
+
+		$extension = explode('.', $file["name"]);
+		$extension = end($extension);
+
+		switch ($extension) {
+			case 'jpg':
+			case 'pjpeg';
+			case 'jpeg':
+				$image = imagecreatefromjpeg($file["tmp_name"]);
+				break;
+
+			case 'gif':
+				$image = imagecreatefromgif($file["tmp_name"]);
+				break;
+
+			case 'png':
+				$image = imagecreatefrompng($file["tmp_name"]);
+				break;
+			default:
+				throw new \Exception("Formtato de imagem não aceito!");
+				header("Location: /admin/ingredients/" . $this->getidIngredient());
+				exit;
+
+		}
+
+		$picture_name = $this->getidIngredient() . "_" . uniqid() .
+						".jpg";
+
+		$destFolder = $_SERVER['DOCUMENT_ROOT'] .
+						DIRECTORY_SEPARATOR .
+						"res" . 
+						DIRECTORY_SEPARATOR .
+						"site" .
+						DIRECTORY_SEPARATOR .
+						"img" .
+						DIRECTORY_SEPARATOR .
+						"igrendients_pictures" .
+						DIRECTORY_SEPARATOR .
+						$picture_name;
+
+		imagejpeg($image, $destFolder);
+		imagedestroy($image);
+		$this->setpictureId($picture_name);
+		$this->checkPhoto();
+	}
+
+	public function updatePictureDB($pictureId, $idIngredient = NULL){
+
+		(isset($idIngredient)) ? $this->setidIngredient($idIngredient): $this->setidIngredient($this->getidIngredient());
+		
+		$sql = new Sql();
+
+		$sql->query("UPDATE tb_ingredient
+						SET pictureId = :ID
+							WHERE idIngredient = :IDINGREDIENT", [
+							':ID'=>$pictureId,
+							':IDINGREDIENT'=>$this->getidIngredient()
+						]);
+	}
+
+	public function unlinkImage(){
+
+		$file = $_SERVER['DOCUMENT_ROOT'] .
+					DIRECTORY_SEPARATOR .
+					"res" . 
+					DIRECTORY_SEPARATOR .
+					"site" .
+					DIRECTORY_SEPARATOR .
+					"img" .
+					DIRECTORY_SEPARATOR .
+					"igrendients_pictures" .
+					DIRECTORY_SEPARATOR .
+					$this->getpictureId() .
+					".jpg";
+
+		if(file_exists($file)) unlink($file);
+	}
+
+
+	public function resizePicture(){
+
+		$path = $_SERVER['DOCUMENT_ROOT'] .
+					DIRECTORY_SEPARATOR .
+					"res" .
+					DIRECTORY_SEPARATOR .
+					"site" .
+					DIRECTORY_SEPARATOR .
+					"img" .
+					DIRECTORY_SEPARATOR .
+					"igrendients_pictures" .
+					DIRECTORY_SEPARATOR .
+					$this->getpictureId();
+
+		$dir = $_SERVER['DOCUMENT_ROOT'] .
+					DIRECTORY_SEPARATOR .
+					"res" .
+					DIRECTORY_SEPARATOR .
+					"site" .
+					DIRECTORY_SEPARATOR .
+					"img" .
+					DIRECTORY_SEPARATOR .
+					"igrendients_pictures";
+
+		$c = new Cropper($dir);
+
+		$c->make($path, 300, $this->getidIngredient(), "ingredients",  200);
+
 	}
 }
 

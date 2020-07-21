@@ -12,6 +12,7 @@ class User extends Model {
 
 	const SESSION = "User";
 	const SESSION_ERROR = "UserError";
+	const SESSION_SUCCESS = "UserSuccess";
 	const SECRET = "fsencoding";
 	const SECRET_IV = "fsencoding_IV";
 
@@ -123,6 +124,25 @@ class User extends Model {
 	public static function clearMsgError(){
 		$_SESSION[User::SESSION_ERROR] = NULL;
 	}
+
+	public static function setSuccess($msg) {
+
+		$_SESSION[User::SESSION_SUCCESS] = $msg;
+	}
+
+	public static function getSuccess(){
+
+		$msg = (isset($_SESSION[User::SESSION_SUCCESS])) ? $_SESSION[User::SESSION_SUCCESS] : "";
+		
+		User::clearMsgSuccess();
+
+		return $msg;
+	}
+
+	public static function clearMsgSuccess(){
+		$_SESSION[User::SESSION_SUCCESS] = NULL;
+	}
+
 
 	public function verifyEmail($email) {
 
@@ -416,7 +436,7 @@ class User extends Model {
 			$url = "/res/site/img/profile_pictures/" . $this->getpictureId() . ".jpg";
 		} else {
 
-			$url = "/res/site/img/default.jpg";
+			$url = "/res/site/img/defaults/user-default.jpg";
 
 		}
 
@@ -428,9 +448,6 @@ class User extends Model {
 	public function setPhoto($file){
 
 		$this->unlinkImage();
-
-		$high = 200;
-		$width = 200;
 
 		$extension = explode('.', $file['name']);
 		$extension = end($extension);
@@ -536,7 +553,7 @@ class User extends Model {
 
 		$c = new Cropper($dir);
 
-		$c->make($path, 200, $this->getidUser(),  200);
+		$c->make($path, 200, $this->getidUser(), "user",  200);
 
 	}
 }

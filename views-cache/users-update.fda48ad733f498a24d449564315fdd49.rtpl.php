@@ -23,8 +23,12 @@
           <div class="alert alert-danger">
             <?php echo htmlspecialchars( $createError, ENT_COMPAT, 'UTF-8', FALSE ); ?>
           </div>
+        <?php } ?>alert-success
+        <?php if( $createSuccess != '' ){ ?>
+          <div class="alert alert-success">
+            <?php echo htmlspecialchars( $createSuccess, ENT_COMPAT, 'UTF-8', FALSE ); ?>
+          </div>
         <?php } ?>
-
         <!-- form start -->
         <form role="form" action="/admin/users/<?php echo htmlspecialchars( $user["idUser"], ENT_COMPAT, 'UTF-8', FALSE ); ?>" method="post" enctype="multipart/form-data">
           <div class="box-body">
@@ -37,7 +41,7 @@
               <div class="form-double">
                 <div class="box box-widget">
                   <div class="box-body">
-                    <img class="img-responsive" id="image-preview" src="<?php echo htmlspecialchars( $user["pathPhoto"], ENT_COMPAT, 'UTF-8', FALSE ); ?>" alt="Photo">
+                    <img class="img-responsive" id="image-preview" src="<?php echo htmlspecialchars( $user["pathPhoto"], ENT_COMPAT, 'UTF-8', FALSE ); ?>" alt="Photo" style="border:2px solid black; border-radius: 10px">
                   </div>
                 </div>
               </div>

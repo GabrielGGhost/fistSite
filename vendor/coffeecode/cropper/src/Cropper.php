@@ -6,6 +6,8 @@ use Exception;
 use WebPConvert\Convert\Exceptions\ConversionFailedException;
 use WebPConvert\WebPConvert;
 use \Dev\Model\User;
+use \Dev\Model\Ingredient;
+
 
 /**
  * Class CoffeeCode Cropper
@@ -30,13 +32,15 @@ class Cropper
     /** @var int */
     private $quality;
 
-    private $idUser;
+    private $id;
 
     /** @var int */
     private $compressor;
 
     /**@var bool */
     private $webP;
+
+    private $type;
 
     /**
      * Allow jpg and png to thumb and cache generate
@@ -75,18 +79,18 @@ class Cropper
      * @param int|null $height
      * @return null|string
      */
-    public function make(string $imagePath, int $width, int $idUser, int $height = null): ?string
+    public function make(string $imagePath, int $width, int $id, $type, int $height = null): ?string
     {   
 
-  
         if (!file_exists($imagePath)) {
             return "Image not found";
         }
 
+        $this->type = $type;
         $this->imagePath = $imagePath;
         $this->imageName = $this->name($this->imagePath, $width, $height);
         $this->imageMime = mime_content_type($this->imagePath);
-        $this->idUser = $idUser;
+        $this->id = $id;
 
         if (!in_array($this->imageMime, self::$allowedExt)) {
             return "Not a valid JPG or PNG image";
@@ -235,11 +239,27 @@ class Cropper
 
         $this->imageName = $data[0] . "_" . $data[1];
 
-        $user = new User();
+        switch ($this->type) {
+            case 'user':
+                $user = new User();
 
-        $user->updatePictureDB($this->imageName, $this->idUser);
+                $user->updatePictureDB($this->imageName, $this->id);
 
-        $user->setpictureId($this->imageName);
+                $user->setpictureId($this->imageName);
+                break;
+            
+            case 'ingredients':
+
+                $ingredient = new ingredient();
+
+                $ingredient->updatePictureDB($this->imageName, $this->id);
+
+                $ingredient->setpictureId($this->imageName);
+
+            default:
+                break;
+        }
+        
         imagejpeg($thumb, "{$this->cachePath}/{$this->imageName}.jpg", $this->quality);
 
         imagedestroy($thumb);

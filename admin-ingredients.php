@@ -71,7 +71,8 @@ $app->get("/admin/ingredients/:idIngredient", function($idIngredient){
 
 	$page->setTpl("ingredients-update", [
 		'ingredient'=>$ingredient->getValues(),
-		'createError'=>Ingredient::getError()
+		'createError'=>Ingredient::getError(),
+		'createSuccess'=>Ingredient::getSuccess()
 	]);
 });
 
@@ -86,7 +87,7 @@ $app->post("/admin/ingredients/:idIngredient", function($idIngredient){
 
 	if(!isset($_POST['name']) || $_POST['name'] === '') {
 		Ingredient::setError('Informe o nome do ingrediente!');
-		header("Location: /admin/ingredients/create");
+		header("Location: /admin/ingredients/$idIngredient");
 		exit;
 	}
 
@@ -104,7 +105,10 @@ $app->post("/admin/ingredients/:idIngredient", function($idIngredient){
 
 	$ingredient->update();
 
-	header("Location: /admin/ingredients");
+	if($_FILES['file']['name'] !== '') $ingredient->setPhoto($_FILES["file"]);
+
+	Ingredient::setSuccess("Alterações salvas com sucesso!");
+	header("Location: /admin/ingredients/$idIngredient");
 	exit;
 });
 

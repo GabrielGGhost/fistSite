@@ -1,7 +1,7 @@
 <div class="ingredients_thumbs">
 	{loop="$ingredients"}
 	<div class="ingredient-box"> <h4>{$value.name}</h4>
-		<img src="res/site/img/articles/07.jpg">
+		<img {if="$value.pictureId != ''"} src="/res/site/img/igrendients_pictures/{$value.pictureId}.jpg" {else} src="/res/site/img/defaults/no-ingredient.jpg" {/if}>
 		<p>{$value.description}</p>
 	</div>
     {/loop}          

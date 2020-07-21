@@ -15,7 +15,8 @@ $app->get('/admin/users', function(){
 	$page = new PageAdmin();
 
 	$page->setTpl("users", [
-		'users'=>$users
+		'users'=>$users,
+		'createSuccess'=>User::getSuccess()
 	]);
 
 });
@@ -95,6 +96,7 @@ $app->post('/admin/users/create', function(){
 
 	$_SESSION['registerValues'] = NULL;
 
+	User::setSuccess("Usuário cadastrado com sucesso!");
 	header("Location: /admin/users");
 	exit;
 });
@@ -113,7 +115,8 @@ $app->get('/admin/users/:idUser', function($idUser){
 
 	$page->setTpl("users-update", [
 		'createError'=>User::getError(),
-		'user'=>$user->getValues()
+		'user'=>$user->getValues(),
+		'createSuccess'=>User::getSuccess()
 	]);
 });
 
@@ -177,7 +180,8 @@ $app->post('/admin/users/:idUser', function($idUser){
 
 		if($_FILES['file']['name'] !== '') $user->setPhoto($_FILES["file"]);
 
-		header("Location: /admin/users");
+		User::setSuccess("Alterações salvas com sucesso!");
+		header("Location: /admin/users/$idUser");
 		exit;
 	} catch (Exception $ex) {
 		User::setError($ex->getMessage());
