@@ -61,15 +61,17 @@ class Ingredient extends Model {
 
 		$sql = new Sql();
 
-		$results = $sql->select("call sp_ingredients_save(:NAME, :DESCRIPTION)",[
-														 	':NAME'=>utf8_decode($this->getname()),
+		$results = $sql->select("call sp_ingredients_save(:SINGULAR, :PLURAL, :DESCRIPTION)",[
+														 	':SINGULAR'=>utf8_decode($this->getsingularName()),
+														 	':PLURAL'=>utf8_decode($this->getpluralName()),
 														 	':DESCRIPTION'=>utf8_decode($this->getdescription())
 														 ]);
 
 
 		$data = $results[0];
 
-		$data['name'] = utf8_encode($data['name']);
+		$data['singularName'] = utf8_encode($data['singularName']);
+		$data['pluralName'] = utf8_encode($data['pluralName']);
 		$data['description'] = utf8_encode($data['description']);
 
 		$this->setData($data);
@@ -87,7 +89,8 @@ class Ingredient extends Model {
 
 		$data = $results[0];
 
-		$data['name'] = utf8_encode($data['name']);
+		$data['singularName'] = utf8_encode($data['singularName']);
+		$data['pluralName'] = utf8_encode($data['pluralName']);
 		$data['description'] = utf8_encode($data['description']);
 
 		$this->setData($data);
@@ -97,28 +100,48 @@ class Ingredient extends Model {
 
 		$sql = new Sql();
 
-		$results = $sql->select("call sp_ingredients_update(:IDINGREDIENT, :NAME, :DESCRIPTION)",[
+		$results = $sql->select("call sp_ingredients_update(:IDINGREDIENT,
+															:SINGULARNAME,
+															:PLURALNAME,
+															:DESCRIPTION)",[
 															':IDINGREDIENT'=>$this->getidIngredient(),
-														 	':NAME'=>utf8_decode($this->getname()),
+														 	':SINGULARNAME'=>utf8_decode($this->getsingularName()),
+														 	':PLURALNAME'=>utf8_decode($this->getpluralName()),
 														 	':DESCRIPTION'=>utf8_decode($this->getdescription())
 														 ]);
 
 
 		$data = $results[0];
 
-		$data['name'] = utf8_encode($data['name']);
+		$data['singularName'] = utf8_encode($data['singularName']);
+		$data['pluralName'] = utf8_encode($data['pluralName']);
 		$data['description'] = utf8_encode($data['description']);
 
 		$this->setData($data);
 	}
 
-	public function verifyIngredient($name){
+	public function verifySingularName($name){
 
 		$sql = new Sql();
 
 		$results = $sql->select("SELECT *
 									FROM tb_ingredient
-										WHERE name = :NAME",[
+										WHERE singularName = :NAME",[
+										':NAME'=>$name
+									]);
+
+		if (count($results) === 0) return false;
+
+		return true;
+	}
+
+	public function verifyPluralName($name){
+
+		$sql = new Sql();
+
+		$results = $sql->select("SELECT *
+									FROM tb_ingredient
+										WHERE pluralName = :NAME",[
 										':NAME'=>$name
 									]);
 

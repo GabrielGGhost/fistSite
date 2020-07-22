@@ -7,49 +7,49 @@
         </section>
 
         <div class="container">
-          <section class="people-cards">
-            <article class="people-cards__card">
-              <img src="res/site/img/c01.jpg" alt="Carousel Img" class="people-cards__image">
+          <section class="ingredient-cards">
+            <article class="ingredient-cards__card">
+              <img src="res/site/img/c01.jpg" alt="Carousel Img" class="ingredient-cards__image">
 
-              <div class="people-cards__avatar">
+              <div class="ingredient-cards__avatar">
                 <img src="res/site/img/teamsprite_01.png" alt="Carousel Img">
               </div>
-              <div class="people-cards__content">
-                <h2 class="people-cards__title">Lorem ipsum dolor sit amet consectetur</h2>
-                <p class="people-cards__text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris mattis suscipit est, ut imperdiet tortor. Proin sed molestie massa.</p>
+              <div class="ingredient-cards__content">
+                <h2 class="ingredient-cards__title">Lorem ipsum dolor sit amet consectetur</h2>
+                <p class="ingredient-cards__text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris mattis suscipit est, ut imperdiet tortor. Proin sed molestie massa.</p>
               </div>
             </article>
-            <article class="people-cards__card">
-              <img src="res/site/img/c02.jpg" alt="Carousel Img" class="people-cards__image">
+            <article class="ingredient-cards__card">
+              <img src="res/site/img/c02.jpg" alt="Carousel Img" class="ingredient-cards__image">
 
-              <div class="people-cards__avatar">
+              <div class="ingredient-cards__avatar">
                 <img src="res/site/img/teamsprite_02.png" alt="Carousel Img">
               </div>
-              <div class="people-cards__content">
-                <h2 class="people-cards__title">Lorem ipsum dolor sit amet consectetur</h2>
-                <p class="people-cards__text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris mattis suscipit est, ut imperdiet tortor. Proin sed molestie massa.</p>
+              <div class="ingredient-cards__content">
+                <h2 class="ingredient-cards__title">Lorem ipsum dolor sit amet consectetur</h2>
+                <p class="ingredient-cards__text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris mattis suscipit est, ut imperdiet tortor. Proin sed molestie massa.</p>
               </div>
             </article>
-            <article class="people-cards__card">
-              <img src="res/site/img/c03.jpg" alt="Carousel Img" class="people-cards__image">
+            <article class="ingredient-cards__card">
+              <img src="res/site/img/c03.jpg" alt="Carousel Img" class="ingredient-cards__image">
 
-              <div class="people-cards__avatar">
+              <div class="ingredient-cards__avatar">
                 <img src="res/site/img/teamsprite_03.png" alt="Carousel Img">
               </div>
-              <div class="people-cards__content">
-                <h2 class="people-cards__title">Lorem ipsum dolor sit amet consectetur</h2>
-                <p class="people-cards__text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris mattis suscipit est, ut imperdiet tortor. Proin sed molestie massa.</p>
+              <div class="ingredient-cards__content">
+                <h2 class="ingredient-cards__title">Lorem ipsum dolor sit amet consectetur</h2>
+                <p class="ingredient-cards__text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris mattis suscipit est, ut imperdiet tortor. Proin sed molestie massa.</p>
               </div>
             </article>
-            <article class="people-cards__card">
-              <img src="res/site/img/c04.jpg" alt="Carousel Img" class="people-cards__image">
+            <article class="ingredient-cards__card">
+              <img src="res/site/img/c04.jpg" alt="Carousel Img" class="ingredient-cards__image">
 
-              <div class="people-cards__avatar">
+              <div class="ingredient-cards__avatar">
                 <img src="res/site/img/teamsprite_04.png" alt="Carousel Img">
               </div>
-              <div class="people-cards__content">
-                <h2 class="people-cards__title">Lorem ipsum dolor sit amet consectetur</h2>
-                <p class="people-cards__text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris mattis suscipit est, ut imperdiet tortor. Proin sed molestie massa.</p>
+              <div class="ingredient-cards__content">
+                <h2 class="ingredient-cards__title">Lorem ipsum dolor sit amet consectetur</h2>
+                <p class="ingredient-cards__text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris mattis suscipit est, ut imperdiet tortor. Proin sed molestie massa.</p>
               </div>
             </article>
           </section>

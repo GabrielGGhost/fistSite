@@ -22,7 +22,7 @@
     <body class="no-js">
 
         <header class="header">
-          <a href="index.html" class="logo-text">Infusion</a>
+          <a href="/" class="logo-text">Logo</a>
 
           <button style="display:none;" class="header__btnMenu">
             <i class="fas fa-bars fa-2x"></i>

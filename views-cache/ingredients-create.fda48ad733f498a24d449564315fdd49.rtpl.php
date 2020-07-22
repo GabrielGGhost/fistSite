@@ -19,7 +19,7 @@
   	<div class="col-md-12">
   		<div class="box box-success">
         <div class="box-header with-border">
-          <h3 class="box-title">Novo Produto</h3>
+          <h3 class="box-title">Novo Ingrediente</h3>
         </div>
         <!-- /.box-header -->
         <!-- form start -->
@@ -34,8 +34,14 @@
 
           <div class="box-body">
             <div class="form-group">
-              <label for="name">Nome do ingrediente</label>
-              <input type="text" class="form-control" id="name" name="name" placeholder="Digite o nome do produto" maxlength="50">
+              <div class="form-double">
+                <label for="singularName">Ingrediente singular</label>
+                <input type="text" class="form-control" id="name" name="singularName" placeholder="Digite o nome do produto no singular" maxlength="50">
+              </div>
+              <div class="form-double">
+                <label for="pluralName">Ingrediente plural</label>
+                <input type="text" class="form-control" id="name" name="pluralName" placeholder="Digite o nome do produto no plural" maxlength="50">
+              </div>
             </div>
             <div class="form-group">
               <label for="description">Descrição</label>

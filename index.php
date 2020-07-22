@@ -16,6 +16,7 @@ require_once("admin-users.php");
 require_once("admin-ingredients.php");
 require_once("admin.php");
 require_once("site-ingredients.php");
+require_once("admin-ingredient_category.php");
 
 $app->run();
 

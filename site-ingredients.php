@@ -10,6 +10,7 @@ $app->get("/ingredients", function(){
 
 	$ingredients = Ingredient::listAll();
 
+	$ingredients = encodeData($ingredients);
 
 	$page->setTpl("ingredients-list",[
 		'ingredients'=>$ingredients

@@ -32,32 +32,36 @@
           <div class="box-body">
             <div class="form-group">
               <div class="form-double">
-                <label for="name">Ingrediente</label>
-                <input type="text" class="form-control" id="name" name="name" placeholder="Digite o nome do ingrediente" maxlength="50" value="{$ingredient.name}">
+                <label for="singularName">Singular</label>
+                <input type="text" class="form-control" id="singularName" name="singularName" placeholder="Digite o nome do ingrediente" maxlength="50" value="{$ingredient.singularName}">
               </div>
               <div class="form-double">
-              <label for="name">Ativo</label>
-              <input type="text" class="form-control" id="name" name="name" placeholder="Digite o nome do produto" maxlength="50" {if="$ingredient.active == 1"} value="sim" {/if} value="Não" disabled>
+                <label for="pluralName">Plural</label>
+                <input type="text" class="form-control" id="pluralName" name="pluralName" placeholder="Digite o nome do ingrediente" maxlength="50" value="{$ingredient.pluralName}">
               </div>
             </div>
-            <br> <br> <br>
             <div class="form-group">
-              <label for="description">Descrição</label>
-              <textarea placeholder="Escreva algo sobre este ingrediente" class="form-control" id="description" name="description" maxlength="264">{$ingredient.description}</textarea>
+              <div class="form-double">
+                <label for="description">Descrição</label>
+                <textarea placeholder="Escreva algo sobre este ingrediente" class="form-control" id="description" name="description" maxlength="264" style="resize: none;" rows=7>{$ingredient.description}</textarea>
+              </div>
+              <div class="form-double">
+                <label for="active">Ativo</label>
+                <input type="text" class="form-control" id="name" name="active" placeholder="Digite o nome do produto" maxlength="50" {if="$ingredient.active == 1"} value="sim" {/if} value="Não" disabled>
+              </div>
             </div>
             <div class="form-group">
               <div class="form-double">
                 <label for="file">Imagem</label>
                 <input type="file" class="form-control" id="file" name="file">
-              </div>
-              <div class="form-double">
-                <div class="box box-widget">
-                  <div class="box-body">
-                    <img class="img-responsive" id="image-preview" src="{$ingredient.pathPhoto}" alt="Photo" style="border:2px solid black; border-radius: 10px">
+                <div class="form-double">
+                  <div class="box box-widget">
+                    <div class="box-body">
+                      <img class="img-responsive" id="image-preview" src="{$ingredient.pathPhoto}" alt="Photo" style="border:2px solid black; border-radius: 10px">
+                    </div>
                   </div>
                 </div>
               </div>
-
             </div>
           </div>
           <!-- /.box-body -->

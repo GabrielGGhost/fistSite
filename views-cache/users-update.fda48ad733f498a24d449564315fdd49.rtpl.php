@@ -23,7 +23,7 @@
           <div class="alert alert-danger">
             <?php echo htmlspecialchars( $createError, ENT_COMPAT, 'UTF-8', FALSE ); ?>
           </div>
-        <?php } ?>alert-success
+        <?php } ?>
         <?php if( $createSuccess != '' ){ ?>
           <div class="alert alert-success">
             <?php echo htmlspecialchars( $createSuccess, ENT_COMPAT, 'UTF-8', FALSE ); ?>

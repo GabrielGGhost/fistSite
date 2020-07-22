@@ -38,32 +38,36 @@
           <div class="box-body">
             <div class="form-group">
               <div class="form-double">
-                <label for="name">Ingrediente</label>
-                <input type="text" class="form-control" id="name" name="name" placeholder="Digite o nome do ingrediente" maxlength="50" value="<?php echo htmlspecialchars( $ingredient["name"], ENT_COMPAT, 'UTF-8', FALSE ); ?>">
+                <label for="singularName">Singular</label>
+                <input type="text" class="form-control" id="singularName" name="singularName" placeholder="Digite o nome do ingrediente" maxlength="50" value="<?php echo htmlspecialchars( $ingredient["singularName"], ENT_COMPAT, 'UTF-8', FALSE ); ?>">
               </div>
               <div class="form-double">
-              <label for="name">Ativo</label>
-              <input type="text" class="form-control" id="name" name="name" placeholder="Digite o nome do produto" maxlength="50" <?php if( $ingredient["active"] == 1 ){ ?> value="sim" <?php } ?> value="Não" disabled>
+                <label for="pluralName">Plural</label>
+                <input type="text" class="form-control" id="pluralName" name="pluralName" placeholder="Digite o nome do ingrediente" maxlength="50" value="<?php echo htmlspecialchars( $ingredient["pluralName"], ENT_COMPAT, 'UTF-8', FALSE ); ?>">
               </div>
             </div>
-            <br> <br> <br>
             <div class="form-group">
-              <label for="description">Descrição</label>
-              <textarea placeholder="Escreva algo sobre este ingrediente" class="form-control" id="description" name="description" maxlength="264"><?php echo htmlspecialchars( $ingredient["description"], ENT_COMPAT, 'UTF-8', FALSE ); ?></textarea>
+              <div class="form-double">
+                <label for="description">Descrição</label>
+                <textarea placeholder="Escreva algo sobre este ingrediente" class="form-control" id="description" name="description" maxlength="264" style="resize: none;" rows=7><?php echo htmlspecialchars( $ingredient["description"], ENT_COMPAT, 'UTF-8', FALSE ); ?></textarea>
+              </div>
+              <div class="form-double">
+                <label for="active">Ativo</label>
+                <input type="text" class="form-control" id="name" name="active" placeholder="Digite o nome do produto" maxlength="50" <?php if( $ingredient["active"] == 1 ){ ?> value="sim" <?php } ?> value="Não" disabled>
+              </div>
             </div>
             <div class="form-group">
               <div class="form-double">
                 <label for="file">Imagem</label>
                 <input type="file" class="form-control" id="file" name="file">
-              </div>
-              <div class="form-double">
-                <div class="box box-widget">
-                  <div class="box-body">
-                    <img class="img-responsive" id="image-preview" src="<?php echo htmlspecialchars( $ingredient["pathPhoto"], ENT_COMPAT, 'UTF-8', FALSE ); ?>" alt="Photo" style="border:2px solid black; border-radius: 10px">
+                <div class="form-double">
+                  <div class="box box-widget">
+                    <div class="box-body">
+                      <img class="img-responsive" id="image-preview" src="<?php echo htmlspecialchars( $ingredient["pathPhoto"], ENT_COMPAT, 'UTF-8', FALSE ); ?>" alt="Photo" style="border:2px solid black; border-radius: 10px">
+                    </div>
                   </div>
                 </div>
               </div>
-
             </div>
           </div>
           <!-- /.box-body -->

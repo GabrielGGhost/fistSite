@@ -19,9 +19,15 @@
 
 media min-width800px and max-width1300px{
 
-	.form-double {
+	.form-double{
 
 		width: 70%;
+		float: left;
+	}
+
+	.form-triple{
+
+		width: 30%;
 		float: left;
 	}
 

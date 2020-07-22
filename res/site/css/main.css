@@ -16,6 +16,15 @@ img{
   max-width: 980px; /*Imedira que o tamanho dele ultrapasse 580px*/
 }
 
+.container-ingredients{/*Formatar a classe conteiner*/
+  margin-right: auto;/*Colocar margin à direita automática*/
+  margin-left: auto; /*Colocar margin à esquerda automática*/
+  padding-top: 5em;
+  padding-left: 1em; /*Colocar padding à esquerda automática*/
+  padding-right: 1em; /*Colocar padding à direita automática*/
+  max-width: 980px; /*Imedira que o tamanho dele ultrapasse 580px*/
+}
+
 /**/
 .header{/*Formatar header*/
   background-color: #fff; /*Define o background para branco*/
@@ -95,7 +104,6 @@ img{
 
 .header__nav li{ /*Formatar todos os LI's dentro da header__nav*/
   list-style-type: none; /*Remove todos os bullets das listas*/
-  background-color: #242c2c; /*Define o fundo parapreto*/
   text-align: center; /*Alinhar o texto sempre ao centro*/
   border-bottom: 1px dotted rgba(255, 255, 255, .2); /*Definir uma borda inferior pra 1px, sólida e um branco transparent*/
 
@@ -115,6 +123,7 @@ img{
 
 .header__nav a:hover{/*Formatar o hove dos links*/
   color: #63c8ae;
+  border-bottom: 2px solid #63c8ae;
 }
 
 .header__btnMenu{ /*Formatar o botão*/
@@ -135,6 +144,7 @@ img{
   flex-direction: column;/*Define a flex-grid pra colunas*/
   justify-content: center; /*Deixar tudo no centro vertical*/
   align-items: center;
+
 
 
   background-image: linear-gradient(45deg, white 50%, transparent 50%), /*Define um background com 45 graus, branco com metade da tela e transparente do outro lado*/
@@ -174,61 +184,62 @@ img{
   text-transform: uppercase; /*Maiusculo*/
 }
 
-.people-cards{ /*Painel de cards*/
+.ingredient-cards{ /*Painel de cards*/
   margin-top: 2.5em; /*Define a margin do em 2.5em para todos os lados*/
 }
 
-.people-cards__card{
+.ingredient-cards__card{
   transition: .3s linear;/*Colocar uma transição nos carts*/
+  margin-bottom: 2em;
 }
 
-.people-cards__card:hover{/*Formatar o hover*/
+.ingredient-cards__card:hover{/*Formatar o hover*/
   outline: 5px solid #63c6ae;/*Linha de fora do o card*/
   outline-offset: -5px; /*Internizar a linha*/
 }
 
-.people-cards__card:hover .people-cards__avatar img{/*Formatar a img dentro de people_cards__acavatr quando passar o mouse em cima de people cards*/
+.ingredient-cards__card:hover .ingredient-cards__avatar img{/*Formatar a img dentro de people_cards__acavatr quando passar o mouse em cima de people cards*/
   transform:translateY(-50%); /*Movem para cima metade do damanho da imagem*/
 
 }
 
-.people-cards__card:hover .people-cards__title,
-.people-cards__card:hover .people-cards__text{ /*Formatar people-cards__text e title dentro de people-card quando  o mouse for passado por cima*/
+.ingredient-cards__card:hover .ingredient-cards__title,
+.ingredient-cards__card:hover .ingredient-cards__text{ /*Formatar ingredient-cards__text e title dentro de people-card quando  o mouse for passado por cima*/
   color: #63c6ae;
 }
 
-.people-cards__image{ /*Formatar a imagem do card*/
+.ingredient-cards__image{ /*Formatar a imagem do card*/
     width: 100%; /*Define o tamanho 100% da tela*/
 }
 
-.people-cards__avatar{/*Formatar o avatar*/
+.ingredient-cards__avatar{/*Formatar o avatar*/
   margin: -55px auto; /*-55px pra cima e pra baixo e centraliza a imagem*/
   width: 88px; /*Tamanho de 88px*/
   height: 88px; /*altura de 88px*/
   overflow: hidden; /*Esconde o que estiver pra fora*/
 }
 
-.people-cards__content{ /*Formatar o a basedo texto*/
+.ingredient-cards__content{ /*Formatar o a basedo texto*/
   text-align: center; /*Deixar tudo no centro*/
-  padding: 40px 25px 10px; /*Distanciar 40px para cima, 25 pros lados e 10 pra baixo*/
+  padding: 0px 25px 0px; /*Distanciar 40px para cima, 25 pros lados e 10 pra baixo*/
   border-left: 1px solid #dbe1e7; /*Define uma borda de 1px esquerda sólida cinza*/
   border-right: 1px solid #dbe1e7; /*Define uma borda de 1px direita sólida cinza*/
 }
 
-.people-cards__content:last-child{ /*Formatar o útimo people-cards_content*/
+.ingredient-cards__content:last-child{ /*Formatar o útimo ingredient-cards_content*/
   border-bottom: 1px solid #dbe1e7; /*Define uma borda de 1px direita sólida cinza*/
 
 }
 
-.people-cards__title{/*Formatar o título dos cards*/
+.ingredient-cards__title{/*Formatar o título dos cards*/
   color: #737c85; /*Formatar a cor para cinza*/
-  font-size: 21px; /*Definir o tamanho para 21px*/
+  font-size: 16px; /*Definir o tamanho para 21px*/
   font-w
 }
 
-.people-cards__text{ /*Formatar texto nos cards*/
+.ingredient-cards__text{ /*Formatar texto nos cards*/
   color: #737c85; /*Definir a cor para cinza*/
-  font-size: 21px; /*Definir o tamanho para 21px*/
+  font-size: 16px; /*Definir o tamanho para 21px*/
   font-weight: normal;
 }
 
@@ -420,12 +431,31 @@ img{
   text-align: center;
 }
 
-.ingredient-box{
-    border: 3px solid gray;
-    padding-bottom: 10px;
-    margin-top: 30px;
-    margin-bottom: 30px;
-    border-radius: 10px;
+
+@media screen and (min-width: 400px){
+  .ingredient-cards{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 20px;
+  }
+}
+
+@media screen and (min-width: 600px){
+  .ingredient-cards{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 20px;
+  }
+
+}
+
+@media screen and (min-width: 800px){
+  .ingredient-cards{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 20px;
+  }
+
 }
 
 @media screen and (min-width:1025px) { /*Se a tela tiver no mínimo 1024px*/
@@ -466,9 +496,9 @@ img{
     flex-grow: 1; /*Redistribuir o espaço vazio entre as li's*/
   }
 
-  .people-cards{
+  .ingredient-cards{
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(5, 1fr);
     grid-gap: 20px;
   }
 
@@ -483,4 +513,13 @@ img{
   .footer .container > * {
     margin: 1.5em;
   }
+}
+
+@media screen and (min-width: 1200px){
+  .ingredient-cards{
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    grid-gap: 20px;
+  }
+
 }

@@ -257,21 +257,20 @@ desired effect
       <ul class="sidebar-menu">
         <li class="header">HEADER</li>
         <!-- Optionally, you can add icons to the links -->
-        <li class="active"><a href="#"><i class="fa fa-link"></i> <span>Menu</span></a></li>
-        <li><a href="/admin/users"><i class="fa fa-users"></i> <span>Usuários</span></a></li>
-        <li><a href="/admin/ingredients"><i class="far fa-lemon"></i>  </i><span>Ingredientes</span></a></li>
-        <li><a href="#"><i class="fa fa-link"></i> <span>Another Link</span></a></li>
         <li class="treeview">
-          <a href="#"><i class="fa fa-link"></i> <span>Multilevel</span>
+          <a href="#"><i class="fa fa-link"></i> <span>Categorias</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="#">Link in level 2</a></li>
-            <li><a href="#">Link in level 2</a></li>
+            <li><a href="/admin/ingredient-category">Categorias de ingredientes</a></li>
+            <li><a href="#">Categorias de receitas</a></li>
           </ul>
         </li>
+        <li class="active"><a href="/admin"><i class="fa fa-link"></i> <span>Menu</span></a></li>
+        <li><a href="/admin/users"><i class="fa fa-users"></i> <span>Usuários</span></a></li>
+        <li><a href="/admin/ingredients"><i class="far fa-lemon"></i>  </i><span>Ingredientes</span></a></li>
       </ul>
       <!-- /.sidebar-menu -->
     </section>
