@@ -4,7 +4,6 @@ use \Dev\DB\Sql;
 use \Dev\Model;
 use \Dev\PageAdmin;
 use \Dev\Model\IngredientCategory;
-use \Dev\Model\Ingredient;
 use \Dev\Model\User;
 
 $app->get("/admin/ingredient-category", function(){

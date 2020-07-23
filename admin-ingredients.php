@@ -199,4 +199,20 @@ $app->get("/admin/categories/:IDCATEGORY/ingredients/:IDINGREDIENT/add", functio
 	exit;
 });
 
+$app->get("/admin/categories/:IDCATEGORY/ingredients/:IDINGREDIENT/remove", function($idCategory, $idIngredient){
+
+	User::verifyLogin();
+
+	$ingredient = new Ingredient();
+	$category = new IngredientCategory();
+
+	$ingredient->getIngredient((int)$idIngredient);
+	$category->getIngredientCategory((int)$idCategory);
+
+	$ingredient->removeCategory($category);
+
+	header("Location: /admin/ingredient-category/linkCategories/$idIngredient");
+	exit;
+});
+
 ?>

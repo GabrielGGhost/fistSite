@@ -1,0 +1,58 @@
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+<!-- Content Header (Page header) -->
+<section class="content-header">
+  <h1>
+    Lista de Dificuldades
+  </h1>
+  <ol class="breadcrumb">
+    <li><a href="/admin"><i class="fa fa-dashboard"></i> Home</a></li>
+    <li class="active"><a href="/admin/recipe-categories">Dificuldades</a></li>
+  </ol>
+</section>
+
+<!-- Main content -->
+  <div class="row">
+  <section class="content">
+  	<div class="col-md-12">
+  		<div class="box box-primary">
+            <div class="box-header">
+              <a href="/admin/difficults/create" class="btn btn-success">Cadastrar dificuldade</a>
+            </div>
+            {if="$createSuccess != ''"}
+              <div class="alert alert-success">
+                {$createSuccess}
+              </div>
+            {/if}
+            <div class="box-body no-padding">
+              <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th style="width: 10px">#</th>
+                    <th>Nome</th>
+                    <th style="width: 160px">&nbsp;</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {loop="$difficults"}
+                  <tr>
+                    <td>{$value.idDifficult} </td>
+                    <td>{$value.difficultLevel}</td>
+                    <td>
+                      <a href="/admin/recipe-category/{$value.idDifficult}" class="btn btn-primary btn-xs"><i class="fa fa-edit"></i> Editar</a>
+                      <a href="/admin/recipe-category/{$value.idDifficult}/des-active" onclick="return confirm('Deseja realmente desativar esta conta?')" class="btn btn-danger btn-xs"><i class="fa fa-power-off"></i> {if="$value.active == 1"}Desativar{else}Ativar{/if}</a>
+                    </td>
+                  </tr>
+                  {/loop}
+                </tbody>
+              </table>
+            </div>
+            <!-- /.box-body -->
+          </div>
+  	</div>
+  </div>
+
+</section>
+<!-- /.content -->
+</div>
+<!-- /.content-wrapper -->

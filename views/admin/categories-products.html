@@ -1,14 +1,14 @@
-<?php if(!class_exists('Rain\Tpl')){exit;}?><!-- Content Wrapper. Contains page content -->
+<!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
 <!-- Content Header (Page header) -->
 <section class="content-header">
   <h1>
-    Categorias de <?php echo htmlspecialchars( $ingredient["singularName"], ENT_COMPAT, 'UTF-8', FALSE ); ?>
+    Categorias de {$ingredient.singularName}
   </h1>
   <ol class="breadcrumb">
     <li><a href="/admin"><i class="fa fa-dashboard"></i> Home</a></li>
     <li><a href="/admin/ingredient-category">Categorias</a></li>
-    <li><a href="/admin/ingredients/<?php echo htmlspecialchars( $ingredient["idIngredient"], ENT_COMPAT, 'UTF-8', FALSE ); ?>"><?php echo htmlspecialchars( $ingredient["singularName"], ENT_COMPAT, 'UTF-8', FALSE ); ?></a></li>
+    <li><a href="/admin/ingredients/{$ingredient.idIngredient}">{$ingredient.singularName}</a></li>
     <li class="active"><a href="/admin/categories/var/products">Categorias</a></li>
   </ol>
 </section>
@@ -34,15 +34,15 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <?php $counter1=-1;  if( isset($nonRelatedCategories) && ( is_array($nonRelatedCategories) || $nonRelatedCategories instanceof Traversable ) && sizeof($nonRelatedCategories) ) foreach( $nonRelatedCategories as $key1 => $value1 ){ $counter1++; ?>
+                            {loop="$nonRelatedCategories"}
                             <tr>
-                            <td><?php echo htmlspecialchars( $value1["idCategory"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>
-                            <td><?php echo htmlspecialchars( $value1["name"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>
+                            <td>{$value.idCategory}</td>
+                            <td>{$value.name}</td>
                             <td>
-                                <a href="/admin/categories/<?php echo htmlspecialchars( $value1["idCategory"], ENT_COMPAT, 'UTF-8', FALSE ); ?>/ingredients/<?php echo htmlspecialchars( $ingredient["idIngredient"], ENT_COMPAT, 'UTF-8', FALSE ); ?>/add" class="btn btn-primary btn-xs pull-right"><i class="fa fa-arrow-right"></i> Adicionar</a>
+                                <a href="/admin/categories/{$value.idCategory}/ingredients/{$ingredient.idIngredient}/add" class="btn btn-primary btn-xs pull-right"><i class="fa fa-arrow-right"></i> Adicionar</a>
                             </td>
                             </tr>
-                            <?php } ?>
+                            {/loop}
                         </tbody>
                     </table>
                 </div>
@@ -51,7 +51,7 @@
         <div class="col-md-6">
             <div class="box box-success">
                 <div class="box-header with-border">
-                <h3 class="box-title">Categorias no ingrendiente <?php echo htmlspecialchars( $ingredient["singularName"], ENT_COMPAT, 'UTF-8', FALSE ); ?></h3>
+                <h3 class="box-title">Categorias no ingrendiente {$ingredient.singularName}</h3>
                 </div>
                 <!-- /.box-header -->
                 <!-- form start -->
@@ -65,15 +65,15 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <?php $counter1=-1;  if( isset($relatedCategories) && ( is_array($relatedCategories) || $relatedCategories instanceof Traversable ) && sizeof($relatedCategories) ) foreach( $relatedCategories as $key1 => $value1 ){ $counter1++; ?>
+                            {loop="$relatedCategories"}
                             <tr>
-                            <td><?php echo htmlspecialchars( $value1["idCategory"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>
-                            <td><?php echo htmlspecialchars( $value1["name"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>
+                            <td>{$value.idCategory}</td>
+                            <td>{$value.name}</td>
                             <td>
-                                <a href="/admin/categories/<?php echo htmlspecialchars( $value1["idCategory"], ENT_COMPAT, 'UTF-8', FALSE ); ?>/products/<?php echo htmlspecialchars( $value1["idCategory"], ENT_COMPAT, 'UTF-8', FALSE ); ?>/remove" class="btn btn-primary btn-xs pull-right"><i class="fa fa-arrow-left"></i> Remover</a>
+                                <a href="/admin/categories/{$value.idCategory}/ingredients/{$ingredient.idIngredient}/remove" class="btn btn-primary btn-xs pull-right"><i class="fa fa-arrow-left"></i> Remover</a>
                             </td>
                             </tr>
-                            <?php } ?>
+                            {/loop}
                         </tbody>
                     </table>
                 </div>

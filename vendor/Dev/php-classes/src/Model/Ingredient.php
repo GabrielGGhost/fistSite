@@ -353,6 +353,18 @@ class Ingredient extends Model {
 													]);
 
 	}
+
+	public function removeCategory(ingredientCategory $category){
+
+		$sql = new Sql();
+
+		$sql->query("DELETE FROM tb_ingredients_categories
+						WHERE idCategory =:IDCATEGORY
+								AND	idIngredient = :IDINGREDIENT", [
+									':IDINGREDIENT'=>$this->getidIngredient(),
+									':IDCATEGORY'=>$category->getidCategory()
+									]);
+	}
 }
 
 
