@@ -18,7 +18,7 @@ $app->get("/admin/difficults", function(){
 	$page->setTpl("difficult", [
 		'createError'=>'',
 		'createSuccess'=>'',
-		'categories'=>$difficults
+		'difficults'=>$difficults
 	]);
 
 });
@@ -29,7 +29,7 @@ $app->get("/admin/difficults/create", function(){
 
 	$page->setTpl("difficult-create", [
 		'createError'=>Difficult::getError(),
-		'registerValues'=>(isset($_SESSION['registerValues'])) ? $_SESSION['registerValues'] : ['difficultLevel'=>'']
+		'difficultRegisterValues'=>(isset($_SESSION['difficultRegisterValues'])) ? $_SESSION['difficultRegisterValues'] : ['difficultLevel'=>'']
 	]);
 
 });
@@ -38,9 +38,9 @@ $app->post("/admin/difficults/create", function(){
 
 	User::verifyLogin();
 
-	$difficult = new RecipeCategory();
+	$difficult = new Difficult();
 
-	$_SESSION['registerValues'] = $_POST;
+	$_SESSION['difficultRegisterValues'] = $_POST;
 
 	if (!isset($_POST['difficultLevel']) || $_POST['difficultLevel'] === '') {
 		Difficult::setError("Informe a dificuldade!");
@@ -48,7 +48,7 @@ $app->post("/admin/difficults/create", function(){
 		exit;
 	}
 
-	if(RecipeCategory::verifyDifficult($_POST['difficultLevel'])){
+	if(Difficult::verifyDifficult($_POST['difficultLevel'])){
 		Difficult::setError("Dificuldade já cadastrada!");
 		header("Location: /admin/difficults/create");
 		exit;
@@ -58,9 +58,9 @@ $app->post("/admin/difficults/create", function(){
 
 	$difficult->save();
 
-	$_SESSION['registerValues'] = NULL;
+	$_SESSION['difficultRegisterValues'] = NULL;
 
-	header("Location: /admin/recipe-category");
+	header("Location: /admin/difficults");
 	exit;
 });
 

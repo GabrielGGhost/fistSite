@@ -32,7 +32,7 @@
           <div class="box-body">
             <div class="form-group">
               <label for="difficultLevel">Nome</label>
-              <input type="text" class="form-control" id="difficultLevel" name="difficultLevel" placeholder="Digite o nome da dificuldade" maxlength="30" value="<?php echo htmlspecialchars( $registerValues["difficultLevel"], ENT_COMPAT, 'UTF-8', FALSE ); ?>">
+              <input type="text" class="form-control" id="difficultLevel" name="difficultLevel" placeholder="Digite o nome da dificuldade" maxlength="30" value="<?php echo htmlspecialchars( $difficultRegisterValues["difficultLevel"], ENT_COMPAT, 'UTF-8', FALSE ); ?>">
             </div>
           </div>
           </div>

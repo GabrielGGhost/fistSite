@@ -10,7 +10,7 @@ class Difficult extends Model {
 
 	const SESSION_ERROR = "DifficultError";
 	const SESSION_SUCCESS = "DifficultSuccess";
-	const REGISTER_VALUES = 'registerValues';
+	const REGISTER_VALUES = 'DifficultRegisterValues';
 
 	public function listAll(){
 
@@ -61,10 +61,9 @@ class Difficult extends Model {
 
 		$sql = new Sql();
 
-		$results = $sql->select("call sp_difficult_save(:LEVEL)",[
+		$results = $sql->select("call sp_difficult_save(:LEVEL)", [
 														 	':LEVEL'=>utf8_decode($this->getdifficultLevel())
 														 ]);
-
 
 		$data = $results[0];
 
@@ -73,7 +72,7 @@ class Difficult extends Model {
 		$this->setData($data);
 	}
 
-	public function getDifficultLevel($idDifficult){
+	public function getDifficult($idDifficult){
 
 		$sql = new Sql();
 
@@ -108,16 +107,18 @@ class Difficult extends Model {
 		$this->setData($data);
 	}
 
-	public static function verifyDifficult($name){
+	public static function verifyDifficult($level){
 
 		$sql = new Sql();
 
-		$results = $sql->select("SELECT *
-									FROM tb_ingredientcategory
-										WHERE name = :NAME",[
-										':NAME'=>$name
-									]);
-	
+		$level = utf8_decode($level);
+
+		$results = $sql->select("SELECT * 
+									FROM tb_difficult
+										WHERE difficultLevel = :LEVEL", [
+											':LEVEL'=>$level
+										]);
+
 		if (count($results) === 0) return false;
 
 		return true;

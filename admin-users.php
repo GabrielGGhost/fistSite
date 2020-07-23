@@ -29,7 +29,7 @@ $app->get('/admin/users/create', function(){
 
 	$page->setTpl("users-create", [
 		'createError'=>User::getError(),
-		'registerError'=>(isset($_SESSION['registerValues'])) ? $_SESSION['registerValues'] : ['name'=>'', 'surname'=>'', 'login'=>'', 'password'=>'', 'phone'=>'', 'email'=>'', 'inadmin'=>false
+		'UserRegisterError'=>(isset($_SESSION['UserRegisterError'])) ? $_SESSION['UserRegisterError'] : ['name'=>'', 'surname'=>'', 'login'=>'', 'password'=>'', 'phone'=>'', 'email'=>'', 'inadmin'=>false
 		]
 	]);
 });
@@ -40,7 +40,7 @@ $app->post('/admin/users/create', function(){
 
 	$user = new User();
 
-	$_SESSION['registerValues'] = $_POST;
+	$_SESSION['UserRegisterError'] = $_POST;
 
 	$_POST["inadmin"] = (isset($_POST["inadmin"]))? 1 : 0;
 
@@ -94,7 +94,7 @@ $app->post('/admin/users/create', function(){
 
 	$user->save();
 
-	$_SESSION['registerValues'] = NULL;
+	$_SESSION['UserRegisterError'] = NULL;
 
 	User::setSuccess("Usuário cadastrado com sucesso!");
 	header("Location: /admin/users");

@@ -148,6 +148,8 @@ class User extends Model {
 
 		$sql = new Sql();
 
+		$email = utf8_decode($email);
+
 		$results = $sql->select("SELECT *
 									FROM tb_person
 										WHERE email = :EMAIL", [

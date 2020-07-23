@@ -29,7 +29,7 @@ $app->get("/admin/recipe-category/create", function(){
 
 	$page->setTpl("recipe-category-create", [
 		'createError'=>RecipeCategory::getError(),
-		'registerValues'=>(isset($_SESSION['registerValues'])) ? $_SESSION['registerValues'] : ['name'=>'']
+		'recipeCategoryRegisterValues'=>(isset($_SESSION['recipeCategoryRegisterValues'])) ? $_SESSION['recipeCategoryRegisterValues'] : ['name'=>'']
 	]);
 
 });
@@ -40,7 +40,7 @@ $app->post("/admin/recipe-category/create", function(){
 
 	$category = new RecipeCategory();
 
-	$_SESSION['registerValues'] = $_POST;
+	$_SESSION['recipeCategoryRegisterValues'] = $_POST;
 
 	if (!isset($_POST['name']) || $_POST['name'] === '') {
 		RecipeCategory::setError("Informe o nome da categoria!");
@@ -58,7 +58,7 @@ $app->post("/admin/recipe-category/create", function(){
 
 	$category->save();
 
-	$_SESSION['registerValues'] = NULL;
+	$_SESSION['recipeCategoryRegisterValues'] = NULL;
 
 	header("Location: /admin/recipe-category");
 	exit;

@@ -10,7 +10,7 @@ class IngredientCategory extends Model {
 
 	const SESSION_ERROR = "IngredientCategorytError";
 	const SESSION_SUCCESS = "IngredientCategorySuccess";
-	const REGISTER_VALUES = 'registerValues';
+	const REGISTER_VALUES = 'IngredientCategegoryregisterValues';
 
 	public function listAll(){
 
@@ -111,6 +111,8 @@ class IngredientCategory extends Model {
 	public static function verifyIngredientCategory($name){
 
 		$sql = new Sql();
+
+		$name = utf8_decode($name);
 
 		$results = $sql->select("SELECT *
 									FROM tb_ingredientcategory

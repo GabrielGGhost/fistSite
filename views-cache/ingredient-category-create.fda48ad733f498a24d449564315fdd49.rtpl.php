@@ -32,7 +32,7 @@
           <div class="box-body">
             <div class="form-group">
               <label for="name">Nome</label>
-              <input type="text" class="form-control" id="name" name="name" placeholder="Digite o nome da categoria" maxlength="30" value="<?php echo htmlspecialchars( $registerValues["name"], ENT_COMPAT, 'UTF-8', FALSE ); ?>">
+              <input type="text" class="form-control" id="name" name="name" placeholder="Digite o nome da categoria" maxlength="30" value="<?php echo htmlspecialchars( $ingredientCategoryregisterValues["name"], ENT_COMPAT, 'UTF-8', FALSE ); ?>">
             </div>
           </div>
           </div>

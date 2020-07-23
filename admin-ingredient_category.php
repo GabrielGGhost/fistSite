@@ -29,7 +29,7 @@ $app->get("/admin/ingredient-category/create", function(){
 
 	$page->setTpl("ingredient-category-create", [
 		'createError'=>IngredientCategory::getError(),
-		'registerValues'=>(isset($_SESSION['registerValues'])) ? $_SESSION['registerValues'] : ['name'=>'']
+		'ingredientCategoryregisterValues'=>(isset($_SESSION['ingredientCategoryregisterValues'])) ? $_SESSION['ingredientCategoryregisterValues'] : ['name'=>'']
 	]);
 
 });
@@ -40,7 +40,7 @@ $app->post("/admin/ingredient-category/create", function(){
 
 	$category = new IngredientCategory();
 
-	$_SESSION['registerValues'] = $_POST;
+	$_SESSION['ingredientCategoryregisterValues'] = $_POST;
 
 	if (!isset($_POST['name']) || $_POST['name'] === '') {
 		IngredientCategory::setError("Informe o nome da categoria!");
@@ -58,7 +58,7 @@ $app->post("/admin/ingredient-category/create", function(){
 
 	$category->save();
 
-	$_SESSION['registerValues'] = NULL;
+	$_SESSION['ingredientCategoryregisterValues'] = NULL;
 
 	header("Location: /admin/ingredient-category");
 	exit;

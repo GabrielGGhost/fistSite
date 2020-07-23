@@ -125,6 +125,8 @@ class Ingredient extends Model {
 
 		$sql = new Sql();
 
+		$name = utf8_decode($name);
+
 		$results = $sql->select("SELECT *
 									FROM tb_ingredient
 										WHERE singularName = :NAME",[

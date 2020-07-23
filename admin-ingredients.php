@@ -68,7 +68,7 @@ $app->post("/admin/ingredients/create", function(){
 
 	$ingredient->save();
 
-	$_SESSION['registerValues'] = NULL;
+	$_SESSION['ingredientsRegisterValues'] = NULL;
 
 	header("Location: /admin/ingredients");
 	exit;
