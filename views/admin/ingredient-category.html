@@ -7,7 +7,7 @@
   </h1>
   <ol class="breadcrumb">
     <li><a href="/admin"><i class="fa fa-dashboard"></i> Home</a></li>
-    <li class="active"><a href="/admin/users">Categorias de ingredientes</a></li>
+    <li class="active"><a href="/admin/ingredient-categories">Categorias de ingredientes</a></li>
   </ol>
 </section>
 
@@ -36,11 +36,11 @@
                 <tbody>
                   {loop="$categories"}
                   <tr>
-                    <td>{$value.idUser} </td>
+                    <td>{$value.idCategory} </td>
                     <td>{$value.name}</td>
                     <td>
-                      <a href="/admin/users/{$value.idUser}" class="btn btn-primary btn-xs"><i class="fa fa-edit"></i> Editar</a>
-                      <a href="/admin/users/{$value.idUser}/des-active" onclick="return confirm('Deseja realmente desativar esta conta?')" class="btn btn-danger btn-xs"><i class="fa fa-power-off"></i> {if="$value.active == 1"}Desativar{else}Ativar{/if}</a>
+                      <a href="/admin/ingredient-category/{$value.idCategory}" class="btn btn-primary btn-xs"><i class="fa fa-edit"></i> Editar</a>
+                      <a href="/admin/ingrendient-category/{$value.idCategory}/des-active" onclick="return confirm('Deseja realmente desativar esta conta?')" class="btn btn-danger btn-xs"><i class="fa fa-power-off"></i> {if="$value.active == 1"}Desativar{else}Ativar{/if}</a>
                     </td>
                   </tr>
                   {/loop}

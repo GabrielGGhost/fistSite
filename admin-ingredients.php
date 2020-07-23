@@ -2,6 +2,7 @@
 
 use \Dev\PageAdmin;
 use \Dev\Model\Ingredient;
+use \Dev\Model\IngredientCategory;
 use \Dev\DB\Sql;
 use \Dev\Model;
 use \Dev\Model\User;
@@ -148,7 +149,7 @@ $app->post("/admin/ingredients/:idIngredient", function($idIngredient){
 	
 });
 
-$app->get("/admin/ingredients/:idIngredient/delete", function($idIngredient){
+$app->get("/admin/ingredients/:idIngredient/des_active", function($idIngredient){
 
 	User::verifyLogin();
 
@@ -162,5 +163,40 @@ $app->get("/admin/ingredients/:idIngredient/delete", function($idIngredient){
 	exit;
 });
 
+$app->get("/admin/ingredient-category/linkCategories/:IDCATEGORY", function($idIngredient){
+
+	User::verifyLogin();
+
+	$ingredient = new Ingredient();
+	$page = new PageAdmin();
+	$ingredient->getIngredient((int)$idIngredient);
+	$relatedCategories = $ingredient->getCategories(true);
+	$nonRelatedCategories = $ingredient->getCategories();
+
+	$relatedCategories = encodeData($relatedCategories);
+	$nonRelatedCategories = encodeData($nonRelatedCategories);
+
+	$page->setTpl("ingredient-categories", [
+		'ingredient'=>$ingredient->getValues(),
+		'nonRelatedCategories'=>$nonRelatedCategories,
+		'relatedCategories'=>$relatedCategories
+	]);
+});
+
+$app->get("/admin/categories/:IDCATEGORY/ingredients/:IDINGREDIENT/add", function($idCategory, $idIngredient){
+
+	User::verifyLogin();
+
+	$ingredient = new Ingredient();
+	$category = new IngredientCategory();
+
+	$ingredient->getIngredient((int)$idIngredient);
+	$category->getIngredientCategory((int)$idCategory);
+
+	$ingredient->addCategory($category);
+
+	header("Location: /admin/ingredient-category/linkCategories/$idIngredient");
+	exit;
+});
 
 ?>

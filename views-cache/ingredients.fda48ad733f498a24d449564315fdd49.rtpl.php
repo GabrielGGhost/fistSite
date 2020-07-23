@@ -28,8 +28,8 @@
                   <tr>
                     <th style="width: 10px">#</th>
                     <th>Nome do ingrediente</th>
-                    <th>Descrição</th>
-                    <th style="width: 160px">&nbsp;</th>
+                    <th style="width: 500px">Descrição</th>
+                    <th style="width: 230px">&nbsp;</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -40,8 +40,10 @@
                     <td><?php echo htmlspecialchars( $value1["singularName"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>
                     <td><?php echo htmlspecialchars( $value1["description"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>
                     <td>
-                      <a href="/admin/ingredients/<?php echo htmlspecialchars( $value1["idIngredient"], ENT_COMPAT, 'UTF-8', FALSE ); ?>" class="btn btn-primary btn-xs"><i class="fa fa-edit"></i> Editar</a>
-                      <a href="/admin/ingredients/<?php echo htmlspecialchars( $value1["idIngredient"], ENT_COMPAT, 'UTF-8', FALSE ); ?>/delete" onclick="return confirm('Deseja realmente desativar este registro?')" class="btn btn-danger btn-xs"><i class="fa fa-trash"></i> <?php if( $value1["active"] == 1 ){ ?> Desativar<?php }else{ ?>Ativar<?php } ?></a>
+                      <a href="/admin/ingredients/<?php echo htmlspecialchars( $value1["idIngredient"], ENT_COMPAT, 'UTF-8', FALSE ); ?>" class="btn btn-primary btn-xs"><i class="fa fa-edit"></i>Editar</a>
+                      <a href="/admin/ingredient-category/linkCategories/<?php echo htmlspecialchars( $value1["idIngredient"], ENT_COMPAT, 'UTF-8', FALSE ); ?>" class="btn btn-secondary btn-xs"><i class="fa fa-edit"></i>Categorias</a>
+
+                      <a href="/admin/ingredients/<?php echo htmlspecialchars( $value1["idIngredient"], ENT_COMPAT, 'UTF-8', FALSE ); ?>/des_active" onclick="return confirm('Deseja realmente desativar este registro?')" class="btn btn-danger btn-xs"><i class="fa fa-trash"></i><?php if( $value1["active"] == 1 ){ ?> Desativar<?php }else{ ?>Ativar<?php } ?></a>
                     </td>
                   </tr>
                   <?php } ?>

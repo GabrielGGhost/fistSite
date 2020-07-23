@@ -28,8 +28,8 @@
                   <tr>
                     <th style="width: 10px">#</th>
                     <th>Nome do ingrediente</th>
-                    <th>Descrição</th>
-                    <th style="width: 160px">&nbsp;</th>
+                    <th style="width: 500px">Descrição</th>
+                    <th style="width: 230px">&nbsp;</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -39,8 +39,10 @@
                     <td>{$value.singularName}</td>
                     <td>{$value.description}</td>
                     <td>
-                      <a href="/admin/ingredients/{$value.idIngredient}" class="btn btn-primary btn-xs"><i class="fa fa-edit"></i> Editar</a>
-                      <a href="/admin/ingredients/{$value.idIngredient}/delete" onclick="return confirm('Deseja realmente desativar este registro?')" class="btn btn-danger btn-xs"><i class="fa fa-trash"></i> {if="$value.active == 1"} Desativar{else}Ativar{/if}</a>
+                      <a href="/admin/ingredients/{$value.idIngredient}" class="btn btn-primary btn-xs"><i class="fa fa-edit"></i>Editar</a>
+                      <a href="/admin/ingredient-category/linkCategories/{$value.idIngredient}" class="btn btn-secondary btn-xs"><i class="fa fa-edit"></i>Categorias</a>
+
+                      <a href="/admin/ingredients/{$value.idIngredient}/des_active" onclick="return confirm('Deseja realmente desativar este registro?')" class="btn btn-danger btn-xs"><i class="fa fa-trash"></i>{if="$value.active == 1"} Desativar{else}Ativar{/if}</a>
                     </td>
                   </tr>
                   {/loop}

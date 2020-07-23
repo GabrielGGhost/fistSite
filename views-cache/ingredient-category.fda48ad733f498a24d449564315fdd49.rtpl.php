@@ -7,7 +7,7 @@
   </h1>
   <ol class="breadcrumb">
     <li><a href="/admin"><i class="fa fa-dashboard"></i> Home</a></li>
-    <li class="active"><a href="/admin/users">Categorias de ingredientes</a></li>
+    <li class="active"><a href="/admin/ingredient-categories">Categorias de ingredientes</a></li>
   </ol>
 </section>
 
@@ -36,11 +36,11 @@
                 <tbody>
                   <?php $counter1=-1;  if( isset($categories) && ( is_array($categories) || $categories instanceof Traversable ) && sizeof($categories) ) foreach( $categories as $key1 => $value1 ){ $counter1++; ?>
                   <tr>
-                    <td><?php echo htmlspecialchars( $value1["idUser"], ENT_COMPAT, 'UTF-8', FALSE ); ?> </td>
+                    <td><?php echo htmlspecialchars( $value1["idCategory"], ENT_COMPAT, 'UTF-8', FALSE ); ?> </td>
                     <td><?php echo htmlspecialchars( $value1["name"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>
                     <td>
-                      <a href="/admin/users/<?php echo htmlspecialchars( $value1["idUser"], ENT_COMPAT, 'UTF-8', FALSE ); ?>" class="btn btn-primary btn-xs"><i class="fa fa-edit"></i> Editar</a>
-                      <a href="/admin/users/<?php echo htmlspecialchars( $value1["idUser"], ENT_COMPAT, 'UTF-8', FALSE ); ?>/des-active" onclick="return confirm('Deseja realmente desativar esta conta?')" class="btn btn-danger btn-xs"><i class="fa fa-power-off"></i> <?php if( $value1["active"] == 1 ){ ?>Desativar<?php }else{ ?>Ativar<?php } ?></a>
+                      <a href="/admin/ingredient-category/<?php echo htmlspecialchars( $value1["idCategory"], ENT_COMPAT, 'UTF-8', FALSE ); ?>" class="btn btn-primary btn-xs"><i class="fa fa-edit"></i> Editar</a>
+                      <a href="/admin/ingrendient-category/<?php echo htmlspecialchars( $value1["idCategory"], ENT_COMPAT, 'UTF-8', FALSE ); ?>/des-active" onclick="return confirm('Deseja realmente desativar esta conta?')" class="btn btn-danger btn-xs"><i class="fa fa-power-off"></i> <?php if( $value1["active"] == 1 ){ ?>Desativar<?php }else{ ?>Ativar<?php } ?></a>
                     </td>
                   </tr>
                   <?php } ?>

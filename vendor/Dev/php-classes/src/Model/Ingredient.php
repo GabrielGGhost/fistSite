@@ -3,6 +3,7 @@
 namespace Dev\Model;
 
 use Dev\Model;
+use Dev\Model\Category;
 use Dev\DB\Sql;
 use \CoffeeCode\Cropper\Cropper;
 use \Faker\Factory;
@@ -310,6 +311,46 @@ class Ingredient extends Model {
 		$c = new Cropper($dir);
 
 		$c->make($path, 300, $this->getidIngredient(), "ingredients",  200);
+
+	}
+
+		public function getCategories($related = false){
+
+		$sql = new Sql();
+
+		if($related){
+			$results = $sql->select("SELECT *
+										FROM tb_ingredientcategory
+											WHERE idCategory IN(
+												SELECT idCategory
+													FROM tb_ingredients_categories
+														WHERE idIngredient = :IDINGREDIENT)", [
+															':IDINGREDIENT'=>$this->getidIngredient()	
+															]);
+
+		} else {
+			$results = $sql->select("SELECT *
+										FROM tb_ingredientcategory
+											WHERE idCategory not IN(
+												SELECT idCategory
+													FROM tb_ingredients_categories
+														WHERE idIngredient = :IDINGREDIENT)", [
+															':IDINGREDIENT'=>$this->getidIngredient()
+														]);
+		}
+
+		return $results;
+	}
+
+	public function addCategory(ingredientCategory $category){
+
+		$sql = new Sql();
+
+		$sql->query("INSERT INTO tb_ingredients_categories(idCategory, idIngredient)
+													VALUES(:IDCATEGORY, :IDINGREDIENT)", [
+														  ':IDINGREDIENT'=>$this->getidIngredient(),
+														  ':IDCATEGORY'=>$category->getidCategory()
+													]);
 
 	}
 }
