@@ -95,11 +95,12 @@ class Difficult extends Model {
 		$sql = new Sql();
 
 		$results = $sql->select("call sp_difficult_update(:IDDIFFICULT,:DIFFICULTLEVEL)",[
-															':IDCATEGORY'=>$this->getidCategory(),
-														 	':DIFFICULTLEVEL'=>utf8_decode($this->getname())
+															':IDDIFFICULT'=>$this->getidDifficult(),
+														 	':DIFFICULTLEVEL'=>utf8_decode($this->getdifficultLevel())
 														 ]);
 
 ;
+
 		$data = $results[0];
 
 		$data['difficultLevel'] = utf8_encode($data['difficultLevel']);
@@ -133,9 +134,9 @@ class Difficult extends Model {
 
 		$sql->query("UPDATE tb_difficult
 						SET active = :STATUS
-							WHERE idDifficult = :IDCATEGORY", [
+							WHERE idDifficult = :IDDIFFICULT", [
 							':STATUS'=>!$this->getactive(),
-							':IDCATEGORY'=>$this->getidCategory()
+							':IDDIFFICULT'=>$this->getidDifficult()
 						]);
 	}
 }

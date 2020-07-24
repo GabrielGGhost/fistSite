@@ -1,4 +1,4 @@
-
+<?php if(!class_exists('Rain\Tpl')){exit;}?>
 
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
@@ -19,22 +19,22 @@
           <h3 class="box-title">Editar Usuário</h3>
         </div>
         <!-- /.box-header -->
-        {if="$createError != ''"}
+        <?php if( $createError != '' ){ ?>
           <div class="alert alert-danger">
-            {$createError}
+            <?php echo htmlspecialchars( $createError, ENT_COMPAT, 'UTF-8', FALSE ); ?>
           </div>
-        {/if}
-        {if="$createSuccess != ''"}
+        <?php } ?>
+        <?php if( $createSuccess != '' ){ ?>
           <div class="alert alert-success">
-            {$createSuccess}
+            <?php echo htmlspecialchars( $createSuccess, ENT_COMPAT, 'UTF-8', FALSE ); ?>
           </div>
-        {/if}
+        <?php } ?>
         <!-- form start -->
-        <form role="form" action="/admin/difficults/{$difficult.idDifficult}" method="post">
+        <form role="form" action="/admin/difficults/<?php echo htmlspecialchars( $difficult["idDifficult"], ENT_COMPAT, 'UTF-8', FALSE ); ?>" method="post">
           <div class="box-body">
             <div class="form-group">
               <label for="difficultLevel">Nome</label>
-              <input type="text" class="form-control" id="difficultLevel" name="difficultLevel" placeholder="Digite o nome da categoria" value="{$difficult.difficultLevel}" maxlength="30">
+              <input type="text" class="form-control" id="difficultLevel" name="difficultLevel" placeholder="Digite o nome da categoria" value="<?php echo htmlspecialchars( $difficult["difficultLevel"], ENT_COMPAT, 'UTF-8', FALSE ); ?>" maxlength="30">
             </div>
           </div>
           <!-- /.box-body -->

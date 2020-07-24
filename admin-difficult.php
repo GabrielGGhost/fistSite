@@ -64,67 +64,67 @@ $app->post("/admin/difficults/create", function(){
 	exit;
 });
 
-$app->get("/admin/recipe-category/:IDCATEGORY", function($idCategory){
+$app->get("/admin/difficults/:IDDIFFICULT", function($idDifficult){
 
 	User::verifyLogin();
 
 	$page = new PageAdmin();
-	$category = new RecipeCategory();
+	$difficult = new Difficult();
 
-	$category->getRecipeCategory((int)$idCategory);
+	$difficult->getDifficult((int)$idDifficult);
 
-	$page->setTpl("recipe-category-update", [
-		'createError'=>RecipeCategory::getError(),
-		'createSuccess'=>RecipeCategory::getSuccess(),
-		'category'=>$category->getValues()
+	$page->setTpl("difficult-update", [
+		'createError'=>Difficult::getError(),
+		'createSuccess'=>Difficult::getSuccess(),
+		'difficult'=>$difficult->getValues()
 	]);
 
 });
 
-$app->post("/admin/recipe-category/:IDCATEGORY", function($idCategory){
+$app->post("/admin/difficults/:IDDIFFICULT", function($idDifficult){
 
 	User::verifyLogin();
 
-	$category = new RecipeCategory();
+	$difficult = new Difficult();
 
 	$page = new PageAdmin();
 
-	$category->getRecipeCategory((int)$idCategory);
+	$difficult->getDifficult((int)$idDifficult);
 
-	if (!isset($_POST['name']) || $_POST['name'] === '') {
-		RecipeCategory::setError("Informe o nome da categoria!");
-		header("Location: /admin/recipe-category/$idCategory");
+	if (!isset($_POST['difficultLevel']) || $_POST['difficultLevel'] === '') {
+		Difficult::setError("Informe o nome da dificuldade!");
+		header("Location: /admin/difficults/$idDifficult");
 		exit;
 	}
 
-	if($_POST['name'] != $category->getname()) {
-		if(RecipeCategory::verifyRecipeCategory($_POST['name'])){
-			RecipeCategory::setError("Categoria já cadastrada!");
-			header("Location: /admin/recipe-category/$idCategory");
+	if($_POST['difficultLevel'] != $difficult->getdifficultLevel()) {
+		if(Difficult::verifyDifficult($_POST['difficultLevel'])){
+			Difficult::setError("Dificuldade já cadastrada!");
+			header("Location: /admin/difficults/$idDifficult");
 			exit;
 		}
 	}
 
-	$category->setData($_POST);
+	$difficult->setData($_POST);
 
-	$category->update();
+	$difficult->update();
 
-	RecipeCategory::setSuccess("Alterações feitas com sucesso!");
-	header("Location: /admin/recipe-category/$idCategory");
+	Difficult::setSuccess("Alterações feitas com sucesso!");
+	header("Location: /admin/difficults/$idDifficult");
 	exit;
 });
 
-$app->get("/admin/recipe-category/:IDCATEGORY/des-active", function($idCategory){
+$app->get("/admin/difficults/:IDDIFFICULT/des-active", function($idDifficult){
 
 	User::verifyLogin();
 
-	$category = new RecipeCategory();
+	$difficult = new Difficult();
 
-	$category->getRecipeCategory((int)$idCategory);
+	$difficult->getDifficult((int)$idDifficult);
 
-	$category->des_active();
+	$difficult->des_active();
 
-	header("Location: /admin/recipe-category");
+	header("Location: /admin/difficults");
 	exit;
 });
 ?>
