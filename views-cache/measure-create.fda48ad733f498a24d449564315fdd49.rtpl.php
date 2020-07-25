@@ -3,11 +3,11 @@
 <!-- Content Header (Page header) -->
 <section class="content-header">
   <h1>
-    Cadastrar Nova Categoria de Receita
+    Cadastrar Nova Medida
   </h1>
   <ol class="breadcrumb">
     <li><a href="/admin"><i class="fa fa-dashboard"></i> Home</a></li>
-    <li><a href="/admin/users">Categorias de Receitas</a></li>
+    <li><a href="/admin/users">Medidas</a></li>
     <li class="active"><a href="/admin/users/create">Cadastrar</a></li>
   </ol>
 </section>
@@ -19,11 +19,11 @@
   	<div class="col-md-12">
   		<div class="box box-success">
         <div class="box-header with-border">
-          <h3 class="box-title">Nova Categoria de Receita</h3>
+          <h3 class="box-title">Nova Medida</h3>
         </div>
         <!-- /.box-header -->
         <!-- form start -->
-        <form role="form" action="/admin/recipe-category/create" method="post">
+        <form role="form" action="/admin/measures/create" method="post">
         <?php if( $createError != '' ){ ?>
           <div class="alert alert-danger">
             <?php echo htmlspecialchars( $createError, ENT_COMPAT, 'UTF-8', FALSE ); ?>
@@ -32,7 +32,7 @@
           <div class="box-body">
             <div class="form-group">
               <label for="name">Nome</label>
-              <input type="text" class="form-control" id="name" name="name" placeholder="Digite o nome da categoria" maxlength="30" value="<?php echo htmlspecialchars( $recipeCategoryRegisterValues["name"], ENT_COMPAT, 'UTF-8', FALSE ); ?>">
+              <input type="text" class="form-control" id="name" name="name" placeholder="Digite o nome da medida" maxlength="30" values="<?php echo htmlspecialchars( $measureRegisterValues["name"], ENT_COMPAT, 'UTF-8', FALSE ); ?>">
             </div>
           </div>
           <!-- /.box-body -->

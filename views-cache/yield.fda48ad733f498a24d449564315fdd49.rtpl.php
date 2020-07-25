@@ -3,11 +3,11 @@
 <!-- Content Header (Page header) -->
 <section class="content-header">
   <h1>
-    Lista de Dificuldades
+    Lista de Rendimentos
   </h1>
   <ol class="breadcrumb">
     <li><a href="/admin"><i class="fa fa-dashboard"></i> Home</a></li>
-    <li class="active"><a href="/admin/difficults">Dificuldades</a></li>
+    <li class="active"><a href="/admin/yields">Rendimentos</a></li>
   </ol>
 </section>
 
@@ -17,7 +17,7 @@
   	<div class="col-md-12">
   		<div class="box box-primary">
             <div class="box-header">
-              <a href="/admin/difficults/create" class="btn btn-success">Cadastrar dificuldade</a>
+              <a href="/admin/yields/create" class="btn btn-success">Cadastrar rendimento</a>
             </div>
             <?php if( $createSuccess != '' ){ ?>
               <div class="alert alert-success">
@@ -34,13 +34,13 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <?php $counter1=-1;  if( isset($difficults) && ( is_array($difficults) || $difficults instanceof Traversable ) && sizeof($difficults) ) foreach( $difficults as $key1 => $value1 ){ $counter1++; ?>
+                  <?php $counter1=-1;  if( isset($yields) && ( is_array($yields) || $yields instanceof Traversable ) && sizeof($yields) ) foreach( $yields as $key1 => $value1 ){ $counter1++; ?>
                   <tr>
-                    <td><?php echo htmlspecialchars( $value1["idDifficult"], ENT_COMPAT, 'UTF-8', FALSE ); ?> </td>
-                    <td><?php echo htmlspecialchars( $value1["difficultLevel"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>
+                    <td><?php echo htmlspecialchars( $value1["idYield"], ENT_COMPAT, 'UTF-8', FALSE ); ?> </td>
+                    <td><?php echo htmlspecialchars( $value1["name"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>
                     <td>
-                      <a href="/admin/difficults/<?php echo htmlspecialchars( $value1["idDifficult"], ENT_COMPAT, 'UTF-8', FALSE ); ?>" class="btn btn-primary btn-xs"><i class="fa fa-edit"></i> Editar</a>
-                      <a href="/admin/difficults/<?php echo htmlspecialchars( $value1["idDifficult"], ENT_COMPAT, 'UTF-8', FALSE ); ?>/des-active" onclick="return confirm('Deseja realmente desativar esta conta?')" class="btn btn-danger btn-xs"><i class="fa fa-power-off"></i> <?php if( $value1["active"] == 1 ){ ?>Desativar<?php }else{ ?>Ativar<?php } ?></a>
+                      <a href="/admin/yields/<?php echo htmlspecialchars( $value1["idYield"], ENT_COMPAT, 'UTF-8', FALSE ); ?>" class="btn btn-primary btn-xs"><i class="fa fa-edit"></i> Editar</a>
+                      <a href="/admin/yields/<?php echo htmlspecialchars( $value1["idYield"], ENT_COMPAT, 'UTF-8', FALSE ); ?>/des-active" onclick="return confirm('Deseja realmente desativar esta conta?')" class="btn btn-danger btn-xs"><i class="fa fa-power-off"></i> <?php if( $value1["active"] == 1 ){ ?>Desativar<?php }else{ ?>Ativar<?php } ?></a>
                     </td>
                   </tr>
                   <?php } ?>

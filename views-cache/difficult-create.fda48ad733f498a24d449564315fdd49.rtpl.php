@@ -35,7 +35,6 @@
               <input type="text" class="form-control" id="difficultLevel" name="difficultLevel" placeholder="Digite o nome da dificuldade" maxlength="30" value="<?php echo htmlspecialchars( $difficultRegisterValues["difficultLevel"], ENT_COMPAT, 'UTF-8', FALSE ); ?>">
             </div>
           </div>
-          </div>
           <!-- /.box-body -->
           <div class="box-footer">
             <button type="submit" class="btn btn-success">Cadastrar</button>

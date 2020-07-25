@@ -3,11 +3,11 @@
 <!-- Content Header (Page header) -->
 <section class="content-header">
   <h1>
-    Lista de Dificuldades
+    Lista de Rendimentos
   </h1>
   <ol class="breadcrumb">
     <li><a href="/admin"><i class="fa fa-dashboard"></i> Home</a></li>
-    <li class="active"><a href="/admin/difficults">Dificuldades</a></li>
+    <li class="active"><a href="/admin/yields">Rendimentos</a></li>
   </ol>
 </section>
 
@@ -17,7 +17,7 @@
   	<div class="col-md-12">
   		<div class="box box-primary">
             <div class="box-header">
-              <a href="/admin/difficults/create" class="btn btn-success">Cadastrar dificuldade</a>
+              <a href="/admin/yields/create" class="btn btn-success">Cadastrar rendimento</a>
             </div>
             {if="$createSuccess != ''"}
               <div class="alert alert-success">
@@ -34,13 +34,13 @@
                   </tr>
                 </thead>
                 <tbody>
-                  {loop="$difficults"}
+                  {loop="$yields"}
                   <tr>
-                    <td>{$value.idDifficult} </td>
-                    <td>{$value.difficultLevel}</td>
+                    <td>{$value.idYield} </td>
+                    <td>{$value.name}</td>
                     <td>
-                      <a href="/admin/difficults/{$value.idDifficult}" class="btn btn-primary btn-xs"><i class="fa fa-edit"></i> Editar</a>
-                      <a href="/admin/difficults/{$value.idDifficult}/des-active" onclick="return confirm('Deseja realmente desativar esta conta?')" class="btn btn-danger btn-xs"><i class="fa fa-power-off"></i> {if="$value.active == 1"}Desativar{else}Ativar{/if}</a>
+                      <a href="/admin/yields/{$value.idYield}" class="btn btn-primary btn-xs"><i class="fa fa-edit"></i> Editar</a>
+                      <a href="/admin/yields/{$value.idYield}/des-active" onclick="return confirm('Deseja realmente desativar esta conta?')" class="btn btn-danger btn-xs"><i class="fa fa-power-off"></i> {if="$value.active == 1"}Desativar{else}Ativar{/if}</a>
                     </td>
                   </tr>
                   {/loop}

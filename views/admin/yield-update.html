@@ -1,15 +1,12 @@
+
+
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
 <!-- Content Header (Page header) -->
 <section class="content-header">
   <h1>
-    Cadastrar Nova Categoria de Receita
+    Lista de Medidas
   </h1>
-  <ol class="breadcrumb">
-    <li><a href="/admin"><i class="fa fa-dashboard"></i> Home</a></li>
-    <li><a href="/admin/users">Categorias de Receitas</a></li>
-    <li class="active"><a href="/admin/users/create">Cadastrar</a></li>
-  </ol>
 </section>
 
 <!-- Main content -->
@@ -17,27 +14,32 @@
 
   <div class="row">
   	<div class="col-md-12">
-  		<div class="box box-success">
+  		<div class="box box-primary">
         <div class="box-header with-border">
-          <h3 class="box-title">Nova Categoria de Receita</h3>
+          <h3 class="box-title">Editar Medida</h3>
         </div>
         <!-- /.box-header -->
-        <!-- form start -->
-        <form role="form" action="/admin/recipe-category/create" method="post">
         {if="$createError != ''"}
           <div class="alert alert-danger">
             {$createError}
-         </div>
+          </div>
         {/if}
+        {if="$createSuccess != ''"}
+          <div class="alert alert-success">
+            {$createSuccess}
+          </div>
+        {/if}
+        <!-- form start -->
+        <form role="form" action="/admin/measures/{$measure.idType}" method="post">
           <div class="box-body">
             <div class="form-group">
               <label for="name">Nome</label>
-              <input type="text" class="form-control" id="name" name="name" placeholder="Digite o nome da categoria" maxlength="30" value="{$recipeCategoryRegisterValues.name}">
+              <input type="text" class="form-control" id="name" name="name" placeholder="Digite o nome da medida" value="{$measure.name}" maxlength="30">
             </div>
           </div>
           <!-- /.box-body -->
           <div class="box-footer">
-            <button type="submit" class="btn btn-success">Cadastrar</button>
+            <button type="submit" class="btn btn-primary">Salvar</button>
           </div>
         </form>
       </div>

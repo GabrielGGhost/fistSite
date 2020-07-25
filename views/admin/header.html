@@ -267,8 +267,8 @@ desired effect
             <li><a href="/admin/ingredient-category">Categorias de ingredientes</a></li>
             <li><a href="/admin/recipe-category">Categorias de receitas</a></li>
             <li><a href="/admin/difficults">Dificuldades</a></li>
-            <li><a href="#">Medidas</a></li>
-            <li><a href="#">Rendimento</a></li>
+            <li><a href="/admin/measures">Medidas</a></li>
+            <li><a href="/admin/yields">Rendimento</a></li>
           </ul>
         </li>
         <li class="active"><a href="/admin"><i class="fas fa-home"></i> <span>Menu</span></a></li>

@@ -35,7 +35,6 @@
               <input type="text" class="form-control" id="name" name="name" placeholder="Digite o nome da categoria" maxlength="30" value="<?php echo htmlspecialchars( $ingredientCategoryregisterValues["name"], ENT_COMPAT, 'UTF-8', FALSE ); ?>">
             </div>
           </div>
-          </div>
           <!-- /.box-body -->
           <div class="box-footer">
             <button type="submit" class="btn btn-success">Cadastrar</button>
