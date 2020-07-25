@@ -36,11 +36,11 @@
                 <tbody>
                   {loop="$yields"}
                   <tr>
-                    <td>{$value.idYield} </td>
+                    <td>{$value.idType} </td>
                     <td>{$value.name}</td>
                     <td>
-                      <a href="/admin/yields/{$value.idYield}" class="btn btn-primary btn-xs"><i class="fa fa-edit"></i> Editar</a>
-                      <a href="/admin/yields/{$value.idYield}/des-active" onclick="return confirm('Deseja realmente desativar esta conta?')" class="btn btn-danger btn-xs"><i class="fa fa-power-off"></i> {if="$value.active == 1"}Desativar{else}Ativar{/if}</a>
+                      <a href="/admin/yields/{$value.idType}" class="btn btn-primary btn-xs"><i class="fa fa-edit"></i> Editar</a>
+                      <a href="/admin/yields/{$value.idType}/des-active" onclick="return confirm('Deseja realmente desativar esta conta?')" class="btn btn-danger btn-xs"><i class="fa fa-power-off"></i> {if="$value.active == 1"}Desativar{else}Ativar{/if}</a>
                     </td>
                   </tr>
                   {/loop}

@@ -1,4 +1,4 @@
-
+<?php if(!class_exists('Rain\Tpl')){exit;}?>
 
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
@@ -19,22 +19,22 @@
           <h3 class="box-title">Editar Rendimento</h3>
         </div>
         <!-- /.box-header -->
-        {if="$createError != ''"}
+        <?php if( $createError != '' ){ ?>
           <div class="alert alert-danger">
-            {$createError}
+            <?php echo htmlspecialchars( $createError, ENT_COMPAT, 'UTF-8', FALSE ); ?>
           </div>
-        {/if}
-        {if="$createSuccess != ''"}
+        <?php } ?>
+        <?php if( $createSuccess != '' ){ ?>
           <div class="alert alert-success">
-            {$createSuccess}
+            <?php echo htmlspecialchars( $createSuccess, ENT_COMPAT, 'UTF-8', FALSE ); ?>
           </div>
-        {/if}
+        <?php } ?>
         <!-- form start -->
-        <form role="form" action="/admin/yields/{$yield.idType}" method="post">
+        <form role="form" action="/admin/yields/<?php echo htmlspecialchars( $yield["idType"], ENT_COMPAT, 'UTF-8', FALSE ); ?>" method="post">
           <div class="box-body">
             <div class="form-group">
               <label for="name">Nome</label>
-              <input type="text" class="form-control" id="name" name="name" placeholder="Digite o nome da medida" value="{$yield.name}" maxlength="30">
+              <input type="text" class="form-control" id="name" name="name" placeholder="Digite o nome da medida" value="<?php echo htmlspecialchars( $yield["name"], ENT_COMPAT, 'UTF-8', FALSE ); ?>" maxlength="30">
             </div>
           </div>
           <!-- /.box-body -->

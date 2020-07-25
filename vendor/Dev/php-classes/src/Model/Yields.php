@@ -10,7 +10,7 @@ class Yields extends Model {
 
 	const SESSION_ERROR = "YieldError";
 	const SESSION_SUCCESS = "YieldSuccess";
-	const REGISTER_VALUES = 'YieldRegisterValues';
+	const REGISTER_VALUES = 'yieldRegisterValues';
 
 	public function listAll(){
 
@@ -61,8 +61,8 @@ class Yields extends Model {
 
 		$sql = new Sql();
 
-		$results = $sql->select("call sp_yield_save(:NAME)", [
-														 	':NAME'=>strtolower(utf8_decode($this->getname()))
+		$results = $sql->select("call sp_yeldType_save(:NAME)", [
+														 	':NAME'=>utf8_decode($this->getname())
 														 ]);
 
 		$data = $results[0];
@@ -72,7 +72,7 @@ class Yields extends Model {
 		$this->setData($data);
 	}
 
-	public function getMeasure($idMeasure){
+	public function getYield($idMeasure){
 
 		$sql = new Sql();
 
@@ -94,8 +94,8 @@ class Yields extends Model {
 
 		$sql = new Sql();
 
-		$results = $sql->select("call sp_measure_update(:IDMEASURE,:NAME)",[
-															':IDMEASURE'=>$this->getidType(),
+		$results = $sql->select("call sp_yieldType_update(:IDTYPE,:NAME)",[
+															':IDTYPE'=>$this->getidType(),
 														 	':NAME'=>utf8_decode($this->getname())
 														 ]);
 
@@ -108,16 +108,16 @@ class Yields extends Model {
 		$this->setData($data);
 	}
 
-	public static function verifyMeasure($level){
+	public static function verifyYield($type){
 
 		$sql = new Sql();
 
-		$level = utf8_decode($level);
+		$type = utf8_decode($type);
 
 		$results = $sql->select("SELECT * 
 									FROM tb_yieldType
 										WHERE name = :NAME", [
-											':NAME'=>$level
+											':NAME'=>$type
 										]);
 
 		if (count($results) === 0) return false;

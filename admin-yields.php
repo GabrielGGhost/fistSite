@@ -16,20 +16,18 @@ $app->get("/admin/yields", function(){
 	$yields = encodeData($yields);
 
 	$page->setTpl("yield", [
-		'createError'=>'',
-		'createSuccess'=>'',
+		'createSuccess'=>Yields::getSuccess(),
 		'yields'=>$yields
 	]);
-
 });
 
 $app->get("/admin/yields/create", function(){
 
 	$page = new PageAdmin();
 
-	$page->setTpl("measure-create", [
+	$page->setTpl("yield-create", [
 		'createError'=>Yields::getError(),
-		'measureRegisterValues'=>(isset($_SESSION['measureRegisterValues'])) ? $_SESSION['measureRegisterValues'] : ['name'=>'']
+		'yieldRegisterValues'=>(isset($_SESSION['yieldRegisterValues'])) ? $_SESSION['yieldRegisterValues'] : ['name'=>'']
 	]);
 
 });
@@ -38,27 +36,27 @@ $app->post("/admin/yields/create", function(){
 
 	User::verifyLogin();
 
-	$measure = new Measure();
+	$yield = new Yields();
 
-	$_SESSION['measureRegisterValues'] = $_POST;
+	$_SESSION['yieldRegisterValues'] = $_POST;
 
 	if (!isset($_POST['name']) || $_POST['name'] === '') {
-		Yields::setError("Informe a medida!");
+		Yields::setError("Informe o rendimento!");
 		header("Location: /admin/yields/create");
 		exit;
 	}
 
-	if(Yields::verifyMeasure($_POST['name'])){
-		Yields::setError("Medida já medida!");
+	if(Yields::verifyYield($_POST['name'])){
+		Yields::setError("Rendimento já medida!");
 		header("Location: /admin/yields/create");
 		exit;
 	}
 
-	$measure->setData($_POST);
+	$yield->setData($_POST);
 
-	$measure->save();
+	$yield->save();
 
-	$_SESSION['measureRegisterValues'] = NULL;
+	$_SESSION['yieldRegisterValues'] = NULL;
 
 	Yields::setSuccess("Medida " . $_POST['name'] . "  foi incuído com sucesso");
 	header("Location: /admin/yields");
@@ -70,14 +68,14 @@ $app->get("/admin/yields/:IDDIFFICULT", function($idType){
 	User::verifyLogin();
 
 	$page = new PageAdmin();
-	$measure = new Measure();
+	$yield = new Yields();
 
-	$measure->getMeasure((int)$idType);
+	$yield->getYield((int)$idType);
 
-	$page->setTpl("measure-update", [
+	$page->setTpl("yield-update", [
 		'createError'=>Yields::getError(),
 		'createSuccess'=>Yields::getSuccess(),
-		'measure'=>$measure->getValues()
+		'yield'=>$yield->getValues()
 	]);
 
 });
@@ -86,29 +84,29 @@ $app->post("/admin/yields/:IDDIFFICULT", function($idType){
 
 	User::verifyLogin();
 
-	$measure = new Measure();
+	$yield = new Yields();
 
 	$page = new PageAdmin();
 
-	$measure->getMeasure((int)$idType);
+	$yield->getYield((int)$idType);
 
 	if (!isset($_POST['name']) || $_POST['name'] === '') {
-		Yields::setError("Informe o nome da medida!");
+		Yields::setError("Informe o nome do rendimento!");
 		header("Location: /admin/yields/$idType");
 		exit;
 	}
 
-	if($_POST['name'] != $measure->getname()) {
-		if(Yields::verifyMeasure($_POST['name'])){
-			Yields::setError("Dificuldade já cadastrada!");
+	if($_POST['name'] != $yield->getname()) {
+		if(Yields::verifyYield($_POST['name'])){
+			Yields::setError("Rendimento já cadastrada!");
 			header("Location: /admin/yields/$idType");
 			exit;
 		}
 	}
 
-	$measure->setData($_POST);
+	$yield->setData($_POST);
 
-	$measure->update();
+	$yield->update();
 
 	Yields::setSuccess("Alterações feitas com sucesso!");
 	header("Location: /admin/yields/$idType");
@@ -119,11 +117,11 @@ $app->get("/admin/yields/:IDTYPE/des-active", function($idType){
 
 	User::verifyLogin();
 
-	$measure = new Measure();
+	$yields = new Yields();
 
-	$measure->getMeasure((int)$idType);
+	$yields->getYield((int)$idType);
 
-	$measure->des_active();
+	$yields->des_active();
 
 	header("Location: /admin/yields");
 	exit;

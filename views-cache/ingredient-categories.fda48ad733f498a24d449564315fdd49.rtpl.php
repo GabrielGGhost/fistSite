@@ -70,7 +70,7 @@
                             <td><?php echo htmlspecialchars( $value1["idCategory"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>
                             <td><?php echo htmlspecialchars( $value1["name"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>
                             <td>
-                                <a href="/admin/categories/<?php echo htmlspecialchars( $value1["idCategory"], ENT_COMPAT, 'UTF-8', FALSE ); ?>/products/<?php echo htmlspecialchars( $value1["idCategory"], ENT_COMPAT, 'UTF-8', FALSE ); ?>/remove" class="btn btn-primary btn-xs pull-right"><i class="fa fa-arrow-left"></i> Remover</a>
+                                <a href="/admin/categories/<?php echo htmlspecialchars( $value1["idCategory"], ENT_COMPAT, 'UTF-8', FALSE ); ?>/ingredients/<?php echo htmlspecialchars( $ingredient["idIngredient"], ENT_COMPAT, 'UTF-8', FALSE ); ?>/remove" class="btn btn-primary btn-xs pull-right"><i class="fa fa-arrow-left"></i> Remover</a>
                             </td>
                             </tr>
                             <?php } ?>

@@ -1,4 +1,4 @@
-<!-- Content Wrapper. Contains page content -->
+<?php if(!class_exists('Rain\Tpl')){exit;}?><!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
 <!-- Content Header (Page header) -->
 <section class="content-header">
@@ -24,15 +24,15 @@
         <!-- /.box-header -->
         <!-- form start -->
         <form role="form" action="/admin/yields/create" method="post">
-        {if="$createError != ''"}
+        <?php if( $createError != '' ){ ?>
           <div class="alert alert-danger">
-            {$createError}
+            <?php echo htmlspecialchars( $createError, ENT_COMPAT, 'UTF-8', FALSE ); ?>
          </div>
-        {/if}
+        <?php } ?>
           <div class="box-body">
             <div class="form-group">
               <label for="name">Nome</label>
-              <input type="text" class="form-control" id="name" name="name" placeholder="Digite o nome do rendimento" maxlength="30" values="{$yieldRegisterValues.name}">
+              <input type="text" class="form-control" id="name" name="name" placeholder="Digite o nome do rendimento" maxlength="30" values="<?php echo htmlspecialchars( $yieldRegisterValues["name"], ENT_COMPAT, 'UTF-8', FALSE ); ?>">
             </div>
           </div>
           <!-- /.box-body -->
