@@ -274,7 +274,7 @@ desired effect
         <li class="active"><a href="/admin"><i class="fas fa-home"></i> <span>Menu</span></a></li>
         <li><a href="/admin/users"><i class="fa fa-users"></i> <span>Usuários</span></a></li>
         <li><a href="/admin/ingredients"><i class="far fa-lemon"></i>  </i><span>Ingredientes</span></a></li>
-        <li><a href="#"><i class="fas fa-book"></i> </i><span>Receitas</span></a></li>
+        <li><a href="/admin/recipes"><i class="fas fa-book"></i> </i><span>Receitas</span></a></li>
       </ul>
       <!-- /.sidebar-menu -->
     </section>

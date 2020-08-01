@@ -21,6 +21,7 @@ require_once("admin-recipe_category.php");
 require_once("admin-difficult.php");
 require_once("admin-measure.php");
 require_once("admin-yields.php");
+require_once("admin-recipes.php");
 
 $app->run();
 

@@ -18,3 +18,14 @@ function encodeData($data){
 }
 
 ?>
+
+<!-- 
+<script type="text/javascript">
+
+var autor = getElementById('idAuthor');
+
+autor.addEventListener('click', function(){
+	alert('a');
+});
+
+</script> -->

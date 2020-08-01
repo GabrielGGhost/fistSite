@@ -68,6 +68,8 @@ body {
 .layout-top-nav .main-footer {
   margin-left: 0;
 }
+
+
 @media (max-width: 767px) {
   .content-wrapper,
   .right-side,
@@ -4943,4 +4945,3 @@ table.text-center th {
 .form-group{
   background-color: black;
 }
-
