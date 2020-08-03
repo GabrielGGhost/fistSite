@@ -25,6 +25,12 @@ $app->get("/admin/recipes", function(){
 
 $app->get("/admin/recipes/create", function(){
 
+	// $_SESSION[Recipes::INGREDIENTS_LISTED] = "";
+
+
+	$yieldTypes = Recipes::getComboBox('yt');
+	$yieldTypes = encodeData($yieldTypes);
+
 	$page = new PageAdmin();
 
 	$yieldTypes = Recipes::getComboBox('yt');
@@ -45,7 +51,9 @@ $app->get("/admin/recipes/create", function(){
 		'yieldType'=>$yieldTypes,
 		'difficult'=>$difficults,
 		'measure'=>$measure,
-		'ingredient'=>$ingredient
+		'ingredient'=>$ingredient,
+		'listedIngredients'=>$_SESSION[Recipes::INGREDIENTS_LISTED],
+		'listedSteps'=>$_SESSION[Recipes::STEPS_LISTED]
 	]);
 
 });
@@ -59,6 +67,8 @@ $app->post("/admin/recipes/create", function(){
 	$_SESSION['recipeRegisterValues'] = $_POST;
 
 	$recipe->setlistedIngredients($_POST);
+
+	$recipe->setlistedSteps($_POST);
 
 	if (!isset($_POST['recipeName']) || $_POST['recipeName'] === '') {
 		Recipes::setError("Informe o nome da receita!");
@@ -97,26 +107,25 @@ $app->post("/admin/recipes/create", function(){
 		exit;
 	}
 
-	$ingredients = $_SESSION[Recipes::INGREDIENTSLISTED];
+	$ingredients = $_SESSION[Recipes::INGREDIENTS_LISTED];
 
 	foreach ($ingredients as $key => $arr) {
 		foreach ($arr as $index => $value) {
-			$field = substr($index, 0, 3);
+			
+			switch ($index) {
+				case 'quantity':
 
-			switch ($field) {
-				case 'qua':
-					if(!isset($value) || $value === '') {
+					if(!isset($value) || $value === '' || (int)$value < 1) {
 
 						Recipes::setError("O ingrediente númeroº" . ($key + 1) . " precisa e uma quantidade maior do que 0");
-							header("Location: /admin/recipes/create");
-							exit;
+						header("Location: /admin/recipes/create");
+						exit;
 					}
 					break;
 			}
 		}
 	}
-						var_dump('ok');
-						exit;
+
 	$recipe->setData($_POST);
 	$i = 0;
 	while(true) {
@@ -127,6 +136,8 @@ $app->post("/admin/recipes/create", function(){
 	
 	$recipe->setIngredientQtd(--$i);
 
+	$_SESSION[Recipes::INGREDIENTS_LISTED] = "";
+	$_SESSION[Recipes::STEPS_LISTED] = "";
 	// $recipe->saveRecipe();
 
 	// $_SESSION['recipeRegisterValues'] = NULL;
@@ -135,20 +146,6 @@ $app->post("/admin/recipes/create", function(){
 	exit;
 });
 
-$app->post("/admin/recipes/searchClient", function(){
-
-	User::verifyLogin();
-	var_dump('searc');
-	exit;
-	$_SESSION['recipeRegisterValues'] = $_POST;
-
-	$page = new PageAdmin();
-	
-	if(verifyAuthor()) {
-
-	}
-
-});
 
 // $app->get("/admin/difficults/:IDDIFFICULT", function($idDifficult){
 

@@ -9,8 +9,10 @@ use Dev\DB\Sql;
 class Recipes extends Model {
 
 	private $listedIngredients = [];
+	private $listedSteps = [];
 
-	const INGREDIENTSLISTED = "ingredients";
+	const INGREDIENTS_LISTED = "ingredients";
+	const STEPS_LISTED = "steps";
 	const SESSION_ERROR = "RecipeError";
 	const SESSION_SUCCESS = "RecipeSuccess";
 	const REGISTER_VALUES = 'recipeRegisterValues';
@@ -180,25 +182,47 @@ class Recipes extends Model {
 		foreach ($data as $key => $value) {
 			switch (substr($key, 0, 3)) {
 				case 'qua':
-					$this->listedIngredients[$arr]['quantity_' . ($i++ + 1)] = $value;
+					$this->listedIngredients[$arr]['quantityId'] = $key;
+					$this->listedIngredients[$arr]['quantity'] = $value;
 					break;
 				case 'mea':
-					$this->listedIngredients[$arr]['measure_' . ($i++ + 1)] = $value;
+
+					$this->listedIngredients[$arr]['measureId'] = $key;
+					$this->listedIngredients[$arr]['measure'] = $value;
 					break;
 				case 'com':
-					$this->listedIngredients[$arr]['complement_' . ($i++ + 1)] = $value;
+					$this->listedIngredients[$arr]['complementId'] = $key;
+					$this->listedIngredients[$arr]['complement'] = $value;
 					break;
 				case 'ing':
-					$this->listedIngredients[$arr]['ingredient_' . ($i++ + 1)] = $value;
+					$this->listedIngredients[$arr]['ingredientId'] = $key;
+					$this->listedIngredients[$arr]['ingredient'] = $value;
 					break;
 				case 'plu':
-					$this->listedIngredients[$arr]['plural_' . ($i++ + 1)] = $value;
+					$this->listedIngredients[$arr]['pluralId'] = $key;
+					$this->listedIngredients[$arr]['plural'] = $value;
 					$arr++;
 					break;
 			}
 		}
 
-		$_SESSION[Recipes::INGREDIENTSLISTED] = $this->listedIngredients;
+		$_SESSION[Recipes::INGREDIENTS_LISTED] = $this->listedIngredients;
+	}
+
+	public function setlistedSteps($data){
+
+		$arr = 0;
+		foreach ($data as $key => $value) {
+			switch (substr($key, 0, 3)) {
+			case 'ste':
+				$this->listedSteps[$arr]['stepId'] = $key;
+				$this->listedSteps[$arr]['description'] = $value;
+				$arr++;
+				break;
+			}
+		}
+		
+		$_SESSION[Recipes::STEPS_LISTED] = $this->listedSteps;
 	}
 }
 

@@ -1,5 +1,3 @@
-var line = 0,
-	ingredients = 0;
 var btnAddStep = document.getElementById('addStep');
 var btnRemoveStep = document.getElementById('removeStep');
 
@@ -7,10 +5,10 @@ var btnAddIngredient = document.getElementById('addIngredient');
 var btnRemoveIngredient = document.getElementById('removeIngredient');
 
 btnAddStep.addEventListener('click', function(){
-	addInput('stepLines');
+	addInput('steps');
 });
 btnRemoveStep.addEventListener('click', function(){
-	removeInput('stepLines');
+	removeInput();
 });
 
 btnAddIngredient.addEventListener('click', function(){
@@ -21,41 +19,59 @@ btnRemoveIngredient.addEventListener('click', function(){
 });
 
 function addInput(divName) {
-	line < 1 ? line = 0 : line = line; 
-  var newdiv = document.createElement('div');
-  newdiv.innerHTML += '<input type="text" class="form-control stepInput" id="step' + (line+1) + '" name="recipeName" placeholder="Passo Nº' + (line+1) +'" maxlength="200">';
-  document.getElementById(divName).appendChild(newdiv);
-  line++;
+
+	var obj = document.querySelectorAll('.stepList');
+
+	var count = obj.length;
+
+	var clone = obj[0].cloneNode(true);
+	var newDiv = document.createElement("div");
+
+	newDiv.id = "step_" + (++count);
+	newDiv.classList.add("stepList");
+	newDiv.innerHTML = replaceAll(clone.innerHTML ,'_1' , '_' + count);
+	newDiv.innerHTML = replaceAll(newDiv.innerHTML ,'º1' , 'º' + count);
+
+	document.getElementById(divName).appendChild(newDiv);
 }
 
 function removeInput() {
-	var div = document.getElementById('stepLines');
+	var div = document.getElementById('steps');
 
-	div.removeChild(div.lastChild);
-  	line--;
+	var children = div.children.length
+
+	if(children > 1){
+
+		div.removeChild(div.lastChild);
+
+	}
+
 }
 
 function addIngredient(divName) {
-	ingredients < 2 ? ingredients = 1 : ingredients = ingredients; 
-	var obj = document.getElementById('ingredients1');
-	var clone = obj.cloneNode(true);
+	
+	var obj = document.querySelectorAll('.ingredientList');
 
+	var count = obj.length;
+
+	var clone = obj[0].cloneNode(true);
 	var newDiv = document.createElement("div");
-	newDiv.innerHTML = replaceAll(clone.innerHTML ,'_1' , '_' + (ingredients+1));
+
+	newDiv.id = "ingredientList_" + (++count);
+	newDiv.classList.add("ingredientList");
+	newDiv.innerHTML = replaceAll(clone.innerHTML ,'_1' , '_' + count);
 
 
 	document.getElementById(divName).appendChild(newDiv);
-
-	ingredients++;
 }
 
 function removeIngredient() {
 	var div = document.getElementById('ingredients');
 
-	if(div.children.length > 1){
+	var children = div.children.length
+	if(children > 1){
 	
 		div = div.removeChild(div.lastChild);
-  		ingredients--;		
 	}
 	
 }
