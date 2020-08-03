@@ -66,36 +66,23 @@ class Recipes extends Model {
 
 		$sql = new Sql();
 
-		$results = $sql->select("call sp_yeldType_save(:RECIPENAME,
+		$results = $sql->select("CALL sp_recipe_save(:RECIPENAME,
 														:YIELD,
 														:IDYIELD,
 														:PREPARARIONTIME,
 														:IDDIFFICULT,
 														:IDAUTHOR)", [
-														 	':NAME'=>utf8_decode($this->getname())
+														 	':RECIPENAME'=>utf8_decode($this->getrecipeName()),
+														 	':YIELD'=>$this->getyield(),
+														 	':IDYIELD'=>$this->getidYield(),
+														 	':PREPARARIONTIME'=>$this->getpreparationTime(),
+														 	':IDDIFFICULT'=>$this->getidDifficult(),
+														 	':IDAUTHOR'=>$this->getidAuthor()
 														 ]);
 
 		$data = $results[0];
 
-		$data['name'] = utf8_encode($data['name']);
-
-		$this->setData($data);
-	}
-
-	public function getYield($idMeasure){
-
-		$sql = new Sql();
-
-		$results = $sql->select("SELECT * 
-									FROM tb_yieldType
-										WHERE idType = :IDMEASURE", [
-											':IDMEASURE'=>$idMeasure
-										]);
-
-		$data = $results[0];
-
-		$data['name'] = utf8_encode($data['name']);
-
+		$data['recipeName'] = utf8_encode($data['recipeName']);
 
 		$this->setData($data);
 	}
@@ -223,6 +210,45 @@ class Recipes extends Model {
 		}
 		
 		$_SESSION[Recipes::STEPS_LISTED] = $this->listedSteps;
+	}
+
+	public function checkIngredients($ingredients){
+
+		foreach ($ingredients as $key => $arr) {
+			foreach ($arr as $index => $value) {
+				
+				switch ($index) {
+					case 'quantity':
+
+						if(!isset($value) || $value === '' || (int)$value < 1) {
+
+							Recipes::setError("O ingrediente númeroº" . ($key + 1) . " precisa e uma quantidade maior do que 0");
+							header("Location: /admin/recipes/create");
+							exit;
+						}
+						break;
+				}
+			}
+		}
+	}
+
+	public function checkAuthor(){
+
+		$sql = new Sql();
+
+		$result = $sql->select("SELECT COUNT(*)
+									FROM tb_users
+										WHERE idUser = :IDUSER", [
+											':IDUSER'=>$this->getidAuthor()
+										]);
+		
+		$result = $result[0];
+
+		if((int)$result['COUNT(*)'] > 0) {
+			return true;
+		}
+
+		return false;
 	}
 }
 

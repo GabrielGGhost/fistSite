@@ -109,24 +109,17 @@ $app->post("/admin/recipes/create", function(){
 
 	$ingredients = $_SESSION[Recipes::INGREDIENTS_LISTED];
 
-	foreach ($ingredients as $key => $arr) {
-		foreach ($arr as $index => $value) {
-			
-			switch ($index) {
-				case 'quantity':
-
-					if(!isset($value) || $value === '' || (int)$value < 1) {
-
-						Recipes::setError("O ingrediente númeroº" . ($key + 1) . " precisa e uma quantidade maior do que 0");
-						header("Location: /admin/recipes/create");
-						exit;
-					}
-					break;
-			}
-		}
-	}
+	$recipe->checkIngredients($ingredients);
 
 	$recipe->setData($_POST);
+
+	if(!$recipe->checkAuthor()){
+
+		Recipes::setError("Autor inexistente!");
+		header("Location: /admin/recipes/create");
+		exit;
+	}
+
 	$i = 0;
 	while(true) {
 		if($recipe->{"getingredient_" . ++$i}() === NULL) {
@@ -136,13 +129,14 @@ $app->post("/admin/recipes/create", function(){
 	
 	$recipe->setIngredientQtd(--$i);
 
+	$recipe->saveRecipe();
+
 	$_SESSION[Recipes::INGREDIENTS_LISTED] = "";
 	$_SESSION[Recipes::STEPS_LISTED] = "";
-	// $recipe->saveRecipe();
 
-	// $_SESSION['recipeRegisterValues'] = NULL;
-
-	// header("Location: /admin/recipes");
+	$_SESSION['recipeRegisterValues'] = NULL;
+	Recipes::setSuccess('Receita ' . $recipe->getrecipeName() . ' foi adicionada com sucesso!');
+	header("Location: /admin/recipes");
 	exit;
 });
 
