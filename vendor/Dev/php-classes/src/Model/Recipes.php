@@ -250,6 +250,34 @@ class Recipes extends Model {
 
 		return false;
 	}
+
+	public function saveIngredients(){
+
+		$sql = new Sql();
+
+		$ingredients = $_SESSION[Recipes::INGREDIENTS_LISTED];
+
+		foreach ($ingredients as $key => $arr) {
+
+			$results = $sql->select("CALL sp_recipe_ingredient_save(:IDRECIPE,
+																	:IDINGREDIENT,
+																	:QUANTITY,
+																	:MEASURETYPE,
+																	:COMPLEMENT,
+																	:PLURAL)", [
+																	 	':IDRECIPE'=>utf8_decode($this->getidRecipe()),
+																		':IDINGREDIENT'=>$arr['ingredient'],
+																	 	':QUANTITY'=>$arr['quantity'],
+																	 	':MEASURETYPE'=>$arr['measure'],
+																	 	':COMPLEMENT'=>$arr['complement'],
+																	 	':PLURAL'=>$arr['plural']
+																	]);
+			var_dump($results);
+			exit;
+		}
+
+
+	}
 }
 
 

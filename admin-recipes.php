@@ -131,6 +131,9 @@ $app->post("/admin/recipes/create", function(){
 
 	$recipe->saveRecipe();
 
+	$recipe->saveIngredients();
+	var_dump('foi');
+	exit;
 	$_SESSION[Recipes::INGREDIENTS_LISTED] = "";
 	$_SESSION[Recipes::STEPS_LISTED] = "";
 
