@@ -152,7 +152,7 @@ class Recipes extends Model {
 				$data = $sql->select("SELECT * FROM tb_measure WHERE active = 1");
 				break;
 			case 'ing':
-				$data = $sql->select("SELECT * FROM tb_ingredient WHERE active = 1");
+				$data = $sql->select("SELECT * FROM tb_ingredient WHERE active = 1 ORDER BY singularName");
 				break;
 			default:
 				# code...

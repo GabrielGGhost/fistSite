@@ -17,7 +17,7 @@ class Ingredient extends Model {
 
 		$sql = new Sql();
 
-		$results = $sql->select("SELECT * FROM tb_ingredient");
+		$results = $sql->select("SELECT * FROM tb_ingredient ORDER BY singularName");
 
 		return $results;
 	}

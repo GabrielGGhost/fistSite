@@ -43,12 +43,6 @@ $app->post("/admin/ingredients/create", function(){
 		exit;
 	}
 
-	if(!isset($_POST['pluralName']) || $_POST['pluralName'] === '') {
-		Ingredient::setError('Informe o plural do ingrediente!');
-		header("Location: /admin/ingredients/create");
-		exit;
-	}
-
 	if(Ingredient::verifySingularName($_POST['singularName'])){
 		Ingredient::setError('Ingrediente singular já cadastrado!');
 		header("Location: /admin/ingredients/create");
@@ -106,15 +100,9 @@ $app->post("/admin/ingredients/:idIngredient", function($idIngredient){
 			exit;
 		}
 
-		if(!isset($_POST['pluralName']) || $_POST['pluralName'] === '') {
-			Ingredient::setError('Informe o plural do ingrediente!');
-			header("Location: /admin/ingredients/$idIngredient");
-			exit;
-		}
-
 		if($_POST['singularName'] != $ingredient->getsingularName()){
 
-			if(Ingredient::verifySingularName($_POST['name'])){
+			if(Ingredient::verifySingularName($_POST['pluralName'])){
 			
 				Ingredient::setError('Ingrediente plural já cadastrado!');
 				header("Location: /admin/ingredients/$idIngredient");
@@ -124,7 +112,7 @@ $app->post("/admin/ingredients/:idIngredient", function($idIngredient){
 
 		if($_POST['pluralName'] != $ingredient->getpluralName()){
 
-			if(Ingredient::verifyPluralName($_POST['name'])){
+			if(Ingredient::verifyPluralName($_POST['pluralName'])){
 			
 				Ingredient::setError('Ingrediente já cadastrado!');
 				header("Location: /admin/ingredients/$idIngredient");

@@ -30,11 +30,15 @@
          </div>
         {/if}
           <div class="box-body">
-            <div class="form-group">
-              <label for="name">Nome</label>
-              <input type="text" class="form-control" id="name" name="name" placeholder="Digite o nome da medida" maxlength="30" values="{$measureRegisterValues.name}">
+            <div class="form-double">
+                <label for="singularName">Nome singular</label>
+                <input type="text" class="form-control" id="singularName" name="singularName" placeholder="Digite o nome da medida singular" maxlength="30" values="{$measureRegisterValues.singularName}">
+              </div>
+              <div class="form-double">
+                <label for="pluralName">Nome plural</label>
+                <input type="text" class="form-control" id="pluralName" name="pluralName" placeholder="Digite o nome da medida plural" maxlength="30" values="{$measureRegisterValues.pluralName}">
+              </div>
             </div>
-          </div>
           <!-- /.box-body -->
           <div class="box-footer">
             <button type="submit" class="btn btn-success">Cadastrar</button>

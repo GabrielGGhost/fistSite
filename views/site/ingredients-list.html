@@ -2,9 +2,13 @@
  	<section class="ingredient-cards">
     	{loop="$ingredients"}
         	<article class="ingredient-cards__card">
-            	<img {if="$value.pictureId != ''"} src="/res/site/img/igrendients_pictures/{$value.pictureId}.jpg" {else} src="/res/site/img/defaults/no-ingredient.jpg" {/if} alt="Foto de ingrediente" class="ingredient-cards__image ingredient-box">
+              <div class="ingredientImage">
+                <img {if="$value.pictureId != ''"} src="/res/site/img/igrendients_pictures/{$value.pictureId}.jpg" {else} src="/res/site/img/defaults/no-ingredient.jpg" {/if} alt="Foto de ingrediente" class="ingredient-cards__image ingredient-box">              
+              </div>
               	<div class="ingredient-cards__content">
-               		<h2 class="ingredient-cards__title">{$value.singularName}</h2>
+                  <div class="ingredient-title">
+                    <h2 class="ingredient-cards__title">{$value.singularName}</h2>
+                  </div>
                		<p class="ingredient-cards__text">{$value.description}</p>
               	</div>
             </article>

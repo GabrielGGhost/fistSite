@@ -29,7 +29,7 @@ $app->get("/admin/measures/create", function(){
 
 	$page->setTpl("measure-create", [
 		'createError'=>Measure::getError(),
-		'measureRegisterValues'=>(isset($_SESSION['measureRegisterValues'])) ? $_SESSION['measureRegisterValues'] : ['name'=>'']
+		'measureRegisterValues'=>(isset($_SESSION['measureRegisterValues'])) ? $_SESSION['measureRegisterValues'] : ['singularName'=>'', 'pluralName'=>'']
 	]);
 
 });
@@ -42,13 +42,13 @@ $app->post("/admin/measures/create", function(){
 
 	$_SESSION['measureRegisterValues'] = $_POST;
 
-	if (!isset($_POST['name']) || $_POST['name'] === '') {
+	if (!isset($_POST['singularName']) || $_POST['singularName'] === '') {
 		Measure::setError("Informe a medida!");
 		header("Location: /admin/measures/create");
 		exit;
 	}
 
-	if(Measure::verifyMeasure($_POST['name'])){
+	if(Measure::verifyMeasure($_POST['singularName'])){
 		Measure::setError("Medida já medida!");
 		header("Location: /admin/measures/create");
 		exit;
@@ -60,12 +60,12 @@ $app->post("/admin/measures/create", function(){
 
 	$_SESSION['measureRegisterValues'] = NULL;
 
-	Measure::setSuccess("Medida " . $_POST['name'] . "  foi incuído com sucesso");
+	Measure::setSuccess("Medida " . $_POST['singularName'] . "  foi incuído com sucesso");
 	header("Location: /admin/measures");
 	exit;
 });
 
-$app->get("/admin/measures/:IDDIFFICULT", function($idType){
+$app->get("/admin/measures/:IDMEASURE", function($idType){
 
 	User::verifyLogin();
 
@@ -82,7 +82,7 @@ $app->get("/admin/measures/:IDDIFFICULT", function($idType){
 
 });
 
-$app->post("/admin/measures/:IDDIFFICULT", function($idType){
+$app->post("/admin/measures/:IDMEASURE", function($idType){
 
 	User::verifyLogin();
 
@@ -92,14 +92,14 @@ $app->post("/admin/measures/:IDDIFFICULT", function($idType){
 
 	$measure->getMeasure((int)$idType);
 
-	if (!isset($_POST['name']) || $_POST['name'] === '') {
+	if (!isset($_POST['singularName']) || $_POST['singularName'] === '') {
 		Measure::setError("Informe o nome da medida!");
 		header("Location: /admin/measures/$idType");
 		exit;
 	}
 
-	if($_POST['name'] != $measure->getname()) {
-		if(Measure::verifyMeasure($_POST['name'])){
+	if($_POST['singularName'] != $measure->getsingularName()) {
+		if(Measure::verifyMeasure($_POST['singularName'])){
 			Measure::setError("Dificuldade já cadastrada!");
 			header("Location: /admin/measures/$idType");
 			exit;

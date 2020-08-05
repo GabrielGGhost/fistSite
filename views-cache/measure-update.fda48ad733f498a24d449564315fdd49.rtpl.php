@@ -33,8 +33,15 @@
         <form role="form" action="/admin/measures/<?php echo htmlspecialchars( $measure["idType"], ENT_COMPAT, 'UTF-8', FALSE ); ?>" method="post">
           <div class="box-body">
             <div class="form-group">
-              <label for="name">Nome</label>
-              <input type="text" class="form-control" id="name" name="name" placeholder="Digite o nome da medida" value="<?php echo htmlspecialchars( $measure["name"], ENT_COMPAT, 'UTF-8', FALSE ); ?>" maxlength="30">
+              <div class="form-double">
+                <label for="singularName">Nome singular</label>
+                <input type="text" class="form-control" id="singularName" name="singularName" placeholder="Digite o nome da medida" value="<?php echo htmlspecialchars( $measure["singularName"], ENT_COMPAT, 'UTF-8', FALSE ); ?>" maxlength="30">           
+              </div>
+              <div class="form-double">
+                <label for="pluralName">Nome plural</label>
+                <input type="text" class="form-control" id="pluralName" name="pluralName" placeholder="Digite o nome da medida" value="<?php echo htmlspecialchars( $measure["pluralName"], ENT_COMPAT, 'UTF-8', FALSE ); ?>" maxlength="30">    
+              </div>
+
             </div>
           </div>
           <!-- /.box-body -->

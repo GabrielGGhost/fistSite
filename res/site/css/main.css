@@ -81,7 +81,7 @@ img{
 
 .logo-text{/*Formatar o texto logo*/
   text-transform: uppercase; /*Deixa o texto em maiusculo*/
-  background-color: #63c6ae; /*Define o fundo do logo verde*/
+  background-color: #8f00d3; /*Define o fundo do logo verde*/
   font-size: 24px; /*Define o tamanho da fonte pra 24px*/
   margin: 0; /*Zera a margin*/
   padding: 20px; /*Define o padding pra 20px para todos os lados*/
@@ -122,8 +122,8 @@ img{
 }
 
 .header__nav a:hover{/*Formatar o hove dos links*/
-  color: #63c8ae;
-  border-bottom: 2px solid #63c8ae;
+  color: #8f00d3;
+  border-bottom: 2px solid #8f00d3;
 }
 
 .header__btnMenu{ /*Formatar o botão*/
@@ -156,7 +156,7 @@ img{
 }
 
 .hero__title{ /*Formatar o titulo de hero*/
-  background-color: #63c6ae; /*Define a cor de fundo do titulo pra verde marinho*/
+  background-color: #8f00d3; /*Define a cor de fundo do titulo pra verde marinho*/
   color: white; /*Define a cor do texto para branco*/
   font-size: 28px; /*Define o tamanho da fonte pra 16px*/
   font-weight: 600; /*600 para o bold*/
@@ -191,12 +191,17 @@ img{
 .ingredient-cards__card{
   transition: .3s linear;/*Colocar uma transição nos carts*/
   margin-bottom: 2em;
+  border-top: 3px solid #8f00d3;
+  border-radius: 5px;
+
+  cursor:pointer;
+
 }
 
-.ingredient-cards__card:hover{/*Formatar o hover*/
-  outline: 5px solid #63c6ae;/*Linha de fora do o card*/
-  outline-offset: -5px; /*Internizar a linha*/
-}
+/*.ingredient-cards__card:hover{
+  outline: 2px solid #8f00d3;
+  outline-offset: -2px; 
+}*/
 
 .ingredient-cards__card:hover .ingredient-cards__avatar img{/*Formatar a img dentro de people_cards__acavatr quando passar o mouse em cima de people cards*/
   transform:translateY(-50%); /*Movem para cima metade do damanho da imagem*/
@@ -205,7 +210,7 @@ img{
 
 .ingredient-cards__card:hover .ingredient-cards__title,
 .ingredient-cards__card:hover .ingredient-cards__text{ /*Formatar ingredient-cards__text e title dentro de people-card quando  o mouse for passado por cima*/
-  color: #63c6ae;
+  color: #8f00d3;
 }
 
 .ingredient-cards__image{ /*Formatar a imagem do card*/
@@ -221,10 +226,15 @@ img{
 
 .ingredient-cards__content{ /*Formatar o a basedo texto*/
   text-align: center; /*Deixar tudo no centro*/
-  padding: 0px 25px 0px; /*Distanciar 40px para cima, 25 pros lados e 10 pra baixo*/
   border-left: 1px solid #dbe1e7; /*Define uma borda de 1px esquerda sólida cinza*/
   border-right: 1px solid #dbe1e7; /*Define uma borda de 1px direita sólida cinza*/
+  -webkit-box-shadow: 5px 15px 15px -6px rgba(0,0,0,0.68);
+  -moz-box-shadow: 5px 15px 15px -6px rgba(0,0,0,0.68);
+  box-shadow: 4px 8px 15px -6px rgba(0,0,0,0.68);
+  border-radius: 10px; 
+
 }
+
 
 .ingredient-cards__content:last-child{ /*Formatar o útimo ingredient-cards_content*/
   border-bottom: 1px solid #dbe1e7; /*Define uma borda de 1px direita sólida cinza*/
@@ -234,7 +244,10 @@ img{
 .ingredient-cards__title{/*Formatar o título dos cards*/
   color: #737c85; /*Formatar a cor para cinza*/
   font-size: 16px; /*Definir o tamanho para 21px*/
-  font-w
+}
+
+.ingredient-title{
+  border-bottom: 1px solid black;
 }
 
 .ingredient-cards__text{ /*Formatar texto nos cards*/
@@ -289,7 +302,7 @@ img{
 }
 
 .last-articles__title{ /*Formatar o titulo das classes las-articles*/
-  background-color: #63c6ae; /*Fundo verde marinho*/
+  background-color: #8f00d3; /*Fundo verde marinho*/
   padding: 5px 0; /*Padding 5px pra cima e baixo e 0 pros lados*/
 }
 
@@ -328,7 +341,7 @@ img{
 }
 
 .quote-container{ /*Formatar o quote-container*/
-  background-color: #63c6ae; /*Fundo verde marinho*/
+  background-color: #8f00d3; /*Fundo verde marinho*/
   padding: 50px 0; /*Padding 50px pra cima e baixo e 0 pros lados*/
   border-bottom: 12px solid #48b9a1; /*Colocar borda inferior de 10px sólida verde marinho escuro*/
 }

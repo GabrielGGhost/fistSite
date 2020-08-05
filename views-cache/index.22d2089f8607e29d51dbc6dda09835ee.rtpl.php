@@ -12,7 +12,7 @@
               <img src="res/site/img/c01.jpg" alt="Carousel Img" class="ingredient-cards__image">
 
               <div class="ingredient-cards__avatar">
-                <img src="res/site/img/teamsprite_01.png" alt="Carousel Img">
+                <img src="res/site/img/teamsprite_01.png" class="ingredientImage" alt="Carousel Img">
               </div>
               <div class="ingredient-cards__content">
                 <h2 class="ingredient-cards__title">Lorem ipsum dolor sit amet consectetur</h2>

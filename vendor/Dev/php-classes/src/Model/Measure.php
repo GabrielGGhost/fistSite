@@ -61,13 +61,16 @@ class Measure extends Model {
 
 		$sql = new Sql();
 
-		$results = $sql->select("call sp_measure_save(:NAME)", [
-														 	':NAME'=>strtolower(utf8_decode($this->getname()))
+		$results = $sql->select("call sp_measure_save(:SINGULARNAME,
+														:PLURALNAME)", [
+														 	':SINGULARNAME'=>strtolower(utf8_decode($this->getsingularName())),
+														 	':PLURALNAME'=>strtolower(utf8_decode($this->getpluralName()))
 														 ]);
 
 		$data = $results[0];
 
-		$data['name'] = utf8_encode($data['name']);
+		$data['singularName'] = utf8_encode($data['singularName']);
+		$data['pluralName'] = utf8_encode($data['pluralName']);
 
 		$this->setData($data);
 	}
@@ -84,8 +87,8 @@ class Measure extends Model {
 
 		$data = $results[0];
 
-		$data['name'] = utf8_encode($data['name']);
-
+		$data['singularName'] = utf8_encode($data['singularName']);
+		$data['pluralName'] = utf8_encode($data['pluralName']);
 
 		$this->setData($data);
 	}
@@ -94,30 +97,34 @@ class Measure extends Model {
 
 		$sql = new Sql();
 
-		$results = $sql->select("call sp_measure_update(:IDMEASURE,:NAME)",[
+		$results = $sql->select("call sp_measure_update(:IDMEASURE,
+														:SINGULARNAME,
+														:PLURALNAME)",[
 															':IDMEASURE'=>$this->getidType(),
-														 	':NAME'=>utf8_decode($this->getname())
+														 	':SINGULARNAME'=>utf8_decode($this->getsingularName()),
+														 	':PLURALNAME'=>utf8_decode($this->getpluralName())
 														 ]);
 
 ;
 
 		$data = $results[0];
 
-		$data['name'] = utf8_encode($data['name']);
+		$data['singularName'] = utf8_encode($data['singularName']);
+		$data['pluralName'] = utf8_encode($data['pluralName']);
 
 		$this->setData($data);
 	}
 
-	public static function verifyMeasure($level){
+	public static function verifyMeasure($measure){
 
 		$sql = new Sql();
 
-		$level = utf8_decode($level);
+		$measure = utf8_decode($measure);
 
 		$results = $sql->select("SELECT * 
 									FROM tb_measure
-										WHERE name = :NAME", [
-											':NAME'=>$level
+										WHERE singularName = :SINGULARNAME", [
+											':SINGULARNAME'=>$measure
 										]);
 
 		if (count($results) === 0) return false;
