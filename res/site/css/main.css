@@ -189,11 +189,9 @@ img{
 }
 
 .ingredient-cards__card{
-  transition: .3s linear;/*Colocar uma transição nos carts*/
   margin-bottom: 2em;
   border-top: 3px solid #8f00d3;
   border-radius: 5px;
-
   cursor:pointer;
 
 }
@@ -244,6 +242,8 @@ img{
 .ingredient-cards__title{/*Formatar o título dos cards*/
   color: #737c85; /*Formatar a cor para cinza*/
   font-size: 16px; /*Definir o tamanho para 21px*/
+  transition: 0.5s linear;
+  margin: 5px;
 }
 
 .ingredient-title{
@@ -254,6 +254,7 @@ img{
   color: #737c85; /*Definir a cor para cinza*/
   font-size: 16px; /*Definir o tamanho para 21px*/
   font-weight: normal;
+  transition: 0.5s linear;
 }
 
 .content{ /*Formatar as classes content*/

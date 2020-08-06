@@ -232,6 +232,26 @@ class Recipes extends Model {
 		}
 	}
 
+	public function checkSteps($steps){
+
+		foreach ($steps as $key => $arr) {
+			foreach ($arr as $index => $value) {
+
+				switch ($index) {
+					case 'description':
+
+						if(!isset($value) || $value === '') {
+
+							Recipes::setError("O passo númeroº" . ($key + 1) . " precisa de uma descrição");
+							header("Location: /admin/recipes/create");
+							exit;
+						}
+						break;
+				}
+			}
+		}
+	}
+
 	public function checkAuthor(){
 
 		$sql = new Sql();
@@ -259,25 +279,82 @@ class Recipes extends Model {
 
 		foreach ($ingredients as $key => $arr) {
 
-			$results = $sql->select("CALL sp_recipe_ingredient_save(:IDRECIPE,
-																	:IDINGREDIENT,
-																	:QUANTITY,
-																	:MEASURETYPE,
-																	:COMPLEMENT,
-																	:PLURAL)", [
-																	 	':IDRECIPE'=>utf8_decode($this->getidRecipe()),
-																		':IDINGREDIENT'=>$arr['ingredient'],
-																	 	':QUANTITY'=>$arr['quantity'],
-																	 	':MEASURETYPE'=>$arr['measure'],
-																	 	':COMPLEMENT'=>$arr['complement'],
-																	 	':PLURAL'=>$arr['plural']
+			$sql->select("CALL sp_recipe_ingredient_save(:IDRECIPE,
+														:IDINGREDIENT,
+														:QUANTITY,
+														:MEASURETYPE,
+														:COMPLEMENT,
+														:PLURAL)", [
+														 	':IDRECIPE'=>utf8_decode($this->getidRecipe()),
+															':IDINGREDIENT'=>$arr['ingredient'],
+														 	':QUANTITY'=>$arr['quantity'],
+														 	':MEASURETYPE'=>$arr['measure'],
+														 	':COMPLEMENT'=>$arr['complement'],
+														 	':PLURAL'=>$arr['plural']
 																	]);
-			var_dump($results);
-			exit;
+		}
+	}
+
+	public function saveSteps(){
+
+		$sql = new Sql();
+
+		$steps = $_SESSION[Recipes::STEPS_LISTED];
+
+
+		$i = 1;
+		foreach ($steps as $key => $arr) {
+
+			$sql->select("CALL sp_recipe_step_save(:IDRECIPE,
+													:STEP,
+													:DESCRIPTION)", [
+													 	':IDRECIPE'=>utf8_decode($this->getidRecipe()),
+														':STEP'=>$i++,
+													 	':DESCRIPTION'=>utf8_decode($arr['description'])
+																	]);
+		}
+	}
+
+	public static function getRecipe($idRecipe){
+
+		$sql = new Sql();
+
+		$results = $sql->select("SELECT *
+									FROM tb_recipes
+										WHERE idRecipe = :IDRECIPE", [
+											':IDRECIPE'=>$idRecipe]);
+
+		return $results[0];
+	}
+
+	public static function getRecipeIngredients($idRecipe){
+
+		$sql = new Sql();
+
+		$results = $sql->select("SELECT *
+									FROM tb_recipe_ingredients
+										WHERE idRecipe = :IDRECIPE", [
+											':IDRECIPE'=>$idRecipe]);
+
+		return Recipes::linkIngredients($results);
+	}
+
+	public static function linkIngredients($ingredients){
+		
+		$i = 1;
+		foreach ($ingredients as $key => &$arr) {
+
+			$arr['quantityId'] = "quantity_" . $i;
+			$arr['measureId'] = "measure_" . $i;
+			$arr['complementId'] = "complement_" . $i;
+			$arr['ingredientId'] = "ingredient_" . $i;
+			$arr['pluralId'] = "plural_" . $i++;
 		}
 
-
+		var_dump($ingredients);
+		exit;
 	}
+
 }
 
 

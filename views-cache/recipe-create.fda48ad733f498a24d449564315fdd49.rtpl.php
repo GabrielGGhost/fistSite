@@ -45,11 +45,20 @@
                 <div class="form-double">
                   <div class="form-double">
                     <label for="idYield">tipo</label>
-                    <select class="form-control" id="idYield" name="idYield">
-                      <?php $counter1=-1;  if( isset($yieldType) && ( is_array($yieldType) || $yieldType instanceof Traversable ) && sizeof($yieldType) ) foreach( $yieldType as $key1 => $value1 ){ $counter1++; ?>
-                        <option value="<?php echo htmlspecialchars( $value1["idType"], ENT_COMPAT, 'UTF-8', FALSE ); ?>"><?php echo htmlspecialchars( $value1["name"], ENT_COMPAT, 'UTF-8', FALSE ); ?></option>
-                      <?php } ?>
-                    </select>
+                    <?php if( empty($listedIngredients) ){ ?>
+                      <select class="form-control" id="idYield" name="idYield">
+                        <?php $counter1=-1;  if( isset($yieldType) && ( is_array($yieldType) || $yieldType instanceof Traversable ) && sizeof($yieldType) ) foreach( $yieldType as $key1 => $value1 ){ $counter1++; ?>
+                          <option value="<?php echo htmlspecialchars( $value1["idType"], ENT_COMPAT, 'UTF-8', FALSE ); ?>"><?php echo htmlspecialchars( $value1["name"], ENT_COMPAT, 'UTF-8', FALSE ); ?></option>
+                        <?php } ?>
+                      </select>
+                    <?php }else{ ?>
+                      <select class="form-control" id="idYield" name="idYield">
+                        <?php $a = $recipeRegisterValues["idYield"]; ?>
+                        <?php $counter1=-1;  if( isset($yieldType) && ( is_array($yieldType) || $yieldType instanceof Traversable ) && sizeof($yieldType) ) foreach( $yieldType as $key1 => $value1 ){ $counter1++; ?>
+                          <option value="<?php echo htmlspecialchars( $value1["idType"], ENT_COMPAT, 'UTF-8', FALSE ); ?>" <?php if( $value1["idType"] == $a ){ ?>Selected<?php } ?>><?php echo htmlspecialchars( $value1["name"], ENT_COMPAT, 'UTF-8', FALSE ); ?></option>
+                        <?php } ?>
+                      </select>
+                    <?php } ?>
                   </div>
                   <div class="form-double">
                     <label for="preparationTime">T.Preparo</label>
@@ -90,8 +99,9 @@
                       <div class="form-double">
                         <label for="measure_1">Medida</label>
                         <select class="form-control" id="measure_1" name="measure_1">
+                          <option value=""></option>
                           <?php $counter1=-1;  if( isset($measure) && ( is_array($measure) || $measure instanceof Traversable ) && sizeof($measure) ) foreach( $measure as $key1 => $value1 ){ $counter1++; ?>
-                            <option value="<?php echo htmlspecialchars( $value1["idType"], ENT_COMPAT, 'UTF-8', FALSE ); ?>"><?php echo htmlspecialchars( $value1["name"], ENT_COMPAT, 'UTF-8', FALSE ); ?></option>
+                            <option value="<?php echo htmlspecialchars( $value1["idType"], ENT_COMPAT, 'UTF-8', FALSE ); ?>"><?php echo htmlspecialchars( $value1["singularName"], ENT_COMPAT, 'UTF-8', FALSE ); ?></option>
                           <?php } ?>
                         </select>
                       </div>
@@ -134,9 +144,10 @@
                           <div class="form-double">
                             <label for="<?php echo htmlspecialchars( $value1["measureId"], ENT_COMPAT, 'UTF-8', FALSE ); ?>">Medida</label>
                             <select class="form-control" id="<?php echo htmlspecialchars( $value1["measureId"], ENT_COMPAT, 'UTF-8', FALSE ); ?>" name="<?php echo htmlspecialchars( $value1["measureId"], ENT_COMPAT, 'UTF-8', FALSE ); ?>">
+                              <option value=""></option>
                               <?php $a = $value1["measure"]; ?>
                               <?php $counter2=-1;  if( isset($measure) && ( is_array($measure) || $measure instanceof Traversable ) && sizeof($measure) ) foreach( $measure as $key2 => $value2 ){ $counter2++; ?>
-                                <option value="<?php echo htmlspecialchars( $value2["idType"], ENT_COMPAT, 'UTF-8', FALSE ); ?>" <?php if( $value2["idType"] == $a ){ ?> selected <?php } ?>><?php echo htmlspecialchars( $value2["name"], ENT_COMPAT, 'UTF-8', FALSE ); ?></option>
+                                <option value="<?php echo htmlspecialchars( $value2["idType"], ENT_COMPAT, 'UTF-8', FALSE ); ?>" <?php if( $value2["idType"] == $a ){ ?> selected <?php } ?>><?php echo htmlspecialchars( $value2["singularName"], ENT_COMPAT, 'UTF-8', FALSE ); ?></option>
                               <?php } ?>
                             </select>
                           </div>

@@ -25,33 +25,20 @@ $app->get("/admin/recipes", function(){
 
 $app->get("/admin/recipes/create", function(){
 
-	// $_SESSION[Recipes::INGREDIENTS_LISTED] = "";
-
+	User::verifyLogin();
 
 	$yieldTypes = Recipes::getComboBox('yt');
 	$yieldTypes = encodeData($yieldTypes);
 
 	$page = new PageAdmin();
 
-	$yieldTypes = Recipes::getComboBox('yt');
-	$yieldTypes = encodeData($yieldTypes);
-
-	$difficults = Recipes::getComboBox('diff');
-	$difficults = encodeData($difficults);
-
-	$measure = Recipes::getComboBox('meas');
-	$measure = encodeData($measure);
-
-	$ingredient = Recipes::getComboBox('ing');
-	$ingredient = encodeData($ingredient);
-
 	$page->setTpl("recipe-create", [
 		'createError'=>Recipes::getError(),
 		'recipeRegisterValues'=>(isset($_SESSION['recipeRegisterValues'])) ? $_SESSION['recipeRegisterValues'] : ['recipeName'=>'', 'yield'=>'', 'preparationTime'=>'', 'idAuthor'=>''],
-		'yieldType'=>$yieldTypes,
-		'difficult'=>$difficults,
-		'measure'=>$measure,
-		'ingredient'=>$ingredient,
+		'yieldType'=>encodeData(Recipes::getComboBox('yt')),
+		'difficult'=>encodeData(Recipes::getComboBox('diff')),
+		'measure'=>encodeData(Recipes::getComboBox('meas')),
+		'ingredient'=>encodeData(Recipes::getComboBox('ing')),
 		'listedIngredients'=>$_SESSION[Recipes::INGREDIENTS_LISTED],
 		'listedSteps'=>$_SESSION[Recipes::STEPS_LISTED]
 	]);
@@ -107,9 +94,10 @@ $app->post("/admin/recipes/create", function(){
 		exit;
 	}
 
-	$ingredients = $_SESSION[Recipes::INGREDIENTS_LISTED];
+	;
 
-	$recipe->checkIngredients($ingredients);
+	$recipe->checkIngredients($_SESSION[Recipes::INGREDIENTS_LISTED]);
+	$recipe->checkSteps($_SESSION[Recipes::STEPS_LISTED]);
 
 	$recipe->setData($_POST);
 
@@ -120,46 +108,42 @@ $app->post("/admin/recipes/create", function(){
 		exit;
 	}
 
-	$i = 0;
-	while(true) {
-		if($recipe->{"getingredient_" . ++$i}() === NULL) {
-			break;
-		}
-	}
-	
-	$recipe->setIngredientQtd(--$i);
-
 	$recipe->saveRecipe();
 
 	$recipe->saveIngredients();
-	var_dump('foi');
-	exit;
+
+	$recipe->saveSteps();
+
 	$_SESSION[Recipes::INGREDIENTS_LISTED] = "";
 	$_SESSION[Recipes::STEPS_LISTED] = "";
-
 	$_SESSION['recipeRegisterValues'] = NULL;
+
 	Recipes::setSuccess('Receita ' . $recipe->getrecipeName() . ' foi adicionada com sucesso!');
 	header("Location: /admin/recipes");
 	exit;
 });
 
 
-// $app->get("/admin/difficults/:IDDIFFICULT", function($idDifficult){
+$app->get("/admin/recipes/:IDRECIPE", function($idRecipe){
 
-// 	User::verifyLogin();
+	User::verifyLogin();
 
-// 	$page = new PageAdmin();
-// 	$difficult = new Difficult();
+	$page = new PageAdmin();
+	$recipe = new Recipes();
 
-// 	$difficult->getDifficult((int)$idDifficult);
 
-// 	$page->setTpl("difficult-update", [
-// 		'createError'=>Difficult::getError(),
-// 		'createSuccess'=>Difficult::getSuccess(),
-// 		'difficult'=>$difficult->getValues()
-// 	]);
+	$page->setTpl("recipe-update", [
+		'createError'=>Recipes::getError(),
+		'createSuccess'=>Recipes::getSuccess(),
+		'yieldTypes'=>encodeData(Recipes::getComboBox('yt')),
+		'difficults'=>encodeData(Recipes::getComboBox('diff')),
+		'measures'=>encodeData(Recipes::getComboBox('meas')),
+		'ingredients'=>encodeData(Recipes::getComboBox('ing')),
+		'recipeData'=>Recipes::getRecipe((int)$idRecipe),
+		'ingredientsList'=>Recipes::getRecipeIngredients((int)$idRecipe)
+	]);
 
-// });
+});
 
 // $app->post("/admin/difficults/:IDDIFFICULT", function($idDifficult){
 

@@ -45,11 +45,20 @@ Content Wrapper. Contains page content -->
                 <div class="form-double">
                   <div class="form-double">
                     <label for="idYield">tipo</label>
-                    <select class="form-control" id="idYield" name="idYield">
-                      {loop="$yieldType"}
-                        <option value="{$value.idType}">{$value.name}</option>
-                      {/loop}
-                    </select>
+                    {if="empty($listedIngredients)"}
+                      <select class="form-control" id="idYield" name="idYield">
+                        {loop="$yieldType"}
+                          <option value="{$value.idType}">{$value.name}</option>
+                        {/loop}
+                      </select>
+                    {else}
+                      <select class="form-control" id="idYield" name="idYield">
+                        {$a = $recipeRegisterValues.idYield}
+                        {loop="$yieldType"}
+                          <option value="{$value.idType}" {if="$value.idType == $a"}Selected{/if}>{$value.name}</option>
+                        {/loop}
+                      </select>
+                    {/if}
                   </div>
                   <div class="form-double">
                     <label for="preparationTime">T.Preparo</label>
@@ -90,8 +99,9 @@ Content Wrapper. Contains page content -->
                       <div class="form-double">
                         <label for="measure_1">Medida</label>
                         <select class="form-control" id="measure_1" name="measure_1">
+                          <option value=""></option>
                           {loop="$measure"}
-                            <option value="{$value.idType}">{$value.name}</option>
+                            <option value="{$value.idType}">{$value.singularName}</option>
                           {/loop}
                         </select>
                       </div>
@@ -134,9 +144,10 @@ Content Wrapper. Contains page content -->
                           <div class="form-double">
                             <label for="{$value.measureId}">Medida</label>
                             <select class="form-control" id="{$value.measureId}" name="{$value.measureId}">
+                              <option value=""></option>
                               {$a = $value.measure}
                               {loop="$measure"}
-                                <option value="{$value.idType}" {if="$value.idType == $a"} selected {/if}>{$value.name}</option>
+                                <option value="{$value.idType}" {if="$value.idType == $a"} selected {/if}>{$value.singularName}</option>
                               {/loop}
                             </select>
                           </div>
