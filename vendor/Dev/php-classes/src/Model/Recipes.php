@@ -87,20 +87,29 @@ class Recipes extends Model {
 		$this->setData($data);
 	}
 
-	public function update(){
+	public function updateRecipe(){
 
 		$sql = new Sql();
 
-		$results = $sql->select("call sp_yieldType_update(:IDTYPE,:NAME)",[
-															':IDTYPE'=>$this->getidType(),
-														 	':NAME'=>utf8_decode($this->getname())
+		$results = $sql->select("call sp_recipe_update(:IDRECIPE,
+														:RECIPENAME,
+														:YIELD,
+														:IDYIELD,
+														:PREPARARIONTIME,
+														:IDDIFFICULT,
+														:IDAUTHOR)", [
+															':IDRECIPE'=>$this->getidRecipe(),
+														 	':RECIPENAME'=>utf8_decode($this->getrecipeName()),
+														 	':YIELD'=>$this->getyield(),
+														 	':IDYIELD'=>$this->getidYield(),
+														 	':PREPARARIONTIME'=>$this->getpreparationTime(),
+														 	':IDDIFFICULT'=>$this->getidDifficult(),
+														 	':IDAUTHOR'=>$this->getidAuthor()
 														 ]);
-
-;
 
 		$data = $results[0];
 
-		$data['name'] = utf8_encode($data['name']);
+		$data['recipeName'] = utf8_encode($data['recipeName']);
 
 		$this->setData($data);
 	}
@@ -212,7 +221,7 @@ class Recipes extends Model {
 		$_SESSION[Recipes::STEPS_LISTED] = $this->listedSteps;
 	}
 
-	public function checkIngredients($ingredients){
+	public function checkIngredients($ingredients, $create = true){
 
 		foreach ($ingredients as $key => $arr) {
 			foreach ($arr as $index => $value) {
@@ -275,23 +284,27 @@ class Recipes extends Model {
 
 		$sql = new Sql();
 
+		$sql->query("DELETE FROM tb_recipe_ingredients WHERE idRecipe = :IDRECIPE",[
+			'IDRECIPE'=>$this->getidRecipe()]);
+
 		$ingredients = $_SESSION[Recipes::INGREDIENTS_LISTED];
 
 		foreach ($ingredients as $key => $arr) {
 
-			$sql->select("CALL sp_recipe_ingredient_save(:IDRECIPE,
-														:IDINGREDIENT,
-														:QUANTITY,
-														:MEASURETYPE,
-														:COMPLEMENT,
-														:PLURAL)", [
-														 	':IDRECIPE'=>utf8_decode($this->getidRecipe()),
-															':IDINGREDIENT'=>$arr['ingredient'],
-														 	':QUANTITY'=>$arr['quantity'],
-														 	':MEASURETYPE'=>$arr['measure'],
-														 	':COMPLEMENT'=>$arr['complement'],
-														 	':PLURAL'=>$arr['plural']
-																	]);
+			$results = $sql->select("CALL sp_recipe_ingredient_save(:IDRECIPE,
+																	:IDINGREDIENT,
+																	:QUANTITY,
+																	:MEASURETYPE,
+																	:COMPLEMENT,
+																	:PLURAL)", [
+																	 	':IDRECIPE'=>$this->getidRecipe(),
+																		':IDINGREDIENT'=>$arr['ingredient'],
+																	 	':QUANTITY'=>$arr['quantity'],
+																	 	':MEASURETYPE'=>$arr['measure'],
+																	 	':COMPLEMENT'=>$arr['complement'],
+																	 	':PLURAL'=>$arr['plural']
+																				]);
+
 		}
 	}
 
@@ -299,8 +312,10 @@ class Recipes extends Model {
 
 		$sql = new Sql();
 
-		$steps = $_SESSION[Recipes::STEPS_LISTED];
+		$sql->query("DELETE FROM tb_prepare WHERE idRecipe = :IDRECIPE",[
+			'IDRECIPE'=>$this->getidRecipe()]);
 
+		$steps = $_SESSION[Recipes::STEPS_LISTED];
 
 		$i = 1;
 		foreach ($steps as $key => $arr) {
@@ -324,7 +339,27 @@ class Recipes extends Model {
 										WHERE idRecipe = :IDRECIPE", [
 											':IDRECIPE'=>$idRecipe]);
 
-		return $results[0];
+		$data = $results[0];
+
+		$data['recipeName'] = utf8_decode($data['recipeName']);
+
+		return $data;
+	}
+
+	public function getRecipe2($idRecipe){
+
+		$sql = new Sql();
+
+		$results = $sql->select("SELECT *
+									FROM tb_recipes
+										WHERE idRecipe = :IDRECIPE", [
+											':IDRECIPE'=>$idRecipe]);
+
+		$data = $results[0];
+
+		$data['recipeName'] = utf8_decode($data['recipeName']);
+
+		$this->setData($data);
 	}
 
 	public static function getRecipeIngredients($idRecipe){
@@ -351,8 +386,31 @@ class Recipes extends Model {
 			$arr['pluralId'] = "plural_" . $i++;
 		}
 
-		var_dump($ingredients);
-		exit;
+		return $ingredients;
+	}
+
+	public static function getRecipeSteps($idRecipe){
+
+		$sql = new Sql();
+
+		$results = $sql->select("SELECT *
+									FROM tb_prepare
+										WHERE idRecipe = :IDRECIPE", [
+											':IDRECIPE'=>$idRecipe]);
+
+		return Recipes::linkSteps($results);
+	}
+
+	public static function linkSteps($steps){
+		
+		$i = 1;
+		foreach ($steps as $key => &$arr) {
+
+			$arr['stepId'] = "step_" . $i;
+			$arr['step'] = $i++;
+		}
+
+		return $steps;
 	}
 
 }

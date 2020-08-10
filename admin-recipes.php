@@ -16,8 +16,8 @@ $app->get("/admin/recipes", function(){
 	$recipes = encodeData($recipes);
 
 	$page->setTpl("recipes", [
-		'createError'=>'',
-		'createSuccess'=>'',
+		'createError'=>Recipes::getError(),
+		'createSuccess'=>Recipes::getSuccess(),
 		'recipes'=>$recipes
 	]);
 
@@ -94,8 +94,6 @@ $app->post("/admin/recipes/create", function(){
 		exit;
 	}
 
-	;
-
 	$recipe->checkIngredients($_SESSION[Recipes::INGREDIENTS_LISTED]);
 	$recipe->checkSteps($_SESSION[Recipes::STEPS_LISTED]);
 
@@ -109,9 +107,7 @@ $app->post("/admin/recipes/create", function(){
 	}
 
 	$recipe->saveRecipe();
-
 	$recipe->saveIngredients();
-
 	$recipe->saveSteps();
 
 	$_SESSION[Recipes::INGREDIENTS_LISTED] = "";
@@ -131,7 +127,6 @@ $app->get("/admin/recipes/:IDRECIPE", function($idRecipe){
 	$page = new PageAdmin();
 	$recipe = new Recipes();
 
-
 	$page->setTpl("recipe-update", [
 		'createError'=>Recipes::getError(),
 		'createSuccess'=>Recipes::getSuccess(),
@@ -140,43 +135,79 @@ $app->get("/admin/recipes/:IDRECIPE", function($idRecipe){
 		'measures'=>encodeData(Recipes::getComboBox('meas')),
 		'ingredients'=>encodeData(Recipes::getComboBox('ing')),
 		'recipeData'=>Recipes::getRecipe((int)$idRecipe),
-		'ingredientsList'=>Recipes::getRecipeIngredients((int)$idRecipe)
+		'ingredientsList'=>Recipes::getRecipeIngredients((int)$idRecipe),
+		'stepsList'=>Recipes::getRecipeSteps((int)$idRecipe)
 	]);
 
 });
 
-// $app->post("/admin/difficults/:IDDIFFICULT", function($idDifficult){
+$app->post("/admin/recipes/:IDRECIPE", function($idRecipe){
 
-// 	User::verifyLogin();
+	User::verifyLogin();
 
-// 	$difficult = new Difficult();
+	$recipe = new Recipes();
 
-// 	$page = new PageAdmin();
+	$_SESSION['recipeRegisterValues'] = $_POST;
 
-// 	$difficult->getDifficult((int)$idDifficult);
+	$recipe->setlistedIngredients($_POST);
+	$recipe->setlistedSteps($_POST);
 
-// 	if (!isset($_POST['difficultLevel']) || $_POST['difficultLevel'] === '') {
-// 		Difficult::setError("Informe o nome da dificuldade!");
-// 		header("Location: /admin/difficults/$idDifficult");
-// 		exit;
-// 	}
+	$recipe->getRecipe2((int)$idRecipe);
 
-// 	if($_POST['difficultLevel'] != $difficult->getdifficultLevel()) {
-// 		if(Difficult::verifyDifficult($_POST['difficultLevel'])){
-// 			Difficult::setError("Dificuldade já cadastrada!");
-// 			header("Location: /admin/difficults/$idDifficult");
-// 			exit;
-// 		}
-// 	}
+	if (!isset($_POST['recipeName']) || $_POST['recipeName'] === '') {
+		Recipes::setError("Informe o nome da receita!");
+		header("Location: /admin/recipes/$idRecipe");
+		exit;
+	}
 
-// 	$difficult->setData($_POST);
+	if (!isset($_POST['yield']) || (int)$_POST['yield'] === 0) {
+		Recipes::setError("A receita precisa de um rendimento maior que 0!");
+		header("Location: /admin/recipes/$idRecipe");
+		exit;
+	}
 
-// 	$difficult->update();
+	if (!isset($_POST['idYield']) || (int)$_POST['idYield'] === 0 || $_POST['idYield'] === NULL) {
+		Recipes::setError("É preciso informar o tipo do rendimento!");
+		header("Location: /admin/recipes/$idRecipe");
+		exit;
+	}
 
-// 	Difficult::setSuccess("Alterações feitas com sucesso!");
-// 	header("Location: /admin/difficults/$idDifficult");
-// 	exit;
-// });
+	if (!isset($_POST['preparationTime']) || strtotime($_POST['preparationTime']) === strtotime("00:00")) {
+		Recipes::setError("O tempo da receita precisa ser maior que 00:00");
+		header("Location: /admin/recipes/$idRecipe");
+		exit;
+	}
+
+
+	if (!isset($_POST['idDifficult']) || (int)$_POST['idDifficult'] === 0 || $_POST['idDifficult'] === NULL) {
+		Recipes::setError("É preciso selecionar uma dificuldade para a receita!");
+		header("Location: /admin/recipes/$idRecipe");
+		exit;
+	}
+
+	if (!isset($_POST['idAuthor']) || $_POST['idAuthor'] === '') {
+		Recipes::setError("Informe o autor!");
+		header("Location: /admin/recipes/$idRecipe");
+		exit;
+	}
+
+	$recipe->checkIngredients($_SESSION[Recipes::INGREDIENTS_LISTED], false);
+	$recipe->checkSteps($_SESSION[Recipes::STEPS_LISTED], false);
+
+	$recipe->setData($_POST);
+
+	$recipe->updateRecipe();
+	$recipe->saveIngredients();
+	$recipe->saveSteps();
+
+	$_SESSION[Recipes::INGREDIENTS_LISTED] = "";
+	$_SESSION[Recipes::STEPS_LISTED] = "";
+	$_SESSION['recipeRegisterValues'] = NULL;
+
+	Recipes::setSuccess("Alterações feitas com sucesso!");
+	header("Location: /admin/recipes/$idRecipe");
+	exit;
+});
 
 // $app->get("/admin/difficults/:IDDIFFICULT/des-active", function($idDifficult){
 

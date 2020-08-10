@@ -30,7 +30,7 @@
           </div>
         {/if}
         <!-- form start -->
-        <form role="form" action="/admin/difficults/{}" method="post">
+        <form role="form" action="/admin/recipes/{$recipeData.idRecipe}" method="post">
           <div class="box-body">
             <div class="form-group">
               <div class="form-double">
@@ -48,7 +48,7 @@
                     <select class="form-control" id="idYield" name="idYield">
                       {$a = $recipeData.idYield}
                       {loop="$yieldTypes"}
-                        <option value="{$value.name}" {if="$value.idType == $a"}Selected{/if}>{$value.name}</option>
+                        <option value="{$value.idType}" {if="$value.idType == $a"}Selected{/if}>{$value.name}</option>
                       {/loop}
                     </select>
                   </div>
@@ -80,47 +80,46 @@
                 </div>
               </div>
             </div>
-            {loop="$listedIngredients"}
-              <div class="form-group" id="ingredients">
-                <div id="ingredientLine_1" class="ingredientList">      
+            <div class="form-group" id="ingredients">
+              {loop="$ingredientsList"}
+               <div id="ingredientLine_1" class="ingredientList">      
+                <div class="form-double">
                   <div class="form-double">
-                    <div class="form-double">
-                      <label for="{$value.quantityId}">Quantidade</label>
-                      <input type="number" class="form-control" id="{$value.quantityId}" name="{$value.quantityId}" maxlength="30" value="{$value.quantity}">
-                    </div>
-                    <div class="form-double">
-                      <label for="{$value.measureId}">Medida</label>
-                      <select class="form-control" id="{$value.measureId}" name="{$value.measureId}">
-                        <option value=""></option>
-                        {$a = $value.measure}
-                        {loop="$measure"}
-                          <option value="{$value.idType}" {if="$value.idType == $a"} selected {/if}>{$value.singularName}</option>
+                    <label for="{$value.quantityId}">Quantidade</label>
+                    <input type="number" class="form-control" id="{$value.quantityId}" name="{$value.quantityId}" maxlength="30" value="{$value.quantity}">
+                  </div>
+                  <div class="form-double">
+                    <label for="{$value.measureId}">Medida</label>
+                    <select class="form-control" id="{$value.measureId}" name="{$value.measureId}">
+                      <option value=""></option>
+                      {$a = $value.measuretype}
+                      {loop="$measures"}
+                        <option value="{$value.idType}" {if="$value.idType == $a"} selected {/if}>{$value.singularName}</option>
+                      {/loop}
+                    </select>
+                  </div>
+                </div>
+                <div class="form-double" style="margin-bottom: 10px">
+                  <div class="form-double">
+                    <label for="{$value.complementId}">Complemento</label>
+                    <input type="text" class="form-control" id="{$value.complementId}" name="{$value.complementId}" maxlength="30" value="{$value.complement}">
+                  </div>
+                  <div class="form-double">
+                    <div class="form-double" style="width: 70%">
+                      <label for="">Ingrediente</label>
+                      <select class="form-control" id="{$value.ingredientId}" name="{$value.ingredientId}">
+                        {$i = $value.idIngredient}
+                        {loop="$ingredients"}
+                        <option value="{$value.idIngredient}" {if="$value.idIngredient == $i"}Selected{/if}>{$value.singularName}</option>
                         {/loop}
                       </select>
                     </div>
-                  </div>
-                  <div class="form-double" style="margin-bottom: 10px">
-                    <div class="form-double">
-                      <label for="{$value.complementId}">Complemento</label>
-                      <input type="text" class="form-control" id="{$value.complementId}" name="{$value.complementId}" maxlength="30" value="{$value.complement}">
-                    </div>
-                    <div class="form-double">
-                      <div class="form-double" style="width: 70%">
-                        <label for="">Ingrediente</label>
-                        <select class="form-control" id="{$value.ingredientId}" name="{$value.ingredientId}">
-                          {$i = $value.ingredient}
-                          {loop="$ingredient"}
-                            <option value="{$value.idIngredient}" {if="$value.idIngredient == $i"}Selected{/if}>{$value.singularName}</option>
-                          {/loop}
-                        </select>
-                      </div>
-                      <div class="form-double" style="width: 30%">
-                        <label for="{$value.pluralId}">Plural</label>
-                        <select class="form-control" id="{$value.pluralId}" name="{$value.pluralId}">
-                          <option value="0" {if="$value.plural == 0"} selected {/if}>Não</option>
-                          <option value="1" {if="$value.plural == 1"} selected {/if}>Sim</option>
-                        </select>
-                      </div>
+                    <div class="form-double" style="width: 30%">
+                      <label for="{$value.pluralId}">Plural</label>
+                      <select class="form-control" id="{$value.pluralId}" name="{$value.pluralId}">
+                        <option value="0" {if="$value.plural == 0"} selected {/if}>Não</option>
+                        <option value="1" {if="$value.plural == 1"} selected {/if}>Sim</option>
+                      </select>
                     </div>
                   </div>
                 </div>
@@ -128,26 +127,20 @@
             {/loop}
             </div>
             <button type="button" id="addIngredient" class="btn btn-primary">+</button>
-            <button type="button" id="removeIngredient" class="btn btn-primary">-</button> -->
-<!--             <div class="form-group">
+            <button type="button" id="removeIngredient" class="btn btn-primary">-</button>
+            <div class="form-group">
               <label for="recipeName">Passos</label>
-              <div  id="steps">
-                {if="empty($listedSteps)"}
-                  <div id="step_1" class="stepList">
-                    <input type="text" class="form-control stepInput" id="step_1" name="step_1" placeholder="Passo Nº1" maxlength="200">                                  
-                  </div>
-                {else}
-                  {loop="$listedSteps"}
-                    <div id="{$value.stepId}" class="stepList">
-                      <input type="text" class="form-control stepInput" id="{$value.stepId}" name="{$value.stepId}" placeholder="Passo Nº1" maxlength="200" value="{$value.description}">
-                    </div>
-                  {/loop}
-                {/if}
+              <div id="steps">
+              {loop="$stepsList"}
+                <div id="{$value.stepId}" class="stepList">
+                  <input type="text" class="form-control stepInput" id="{$value.stepId}" name="{$value.stepId}" placeholder="Passo Nº{$value.step}" maxlength="200" value="{$value.description}">
+                </div>
+              {/loop}
               </div>
-              <button type="button" id="addStep" class="btn btn-primary">+</button>
-              <button type="button" id="removeStep" class="btn btn-primary">-</button>
-            </div> -->
-          </div>
+            </div>
+            <button type="button" id="addStep" class="btn btn-primary">+</button>
+            <button type="button" id="removeStep" class="btn btn-primary">-</button>
+          </div> 
           <!-- /.box-body -->
           <div class="box-footer">
             <button type="submit" class="btn btn-primary">Salvar</button>
@@ -156,7 +149,6 @@
       </div>
   	</div>
   </div>
-
 </section>
 <!-- /.content -->
 </div>

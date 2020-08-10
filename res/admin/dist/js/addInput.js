@@ -33,6 +33,10 @@ function addInput(divName) {
 	newDiv.innerHTML = replaceAll(newDiv.innerHTML ,'º1' , 'º' + count);
 
 	document.getElementById(divName).appendChild(newDiv);
+
+	var lastChild = document.getElementById('steps').lastElementChild;
+	lastChild.children[0].value = "";
+
 }
 
 function removeInput() {
@@ -42,7 +46,7 @@ function removeInput() {
 
 	if(children > 1){
 
-		div.removeChild(div.lastChild);
+		div.removeChild(div.lastElementChild);
 
 	}
 
@@ -63,6 +67,10 @@ function addIngredient(divName) {
 
 
 	document.getElementById(divName).appendChild(newDiv);
+
+	var lastChild = document.getElementById('ingredients').lastElementChild;
+	lastChild.children[0].children[0].children[1].value = "";
+	lastChild.children[1].children[0].children[1].value = "";
 }
 
 function removeIngredient() {
@@ -71,7 +79,7 @@ function removeIngredient() {
 	var children = div.children.length
 	if(children > 1){
 	
-		div = div.removeChild(div.lastChild);
+		div = div.removeChild(div.lastElementChild);
 	}
 	
 }
