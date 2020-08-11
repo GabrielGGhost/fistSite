@@ -40,7 +40,7 @@
               <div class="form-double">
                 <div class="form-double">
                   <label for="yield">Rendimento</label>
-                  <input type="number" class="form-control" id="yield" name="yield" placeholder="Digite o nome da receita" maxlength="10" value="<?php echo htmlspecialchars( $recipeData["yield"], ENT_COMPAT, 'UTF-8', FALSE ); ?>">
+                  <input type="number" class="form-control" id="yield" name="yield" placeholder="Digite o nome da receita" maxlength="10" value="<?php echo htmlspecialchars( $recipeData["amount"], ENT_COMPAT, 'UTF-8', FALSE ); ?>">
                 </div>
                 <div class="form-double">
                   <div class="form-double">
@@ -91,7 +91,7 @@
                   <div class="form-double">
                     <label for="<?php echo htmlspecialchars( $value1["measureId"], ENT_COMPAT, 'UTF-8', FALSE ); ?>">Medida</label>
                     <select class="form-control" id="<?php echo htmlspecialchars( $value1["measureId"], ENT_COMPAT, 'UTF-8', FALSE ); ?>" name="<?php echo htmlspecialchars( $value1["measureId"], ENT_COMPAT, 'UTF-8', FALSE ); ?>">
-                      <option value=""></option>
+                      <option value="0"></option>
                       <?php $a = $value1["measuretype"]; ?>
                       <?php $counter2=-1;  if( isset($measures) && ( is_array($measures) || $measures instanceof Traversable ) && sizeof($measures) ) foreach( $measures as $key2 => $value2 ){ $counter2++; ?>
                         <option value="<?php echo htmlspecialchars( $value2["idType"], ENT_COMPAT, 'UTF-8', FALSE ); ?>" <?php if( $value2["idType"] == $a ){ ?> selected <?php } ?>><?php echo htmlspecialchars( $value2["singularName"], ENT_COMPAT, 'UTF-8', FALSE ); ?></option>

@@ -40,7 +40,7 @@
               <div class="form-double">
                 <div class="form-double">
                   <label for="yield">Rendimento</label>
-                  <input type="number" class="form-control" id="yield" name="yield" placeholder="Digite o nome da receita" maxlength="10" value="{$recipeData.yield}">
+                  <input type="number" class="form-control" id="yield" name="yield" placeholder="Digite o nome da receita" maxlength="10" value="{$recipeData.amount}">
                 </div>
                 <div class="form-double">
                   <div class="form-double">
@@ -91,7 +91,7 @@
                   <div class="form-double">
                     <label for="{$value.measureId}">Medida</label>
                     <select class="form-control" id="{$value.measureId}" name="{$value.measureId}">
-                      <option value=""></option>
+                      <option value="0"></option>
                       {$a = $value.measuretype}
                       {loop="$measures"}
                         <option value="{$value.idType}" {if="$value.idType == $a"} selected {/if}>{$value.singularName}</option>

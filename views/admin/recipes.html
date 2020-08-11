@@ -30,7 +30,7 @@
                   <tr>
                     <th style="width: 10px">#</th>
                     <th>Nome</th>
-                    <th style="width: 160px">&nbsp;</th>
+                    <th style="width: 200px">&nbsp;</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -40,6 +40,7 @@
                     <td>{$value.recipeName}</td>
                     <td>
                       <a href="/admin/recipes/{$value.idRecipe}" class="btn btn-primary btn-xs"><i class="fa fa-edit"></i> Editar</a>
+                      <a href="/admin/recipes/{$value.idRecipe}" class="btn btn-secondary btn-xs"><i class="fa fa-edit"></i> Fotos</a>
                       <a href="/admin/recipes/{$value.idRecipe}/des-active" onclick="return confirm('Deseja realmente desativar esta receita?')" class="btn btn-danger btn-xs"><i class="fa fa-power-off"></i> {if="$value.active == 1"}Desativar{else}Ativar{/if}</a>
                     </td>
                   </tr>

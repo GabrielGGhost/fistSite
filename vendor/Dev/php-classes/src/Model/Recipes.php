@@ -335,9 +335,11 @@ class Recipes extends Model {
 		$sql = new Sql();
 
 		$results = $sql->select("SELECT *
-									FROM tb_recipes
-										WHERE idRecipe = :IDRECIPE", [
-											':IDRECIPE'=>$idRecipe]);
+									FROM tb_recipes AS r
+										INNER JOIN tb_yield AS y
+											ON r.idYield = y.idYeld
+												WHERE idRecipe = :IDRECIPE", [
+													':IDRECIPE'=>$idRecipe]);
 
 		$data = $results[0];
 
