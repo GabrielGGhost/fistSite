@@ -123,7 +123,7 @@ $app->post("/admin/ingredients/:idIngredient", function($idIngredient){
 		$ingredient->setData($_POST);
 
 		$ingredient->update();
-
+		
 		if($_FILES['file']['name'] !== '') $ingredient->setPhoto($_FILES["file"]);
 
 		Ingredient::setSuccess("Alterações salvas com sucesso!");

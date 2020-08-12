@@ -3,7 +3,7 @@
     	{loop="$ingredients"}
         	<article class="ingredient-cards__card">
               <div class="ingredientImage">
-                <img {if="$value.pictureId != ''"} src="/res/site/img/igrendients_pictures/{$value.pictureId}.jpg" {else} src="/res/site/img/defaults/no-ingredient.jpg" {/if} alt="Foto de ingrediente" class="ingredient-cards__image ingredient-box">              
+                <img {if="$value.pictureId != ''"} src="/res/site/img/igrendients_pictures/{$value.pictureId}.jpg" {else} src="/res/site/img/defaults/no-ingredient.jpg" {/if} alt="Foto de ingrediente" class="ingredient-cards__image ">
               </div>
               	<div class="ingredient-cards__content">
                   <div class="ingredient-title">

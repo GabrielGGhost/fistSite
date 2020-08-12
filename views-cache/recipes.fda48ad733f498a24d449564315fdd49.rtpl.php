@@ -30,7 +30,7 @@
                   <tr>
                     <th style="width: 10px">#</th>
                     <th>Nome</th>
-                    <th style="width: 200px">&nbsp;</th>
+                    <th style="width: 210px">&nbsp;</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -40,7 +40,7 @@
                     <td><?php echo htmlspecialchars( $value1["recipeName"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>
                     <td>
                       <a href="/admin/recipes/<?php echo htmlspecialchars( $value1["idRecipe"], ENT_COMPAT, 'UTF-8', FALSE ); ?>" class="btn btn-primary btn-xs"><i class="fa fa-edit"></i> Editar</a>
-                      <a href="/admin/recipes/<?php echo htmlspecialchars( $value1["idRecipe"], ENT_COMPAT, 'UTF-8', FALSE ); ?>" class="btn btn-secondary btn-xs"><i class="fa fa-edit"></i> Fotos</a>
+                      <a href="/admin/recipes/<?php echo htmlspecialchars( $value1["idRecipe"], ENT_COMPAT, 'UTF-8', FALSE ); ?>/images" class="btn btn-secondary btn-xs"><i class="fa fa-edit"></i> Fotos</a>
                       <a href="/admin/recipes/<?php echo htmlspecialchars( $value1["idRecipe"], ENT_COMPAT, 'UTF-8', FALSE ); ?>/des-active" onclick="return confirm('Deseja realmente desativar esta receita?')" class="btn btn-danger btn-xs"><i class="fa fa-power-off"></i> <?php if( $value1["active"] == 1 ){ ?>Desativar<?php }else{ ?>Ativar<?php } ?></a>
                     </td>
                   </tr>

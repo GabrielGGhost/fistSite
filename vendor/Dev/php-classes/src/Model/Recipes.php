@@ -4,7 +4,8 @@ namespace Dev\Model;
 
 use Dev\Model;
 use Dev\DB\Sql;
-
+use \CoffeeCode\Cropper\Cropper;
+use \Faker\Factory;
 
 class Recipes extends Model {
 
@@ -138,11 +139,11 @@ class Recipes extends Model {
 
 		$sql = new Sql();
 
-		$sql->query("UPDATE tb_yieldType
+		$sql->query("UPDATE tb_recipes
 						SET active = :STATUS
-							WHERE idType = :IDMEASURE", [
+							WHERE idRecipe = :IDRECIPE", [
 							':STATUS'=>!$this->getactive(),
-							':IDMEASURE'=>$this->getidType()
+							':IDRECIPE'=>$this->getidRecipe()
 						]);
 	}
 
@@ -348,7 +349,7 @@ class Recipes extends Model {
 		return $data;
 	}
 
-	public function getRecipe2($idRecipe){
+	public function getRecipeData($idRecipe){
 
 		$sql = new Sql();
 
@@ -413,6 +414,170 @@ class Recipes extends Model {
 		}
 
 		return $steps;
+	}
+
+	public function checkPhoto() {
+
+		if(file_exists(
+			$_SERVER['DOCUMENT_ROOT'] .
+			DIRECTORY_SEPARATOR .
+			"res" .
+			DIRECTORY_SEPARATOR .
+			"site" .
+			DIRECTORY_SEPARATOR .
+			"img" .
+			DIRECTORY_SEPARATOR .
+			"recipe_pictures" .
+			DIRECTORY_SEPARATOR .
+			$this->getpictureId() .
+			".jpg"
+		)) {
+
+			$url = "/res/site/img/recipe_pictures/" . $this->getpictureId() . ".jpg";
+		} else {
+
+			$url = "/res/site/img/defaults/ingredient-default.jpg";
+
+		}
+
+		$this->setpathPhoto($url);
+
+		$this->resizePicture();
+	}
+
+	public function setPhoto($file){
+
+		$extension = explode('.', $file["name"]);
+		$extension = end($extension);
+
+		switch ($extension) {
+			case 'jpg':
+			case 'pjpeg';
+			case 'jpeg':
+				$image = imagecreatefromjpeg($file["tmp_name"]);
+				break;
+
+			case 'gif':
+				$image = imagecreatefromgif($file["tmp_name"]);
+				break;
+
+			case 'png':
+				$image = imagecreatefrompng($file["tmp_name"]);
+				break;
+			default:
+				throw new \Exception("Formtato de imagem não aceito!");
+				header("Location: /admin/recipes/" . $this->getidRecipe() . "/images");
+				exit;
+
+		}
+
+		$picture_name = $this->getidRecipe() . "_" . uniqid() .	".jpg";
+
+		$destFolder = $_SERVER['DOCUMENT_ROOT'] .
+						DIRECTORY_SEPARATOR .
+						"res" . 
+						DIRECTORY_SEPARATOR .
+						"site" .
+						DIRECTORY_SEPARATOR .
+						"img" .
+						DIRECTORY_SEPARATOR .
+						"recipe_pictures" .
+						DIRECTORY_SEPARATOR .
+						$picture_name;
+
+		imagejpeg($image, $destFolder);
+		imagedestroy($image);
+
+		$this->setpictureId($picture_name);
+		$this->checkPhoto();
+	}
+
+	public function insertPictureDB($picturePath, $idRecipe){
+
+		$sql = new Sql();
+
+		$sql->select("CALL sp_insertPath(:PATH,
+										  :IDRECIPE)", [
+							':PATH'=>$picturePath,
+							':IDRECIPE'=>$idRecipe
+						]);
+	}
+
+	public function unlinkImage(){
+		var_dump($this->getidRecipe);
+		exit;
+		$file = $_SERVER['DOCUMENT_ROOT'] .
+					DIRECTORY_SEPARATOR .
+					"res" . 
+					DIRECTORY_SEPARATOR .
+					"site" .
+					DIRECTORY_SEPARATOR .
+					"img" .
+					DIRECTORY_SEPARATOR .
+					"recipe_pictures" .
+					DIRECTORY_SEPARATOR .
+					$this->getidRecipe() .
+					".jpg";
+
+		if(file_exists($file)) unlink($file);
+
+		$this->deletePath();
+	}
+
+	public function deletePath(){
+		$sql = new Sql();
+
+		$sql->select("DELETE 
+						FROM tb_recipe_ingredients
+							WHERE idRecipe = :IDRECIPE", [
+								':IDRECIPE'=>$this->getidRecipe(),
+								':PATH'=>$this->getpath()]);
+	}
+
+
+	public function resizePicture(){
+
+		$path = $_SERVER['DOCUMENT_ROOT'] .
+					DIRECTORY_SEPARATOR .
+					"res" .
+					DIRECTORY_SEPARATOR .
+					"site" .
+					DIRECTORY_SEPARATOR .
+					"img" .
+					DIRECTORY_SEPARATOR .
+					"recipe_pictures" .
+					DIRECTORY_SEPARATOR .
+					$this->getpictureId();
+
+		$dir = $_SERVER['DOCUMENT_ROOT'] .
+					DIRECTORY_SEPARATOR .
+					"res" .
+					DIRECTORY_SEPARATOR .
+					"site" .
+					DIRECTORY_SEPARATOR .
+					"img" .
+					DIRECTORY_SEPARATOR .
+					"recipe_pictures";
+
+		$c = new Cropper($dir);
+
+		$c->make($path, 300, $this->getidRecipe(), "recipe-picture",  200);
+
+	}
+
+	public static function getPathes($idRecipe){
+
+		$sql = new Sql();
+
+		$results = $sql->select("SELECT * 
+									FROM tb_picturepath
+										WHERE idRecipe = :IDRECIPE
+											ORDER BY idPath
+												DESC", [
+											':IDRECIPE'=>$idRecipe
+										]);
+
+		return $results;
 	}
 
 }

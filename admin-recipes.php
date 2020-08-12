@@ -142,7 +142,6 @@ $app->get("/admin/recipes/:IDRECIPE", function($idRecipe){
 });
 
 $app->post("/admin/recipes/:IDRECIPE", function($idRecipe){
-
 	User::verifyLogin();
 
 	$recipe = new Recipes();
@@ -152,7 +151,7 @@ $app->post("/admin/recipes/:IDRECIPE", function($idRecipe){
 	$recipe->setlistedIngredients($_POST);
 	$recipe->setlistedSteps($_POST);
 
-	$recipe->getRecipe2((int)$idRecipe);
+	$recipe->getRecipeData((int)$idRecipe);
 
 	if (!isset($_POST['recipeName']) || $_POST['recipeName'] === '') {
 		Recipes::setError("Informe o nome da receita!");
@@ -209,19 +208,73 @@ $app->post("/admin/recipes/:IDRECIPE", function($idRecipe){
 	exit;
 });
 
-// $app->get("/admin/difficults/:IDDIFFICULT/des-active", function($idDifficult){
+$app->get("/admin/recipes/:IDRECIPE/des-active", function($idRecipe){
 
-// 	User::verifyLogin();
+	User::verifyLogin();
 
-// 	$difficult = new Difficult();
+	$recipe = new Recipes();
 
-// 	$difficult->getDifficult((int)$idDifficult);
+	$recipe->getRecipeData((int)$idRecipe);
 
-// 	$difficult->des_active();
+	$recipe->des_active();
 
-// 	header("Location: /admin/difficults");
-// 	exit;
-// });
+	header("Location: /admin/recipes");
+	exit;
+});
+
+$app->get("/admin/recipes/:IDRECIPE/images", function($idRecipe){
+
+	User::verifyLogin();
+
+	$recipe = new Recipes();
+	$page = new PageAdmin();
+	$recipe->getRecipeData((int)$idRecipe);
+
+	$pathes = Recipes::getPathes($idRecipe);
+
+	$page->setTpl("recipe-images", [
+		'createError'=>Recipes::getError(),
+		'createSuccess'=>Recipes::getSuccess(),
+		'recipe'=>$recipe->getValues(),
+		'imagePathes'=>$pathes
+	]);
+
+});
+
+$app->post("/admin/recipes/:IDRECIPE/images", function($idRecipe){
+	var_dump('chegpu');
+	exit;
+	User::verifyLogin();
+
+	$recipe = new Recipes();
+	$page = new PageAdmin();
+
+	$recipe->getRecipeData((int)$idRecipe);
+
+	if($_FILES['file']['name'] !== '') $recipe->setPhoto($_FILES["file"]);
+	else Recipes::setError('Nenhuma imagem enviada!');
+
+	header("Location: /admin/recipes/$idRecipe/images");
+	exit;
+});
 
 
+$app->post("/admin/recipes/:IDRECIPE/removeImage/:PATH", function($idRecipe, $path){
+	var_dump('chegpu');
+	exit;
+	User::verifyLogin();
+
+	$recipe = new Recipes();
+	$page = new PageAdmin();
+
+	$recipe->setidRecipe($idRecipe);
+	$recipe->setpath($path);
+
+	$recipe->unlinkImage();
+
+	Recipes::setSuccess('Imagem apagada!');
+
+	header("Location: /admin/recipes/$idRecipe/images");
+	exit;
+});
 ?>

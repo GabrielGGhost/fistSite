@@ -7,6 +7,7 @@ use WebPConvert\Convert\Exceptions\ConversionFailedException;
 use WebPConvert\WebPConvert;
 use \Dev\Model\User;
 use \Dev\Model\Ingredient;
+use \Dev\Model\Recipes;
 
 
 /**
@@ -250,16 +251,25 @@ class Cropper
             
             case 'ingredients':
 
-                $ingredient = new ingredient();
+                $ingredient = new Ingredient();
 
                 $ingredient->updatePictureDB($this->imageName, $this->id);
 
                 $ingredient->setpictureId($this->imageName);
 
+            case 'recipe-picture':
+
+                $recipe = new Recipes();
+ 
+                $recipe->insertPictureDB($this->imageName, $this->id);
+
+                $recipe->setpictureId($this->imageName);
+
             default:
                 break;
         }
-        
+        // var_dump($this->imageName);
+        // exit;
         imagejpeg($thumb, "{$this->cachePath}/{$this->imageName}.jpg", $this->quality);
 
         imagedestroy($thumb);

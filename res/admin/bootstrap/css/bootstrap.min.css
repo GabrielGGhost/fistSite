@@ -19,76 +19,26 @@
 
 }
 
-/* The container */
-.container-chk {
-  display: block;
-  position: relative;
-  padding-left: 20px;
-  margin-bottom: 5px;
-  cursor: pointer;
-  font-size: 13px;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  margin-top: 30px;
+.recipePic{
+	width: 100%;
+	max-width: 100%;
+}
+
+.recipeImageCard{
+	border-radius: 15px;
 
 }
 
-/* Hide the browser's default radio button */
-.container-chk input {
-  position: absolute;
-  opacity: 0;
-  cursor: pointer;
+.recipeImage{
+
+	margin: 30px 1%;
+}
+.remove-box{
+	margin-left: 40%;
 
 }
 
-/* Create a custom radio button */
-.checkmark {
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 15px;
-  width: 15px;
-  background-color: #eee;
-  border-radius: 50%;
-  transition: 0.5s linear;
-}
-
-/* On mouse-over, add a grey background color */
-.container-chk:hover input ~ .checkmark {
-  background-color: #ccc;
-}
-
-/* When the radio button is checked, add a blue background */
-.container-chk input:checked ~ .checkmark {
-  background-color: #2196F3;
-}
-
-/* Create the indicator (the dot/circle - hidden when not checked) */
-.checkmark:after {
-  content: "";
-  position: absolute;
-  display: none;
-}
-
-/* Show the indicator (dot/circle) when checked */
-.container-chk input:checked ~ .checkmark:after {
-  display: block;
-}
-
-/* Style the indicator (dot/circle) */
-.container-chk .checkmark:after {
-    top: 5.2px;
-    left: 5.2px;
-    width: 5px;
-    height: 5px;
-    border-radius: 50%;
-    background: white;
-}
-
-
-media min-width800px and max-width1300px{
+@media min-width800px and max-width1300px{
 
 	.form-double{
 
