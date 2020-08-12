@@ -504,8 +504,7 @@ class Recipes extends Model {
 	}
 
 	public function unlinkImage(){
-		var_dump($this->getidRecipe);
-		exit;
+
 		$file = $_SERVER['DOCUMENT_ROOT'] .
 					DIRECTORY_SEPARATOR .
 					"res" . 
@@ -516,7 +515,7 @@ class Recipes extends Model {
 					DIRECTORY_SEPARATOR .
 					"recipe_pictures" .
 					DIRECTORY_SEPARATOR .
-					$this->getidRecipe() .
+					$this->getpath() .
 					".jpg";
 
 		if(file_exists($file)) unlink($file);
@@ -528,10 +527,12 @@ class Recipes extends Model {
 		$sql = new Sql();
 
 		$sql->select("DELETE 
-						FROM tb_recipe_ingredients
-							WHERE idRecipe = :IDRECIPE", [
+						FROM tb_picturepath
+							WHERE idRecipe = :IDRECIPE
+								AND pathId = :PATHID", [
 								':IDRECIPE'=>$this->getidRecipe(),
-								':PATH'=>$this->getpath()]);
+								':PATHID'=>$this->getpath()
+							]);
 	}
 
 

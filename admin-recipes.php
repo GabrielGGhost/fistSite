@@ -242,8 +242,7 @@ $app->get("/admin/recipes/:IDRECIPE/images", function($idRecipe){
 });
 
 $app->post("/admin/recipes/:IDRECIPE/images", function($idRecipe){
-	var_dump('chegpu');
-	exit;
+
 	User::verifyLogin();
 
 	$recipe = new Recipes();
@@ -260,8 +259,7 @@ $app->post("/admin/recipes/:IDRECIPE/images", function($idRecipe){
 
 
 $app->post("/admin/recipes/:IDRECIPE/removeImage/:PATH", function($idRecipe, $path){
-	var_dump('chegpu');
-	exit;
+
 	User::verifyLogin();
 
 	$recipe = new Recipes();
