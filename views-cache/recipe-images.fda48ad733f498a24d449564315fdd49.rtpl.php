@@ -38,19 +38,21 @@
           </form>
         </div>
         <div class="box-body">
-        <div class="box-header with-border">
-        </div>
+          <div class="box-header with-border">
+          </div>
           <h3 class="box-title">Salvas</h3>
-          <?php $counter1=-1;  if( isset($imagePathes) && ( is_array($imagePathes) || $imagePathes instanceof Traversable ) && sizeof($imagePathes) ) foreach( $imagePathes as $key1 => $value1 ){ $counter1++; ?>
-            <form role="form" action="/admin/recipes/<?php echo htmlspecialchars( $recipe["idRecipe"], ENT_COMPAT, 'UTF-8', FALSE ); ?>/removeImage/<?php echo htmlspecialchars( $value1["pathId"], ENT_COMPAT, 'UTF-8', FALSE ); ?>" method="post">
-              <div class="recipeImage">
-                <img src="/res/site/img/recipe_pictures/<?php echo htmlspecialchars( $value1["pathId"], ENT_COMPAT, 'UTF-8', FALSE ); ?>.jpg" alt="Foto da receita" class="recipe-cards__image recipeImageCard">
-                <div class="remove-box">
-                  <button onclick="return confirm('Deseja realmente remover esta imagem?')" class="btn btn-danger btn-xs"><i class="fa fa-power-off"></i> Remover</button>
+          <section class="recipe-cards">
+            <?php $counter1=-1;  if( isset($imagePathes) && ( is_array($imagePathes) || $imagePathes instanceof Traversable ) && sizeof($imagePathes) ) foreach( $imagePathes as $key1 => $value1 ){ $counter1++; ?>
+              <form role="form" action="/admin/recipes/<?php echo htmlspecialchars( $recipe["idRecipe"], ENT_COMPAT, 'UTF-8', FALSE ); ?>/removeImage/<?php echo htmlspecialchars( $value1["pathId"], ENT_COMPAT, 'UTF-8', FALSE ); ?>" method="post">
+                <div class="recipeImage">
+                  <img src="/res/site/img/recipe_pictures/<?php echo htmlspecialchars( $value1["pathId"], ENT_COMPAT, 'UTF-8', FALSE ); ?>.jpg" alt="Foto da receita" class="recipe-cards__image recipeImageCard">
+                  <div class="remove-box">
+                    <button onclick="return confirm('Deseja realmente remover esta imagem?')" class="btn btn-danger btn-xs"><i class="fa fa-power-off"></i> Remover</button>
+                  </div>
                 </div>
-              </div>
-            </form>
-          <?php } ?>
+              </form>
+            <?php } ?>
+          </section>
         </div>
       </div>
   	</div>

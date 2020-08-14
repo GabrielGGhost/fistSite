@@ -184,6 +184,11 @@ img{
   text-transform: uppercase; /*Maiusculo*/
 }
 
+.recipe-filter{
+  width: 100%;
+  height: 100px;
+}
+
 .ingredient-cards, .recipe-cards__image{ /*Painel de cards*/
   margin-top: 2.5em; /*Define a margin do em 2.5em para todos os lados*/
 }
@@ -274,6 +279,11 @@ img{
   color: #929da5; /*Definir cor de texto para metalico claro*/
   font-size: 14px; /*Definir a fonte com 14px*/
   word-spacing: 2px; /*Separar as letras por 2px*/
+}
+
+.form-control {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: transparent;
 }
 
 .button{ /*Formatar todas as classes de botões*/
@@ -445,6 +455,50 @@ img{
   text-align: center;
 }
 
+.recipe-card{
+  border: 1px solid #eee;
+  border-radius: 15px;
+  margin-bottom: 15px;
+}
+
+.recipe-thumb{
+
+  width: 100%;
+}
+
+.recipeThumb_card{
+  width: 100%;
+  border-radius: 15px;
+  border-bottom: 1px solid black;
+}
+
+.recipeTitle{
+
+  text-align: center;
+  border-bottom: 1px solid #eee;
+  color: black;
+}
+
+.recipeDescription{
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.preparationTime, .recipeDifficult,
+.recipeYield, .recipeAuthor{
+  text-align: center;
+  font-family: sans-serif;
+}
+
+.firstRow, .secondRow{
+  line-height: 30px;
+}
+
+.select_filter{
+  border-radius: 10px;
+  width: 100%;
+  font-family: sans-serif;
+}
 
 @media screen and (min-width: 400px){
   .ingredient-cards{

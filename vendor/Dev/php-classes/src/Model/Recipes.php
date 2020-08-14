@@ -22,11 +22,33 @@ class Recipes extends Model {
 
 		$sql = new Sql();
 
-		$results = $sql->select("SELECT * FROM tb_recipes");
+		$results = $sql->select("SELECT *
+									FROM tb_recipes AS r
+										INNER JOIN tb_yield AS y
+											ON r.idYield = y.idYeld");
 
 		return $results;
 	}
 
+	public function listAllActived(){
+
+		$sql = new Sql();
+
+		$results = $sql->select("SELECT r.recipeName,
+										r.preparationTime,
+										d.difficultLevel,
+										u.login
+									FROM tb_recipes AS r
+										INNER JOIN tb_yield AS y
+											ON r.idYield = y.idYeld
+										INNER JOIN tb_difficult AS d
+											ON r.idDifficult = d.idDifficult
+										INNER JOIN tb_users AS u
+											ON r.idAuthor = u.idUser
+												WHERE r.active = true;");
+
+		return $results;
+	}
 	public static function setError($msg) {
 
 		$_SESSION[Recipes::SESSION_ERROR] = $msg;

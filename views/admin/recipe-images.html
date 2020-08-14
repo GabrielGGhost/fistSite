@@ -38,19 +38,21 @@
           </form>
         </div>
         <div class="box-body">
-        <div class="box-header with-border">
-        </div>
+          <div class="box-header with-border">
+          </div>
           <h3 class="box-title">Salvas</h3>
-          {loop="$imagePathes"}
-            <form role="form" action="/admin/recipes/{$recipe.idRecipe}/removeImage/{$value.pathId}" method="post">
-              <div class="recipeImage">
-                <img src="/res/site/img/recipe_pictures/{$value.pathId}.jpg" alt="Foto da receita" class="recipe-cards__image recipeImageCard">
-                <div class="remove-box">
-                  <button onclick="return confirm('Deseja realmente remover esta imagem?')" class="btn btn-danger btn-xs"><i class="fa fa-power-off"></i> Remover</button>
+          <section class="recipe-cards">
+            {loop="$imagePathes"}
+              <form role="form" action="/admin/recipes/{$recipe.idRecipe}/removeImage/{$value.pathId}" method="post">
+                <div class="recipeImage">
+                  <img src="/res/site/img/recipe_pictures/{$value.pathId}.jpg" alt="Foto da receita" class="recipe-cards__image recipeImageCard">
+                  <div class="remove-box">
+                    <button onclick="return confirm('Deseja realmente remover esta imagem?')" class="btn btn-danger btn-xs"><i class="fa fa-power-off"></i> Remover</button>
+                  </div>
                 </div>
-              </div>
-            </form>
-          {/loop}
+              </form>
+            {/loop}
+          </section>
         </div>
       </div>
   	</div>

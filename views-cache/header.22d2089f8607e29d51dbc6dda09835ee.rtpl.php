@@ -31,7 +31,7 @@
 
           <nav class="header__nav">
             <ul>
-              <li><a href="#"></i>Receitas</a></li>
+              <li><a href="/recipes-list"></i>Receitas</a></li>
               <li><a href="/ingredients">Ingredientes</a></li>
               <li><a href="#">Categorias</a></li>
               <li><a href="#">how we help</a></li>
