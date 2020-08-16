@@ -34,10 +34,14 @@ class Recipes extends Model {
 
 		$sql = new Sql();
 
-		$results = $sql->select("SELECT r.recipeName,
-										r.preparationTime,
+		$results = $sql->select("SELECT r.idRecipe,
+										r.recipeName,
+										TIME_FORMAT(r.preparationTime, '%H:%i') AS preparationTime,
 										d.difficultLevel,
-										u.login
+										u.login,
+										y.amount,
+										yt.singularName,
+										yt.pluralName
 									FROM tb_recipes AS r
 										INNER JOIN tb_yield AS y
 											ON r.idYield = y.idYeld
@@ -45,6 +49,8 @@ class Recipes extends Model {
 											ON r.idDifficult = d.idDifficult
 										INNER JOIN tb_users AS u
 											ON r.idAuthor = u.idUser
+										INNER JOIN tb_yieldType as yt
+											ON y.idType = yt.idType
 												WHERE r.active = true;");
 
 		return $results;
@@ -95,7 +101,7 @@ class Recipes extends Model {
 														:PREPARARIONTIME,
 														:IDDIFFICULT,
 														:IDAUTHOR)", [
-														 	':RECIPENAME'=>utf8_decode($this->getrecipeName()),
+														 	':RECIPENAME'=>ucfirst(utf8_decode($this->getrecipeName())),
 														 	':YIELD'=>$this->getyield(),
 														 	':IDYIELD'=>$this->getidYield(),
 														 	':PREPARARIONTIME'=>$this->getpreparationTime(),
@@ -314,6 +320,8 @@ class Recipes extends Model {
 
 		foreach ($ingredients as $key => $arr) {
 
+			if($arr['measure'] == "") $arr['measure'] = NULL;
+
 			$results = $sql->select("CALL sp_recipe_ingredient_save(:IDRECIPE,
 																	:IDINGREDIENT,
 																	:QUANTITY,
@@ -487,7 +495,7 @@ class Recipes extends Model {
 				$image = imagecreatefrompng($file["tmp_name"]);
 				break;
 			default:
-				throw new \Exception("Formtato de imagem não aceito!");
+				Recipes::setError("Formtato de imagem não aceito!");
 				header("Location: /admin/recipes/" . $this->getidRecipe() . "/images");
 				exit;
 
@@ -601,6 +609,35 @@ class Recipes extends Model {
 										]);
 
 		return $results;
+	}
+
+	public static function getPreviewImages($data){
+
+		foreach ($data as $index => &$arr) {
+			foreach ($arr as $key => $value) {
+				$sql = new Sql();
+
+				$results = $sql->select("SELECT *
+											from tb_picturepath
+												WHERE idRecipe = :IDRECIPE
+													LIMIT 1", [
+															':IDRECIPE'=>$arr['idRecipe']
+														]);
+
+				if(count($results) > 0){
+
+					$arr['pathId'] = $results[0]['pathId'];
+
+				} else {
+
+					$arr['pathId'] = "";
+				}
+
+			}
+
+		}
+
+		return $data;
 	}
 
 }

@@ -48,14 +48,14 @@
                     <?php if( empty($listedIngredients) ){ ?>
                       <select class="form-control" id="idYield" name="idYield">
                         <?php $counter1=-1;  if( isset($yieldType) && ( is_array($yieldType) || $yieldType instanceof Traversable ) && sizeof($yieldType) ) foreach( $yieldType as $key1 => $value1 ){ $counter1++; ?>
-                          <option value="<?php echo htmlspecialchars( $value1["idType"], ENT_COMPAT, 'UTF-8', FALSE ); ?>"><?php echo htmlspecialchars( $value1["name"], ENT_COMPAT, 'UTF-8', FALSE ); ?></option>
+                          <option value="<?php echo htmlspecialchars( $value1["idType"], ENT_COMPAT, 'UTF-8', FALSE ); ?>"><?php echo htmlspecialchars( $value1["singularName"], ENT_COMPAT, 'UTF-8', FALSE ); ?></option>
                         <?php } ?>
                       </select>
                     <?php }else{ ?>
                       <select class="form-control" id="idYield" name="idYield">
                         <?php $a = $recipeRegisterValues["idYield"]; ?>
                         <?php $counter1=-1;  if( isset($yieldType) && ( is_array($yieldType) || $yieldType instanceof Traversable ) && sizeof($yieldType) ) foreach( $yieldType as $key1 => $value1 ){ $counter1++; ?>
-                          <option value="<?php echo htmlspecialchars( $value1["idType"], ENT_COMPAT, 'UTF-8', FALSE ); ?>" <?php if( $value1["idType"] == $a ){ ?>Selected<?php } ?>><?php echo htmlspecialchars( $value1["name"], ENT_COMPAT, 'UTF-8', FALSE ); ?></option>
+                          <option value="<?php echo htmlspecialchars( $value1["idType"], ENT_COMPAT, 'UTF-8', FALSE ); ?>" <?php if( $value1["idType"] == $a ){ ?>Selected<?php } ?>><?php echo htmlspecialchars( $value1["singularName"], ENT_COMPAT, 'UTF-8', FALSE ); ?></option>
                         <?php } ?>
                       </select>
                     <?php } ?>

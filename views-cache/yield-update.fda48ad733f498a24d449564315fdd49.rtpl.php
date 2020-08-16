@@ -33,9 +33,15 @@
         <form role="form" action="/admin/yields/<?php echo htmlspecialchars( $yield["idType"], ENT_COMPAT, 'UTF-8', FALSE ); ?>" method="post">
           <div class="box-body">
             <div class="form-group">
-              <label for="name">Nome</label>
-              <input type="text" class="form-control" id="name" name="name" placeholder="Digite o nome da medida" value="<?php echo htmlspecialchars( $yield["name"], ENT_COMPAT, 'UTF-8', FALSE ); ?>" maxlength="30">
-            </div>
+              <div class="form-double">
+                <label for="singularName">Nome Singular</label>
+                <input type="text" class="form-control" id="singularName" name="singularName" placeholder="Digite o nome do rendimento" maxlength="30" value="<?php echo htmlspecialchars( $yield["singularName"], ENT_COMPAT, 'UTF-8', FALSE ); ?>">  
+              </div>
+              <div class="form-double">
+                <label for="pluralName">Nome Plural</label>
+                <input type="text" class="form-control" id="pluralName" name="pluralName" placeholder="Digite o nome do rendimento" maxlength="30" value="<?php echo htmlspecialchars( $yield["pluralName"], ENT_COMPAT, 'UTF-8', FALSE ); ?>"> 
+              </div>
+              </div>          
           </div>
           <!-- /.box-body -->
           <div class="box-footer">

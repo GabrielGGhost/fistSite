@@ -48,7 +48,7 @@
                     <select class="form-control" id="idYield" name="idYield">
                       <?php $a = $recipeData["idYield"]; ?>
                       <?php $counter1=-1;  if( isset($yieldTypes) && ( is_array($yieldTypes) || $yieldTypes instanceof Traversable ) && sizeof($yieldTypes) ) foreach( $yieldTypes as $key1 => $value1 ){ $counter1++; ?>
-                        <option value="<?php echo htmlspecialchars( $value1["idType"], ENT_COMPAT, 'UTF-8', FALSE ); ?>" <?php if( $value1["idType"] == $a ){ ?>Selected<?php } ?>><?php echo htmlspecialchars( $value1["name"], ENT_COMPAT, 'UTF-8', FALSE ); ?></option>
+                        <option value="<?php echo htmlspecialchars( $value1["idType"], ENT_COMPAT, 'UTF-8', FALSE ); ?>" <?php if( $value1["idType"] == $a ){ ?>Selected<?php } ?>><?php echo htmlspecialchars( $value1["singularName"], ENT_COMPAT, 'UTF-8', FALSE ); ?></option>
                       <?php } ?>
                     </select>
                   </div>

@@ -27,7 +27,7 @@ $app->get("/admin/yields/create", function(){
 
 	$page->setTpl("yield-create", [
 		'createError'=>Yields::getError(),
-		'yieldRegisterValues'=>(isset($_SESSION['yieldRegisterValues'])) ? $_SESSION['yieldRegisterValues'] : ['name'=>'']
+		'yieldRegisterValues'=>(isset($_SESSION['yieldRegisterValues'])) ? $_SESSION['yieldRegisterValues'] : ['singularName'=>'', 'pluralName'=>'']
 	]);
 
 });
@@ -40,14 +40,20 @@ $app->post("/admin/yields/create", function(){
 
 	$_SESSION['yieldRegisterValues'] = $_POST;
 
-	if (!isset($_POST['name']) || $_POST['name'] === '') {
-		Yields::setError("Informe o rendimento!");
+	if (!isset($_POST['singularName']) || $_POST['singularName'] === '') {
+		Yields::setError("Informe o singular do rendimento!");
 		header("Location: /admin/yields/create");
 		exit;
 	}
 
-	if(Yields::verifyYield($_POST['name'])){
-		Yields::setError("Rendimento já medida!");
+	if(Yields::verifySingularYield($_POST['singularName'])){
+		Yields::setError("Singular de Rendimento já cadastrado!");
+		header("Location: /admin/yields/create");
+		exit;
+	}
+
+	if (!isset($_POST['pluralName']) || $_POST['pluralName'] === '') {
+		Yields::setError("Informe o plural do rendimento!");
 		header("Location: /admin/yields/create");
 		exit;
 	}
@@ -58,7 +64,7 @@ $app->post("/admin/yields/create", function(){
 
 	$_SESSION['yieldRegisterValues'] = NULL;
 
-	Yields::setSuccess("Medida " . $_POST['name'] . "  foi incuído com sucesso");
+	Yields::setSuccess("Medida " . $_POST['singularName'] . "  foi incuído com sucesso");
 	header("Location: /admin/yields");
 	exit;
 });
@@ -90,18 +96,24 @@ $app->post("/admin/yields/:IDDIFFICULT", function($idType){
 
 	$yield->getYield((int)$idType);
 
-	if (!isset($_POST['name']) || $_POST['name'] === '') {
-		Yields::setError("Informe o nome do rendimento!");
-		header("Location: /admin/yields/$idType");
+	if (!isset($_POST['singularName']) || $_POST['singularName'] === '') {
+		Yields::setError("Informe o singular do rendimento!");
+		header("Location: /admin/yields/create");
 		exit;
 	}
 
-	if($_POST['name'] != $yield->getname()) {
-		if(Yields::verifyYield($_POST['name'])){
-			Yields::setError("Rendimento já cadastrada!");
-			header("Location: /admin/yields/$idType");
+	if($_POST['singularName'] != $yield->getsingularName()){
+		if(Yields::verifySingularYield($_POST['singularName'])){
+			Yields::setError("Singular de Rendimento já cadastrado!");
+			header("Location: /admin/yields/create");
 			exit;
 		}
+	}
+
+	if (!isset($_POST['pluralName']) || $_POST['pluralName'] === '') {
+		Yields::setError("Informe o plural do rendimento!");
+		header("Location: /admin/yields/create");
+		exit;
 	}
 
 	$yield->setData($_POST);

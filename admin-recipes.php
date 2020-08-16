@@ -74,8 +74,8 @@ $app->post("/admin/recipes/create", function(){
 		header("Location: /admin/recipes/create");
 		exit;
 	}
-
-	if (!isset($_POST['preparationTime']) || strtotime($_POST['preparationTime']) === strtotime("00:00")) {
+	
+	if (!isset($_POST['preparationTime']) || strtotime($_POST['preparationTime']) === strtotime("00:00") || $_POST['preparationTime'] === "") {
 		Recipes::setError("O tempo da receita precisa ser maior que 00:00");
 		header("Location: /admin/recipes/create");
 		exit;

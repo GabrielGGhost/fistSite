@@ -61,13 +61,16 @@ class Yields extends Model {
 
 		$sql = new Sql();
 
-		$results = $sql->select("call sp_yeldType_save(:NAME)", [
-														 	':NAME'=>utf8_decode($this->getname())
+		$results = $sql->select("call sp_yeldType_save(:SINGULARNAME,
+														:PLURALNAME)", [
+														 	':SINGULARNAME'=>utf8_decode($this->getsingularName()),
+														 	':PLURALNAME'=>utf8_decode($this->getspluralName()),
 														 ]);
 
 		$data = $results[0];
 
-		$data['name'] = utf8_encode($data['name']);
+		$data['singularName'] = utf8_encode($data['singularName']);
+		$data['pluralName'] = utf8_encode($data['pluralName']);
 
 		$this->setData($data);
 	}
@@ -84,8 +87,8 @@ class Yields extends Model {
 
 		$data = $results[0];
 
-		$data['name'] = utf8_encode($data['name']);
-
+		$data['singularName'] = utf8_encode($data['singularName']);
+		$data['pluralName'] = utf8_encode($data['pluralName']);
 
 		$this->setData($data);
 	}
@@ -94,12 +97,12 @@ class Yields extends Model {
 
 		$sql = new Sql();
 
-		$results = $sql->select("call sp_yieldType_update(:IDTYPE,:NAME)",[
+		$results = $sql->select("call sp_yieldType_update(:IDTYPE,:SINGULARNAME,
+														:PLURALNAME)", [
 															':IDTYPE'=>$this->getidType(),
-														 	':NAME'=>utf8_decode($this->getname())
+														 	':SINGULARNAME'=>utf8_decode($this->getsingularName()),
+														 	':PLURALNAME'=>utf8_decode($this->getspluralName()),
 														 ]);
-
-;
 
 		$data = $results[0];
 
@@ -108,16 +111,16 @@ class Yields extends Model {
 		$this->setData($data);
 	}
 
-	public static function verifyYield($type){
+	public static function verifySingularYield($name){
 
 		$sql = new Sql();
 
-		$type = utf8_decode($type);
+		$name = utf8_decode($name);
 
 		$results = $sql->select("SELECT * 
 									FROM tb_yieldType
-										WHERE name = :NAME", [
-											':NAME'=>$type
+										WHERE singularName = :NAME", [
+											':NAME'=>$name
 										]);
 
 		if (count($results) === 0) return false;
@@ -125,7 +128,22 @@ class Yields extends Model {
 		return true;
 	}
 
+	public static function verifyPluralYield($name){
 
+		$sql = new Sql();
+
+		$name = utf8_decode($name);
+
+		$results = $sql->select("SELECT * 
+									FROM tb_yieldType
+										WHERE pluralName = :NAME", [
+											':NAME'=>$name
+										]);
+
+		if (count($results) === 0) return false;
+
+		return true;
+	}
 
 
 	public function des_active(){

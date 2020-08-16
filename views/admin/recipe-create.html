@@ -48,14 +48,14 @@
                     {if="empty($listedIngredients)"}
                       <select class="form-control" id="idYield" name="idYield">
                         {loop="$yieldType"}
-                          <option value="{$value.idType}">{$value.name}</option>
+                          <option value="{$value.idType}">{$value.singularName}</option>
                         {/loop}
                       </select>
                     {else}
                       <select class="form-control" id="idYield" name="idYield">
                         {$a = $recipeRegisterValues.idYield}
                         {loop="$yieldType"}
-                          <option value="{$value.idType}" {if="$value.idType == $a"}Selected{/if}>{$value.name}</option>
+                          <option value="{$value.idType}" {if="$value.idType == $a"}Selected{/if}>{$value.singularName}</option>
                         {/loop}
                       </select>
                     {/if}

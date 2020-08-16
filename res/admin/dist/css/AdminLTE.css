@@ -69,10 +69,6 @@ body {
   margin-left: 0;
 }
 
-.recipePic{
-  max-width: 100px;
-  border: 1px solid black;
-}
 
 @media (max-width: 767px) {
   .content-wrapper,

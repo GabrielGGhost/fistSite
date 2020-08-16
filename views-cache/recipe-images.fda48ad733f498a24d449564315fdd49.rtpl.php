@@ -31,7 +31,7 @@
         <div class="box-body">
           <form role="form" action="/admin/recipes/<?php echo htmlspecialchars( $recipe["idRecipe"], ENT_COMPAT, 'UTF-8', FALSE ); ?>/images" method="post" enctype="multipart/form-data">
             <input type="file" class="form-control" id="file" name="file" style="width: 300px;">
-            <img src="/res/site/img/defaults/addPhoto.jpg" alt="Imagem da receita" class="recipe-cards__image recipePic" id="image-preview">
+            <img src="/res/site/img/defaults/addPhoto.jpg" alt="Imagem da receita" class="recipe-cards__image recipePic" id="image-preview" style="max-width: 300px; border: 1px solid black; border-radius: 15px;">
             <div class="box-footer">
               <button type="submit" class="btn btn-success">Adicionar</button>
             </div>

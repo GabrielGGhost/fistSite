@@ -12,10 +12,26 @@ $app->get("/recipes-list", function(){
 
 	$recipes = encodeData($recipes);
 
+	$recipes = Recipes::getPreviewImages($recipes);
+
 	$page->setTpl("recipes-list",[
 		'recipes'=>$recipes
 	]);
 
 });
+
+$app->get("/recipes/:IDRECIPE", function($idRecipe){
+
+	$page = new Page();
+
+	$recipes = Recipes::listAllActived();
+
+	$recipes = encodeData($recipes);
+
+	$recipes = Recipes::getPreviewImages($recipes);
+
+	$page->setTpl("recipe-detail");
+});
+
 
  ?>

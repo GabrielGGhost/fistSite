@@ -1,5 +1,5 @@
 <div class="container-ingredients">
- 	<section>
+ 	<section >
     <div class="recipe-filter">
       <div class="recipeName">
         <select id="select_filter" class="select_filter">
@@ -10,47 +10,39 @@
       </div>
     </div>
     <div class="recipe-list">
-      {loop="$recipes"}
-      <div class="recipe-card">
-        <div class="recipe-thumb">
-          <img src="/res/site/img/recipe_pictures/58_5f3443e131cc6.jpg" id="recipeThumb_card" class="recipeThumb_card">
-        </div>
-        <div class="recipeTitle">
-          <a><b>{$value.recipeName}</b></a>
-        </div>
-        <div class="recipeDescription">
-          <div class="firstRow">
-            <div class="preparationTime">
-              <a><strong><i class="fas fa-stopwatch"></i> Preparo:</strong> {$value.preparationTime}</a>
+      {loop="$recipes"}        
+      <div class="recipe-card recipe-card_{$value.idRecipe}"  id="recipe-card">
+        <form role="form" action="/recipes/{$value.idRecipe}" method="get">
+          <div id="keepItTogether">
+            <div class="recipe-thumb">
+              <img {if="$value.pathId != ''"} src="/res/site/img/recipe_pictures/{$value.pathId}.jpg" {else} src="/res/site/img/defaults/no-recipe_image.jpg" {/if} alt="Foto de receitas" class="border-recipe">
             </div>
-            <div class="recipeDifficult">
-              <a><strong><i class="fas fa-layer-group"></i> Dificuldade:</strong> {$value.difficultLevel}</a>
+            <div class="recipeTitle">
+              <a class="recipePrincipalText">{$value.recipeName}</a>
             </div>
+            <div class="recipeDescription">
+              <div class="firstRow">
+                <div class="preparationTime">
+                  <a><a class="recipePrincipalText"><i class="fas fa-stopwatch"></i> Tempo:</a><br> {$value.preparationTime}h</a>
+                </div>
+                <div class="recipeYield">
+                  <a><a class="recipePrincipalText"><i class="fas fa-cookie-bite"></i> Rende:</a><br>{$value.amount} {if="$value.amount > 1"} {$value.pluralName} {else} {$value.singularName} {/if}</a>
+                </div>
+              </div>
+              <div class="secondRow">
+                <div class="recipeDifficult">
+                  <a><a class="recipePrincipalText"><i class="fas fa-layer-group"></i> Nível:</a><br> {$value.difficultLevel}</a>
+                </div>
+                <div class="recipeAuthor">
+                  <a><a class="recipePrincipalText"><i class="fas fa-user"></i> Autor:</a><br>{$value.login}</a>
+                </div>
+              </div>
+            </div>
+            <input type="submit" name="openButton_{$value.idRecipe}" id="openButton_{$value.idRecipe}" style="display:none">
           </div>
-          <div class="secondRow">
-            <div class="recipeYield">
-              <a><strong><i class="fas fa-cookie-bite"></i> Rende:</strong> 1 prato</a>
-            </div>
-            <div class="recipeAuthor">
-              <label><strong><i class="fas fa-user"></i> Autor:</strong> {$value.login}</label>
-            </div>
-          </div>
-        </div>
+        </form>
       </div>
       {/loop}
     </div>
-    	<!-- {loop="$ingredients"}
-        	<article class="ingredient-cards__card">
-              <div class="ingredientImage">
-                <img {if="$value.pictureId != ''"} src="/res/site/img/igrendients_pictures/{$value.pictureId}.jpg" {else} src="/res/site/img/defaults/no-ingredient.jpg" {/if} alt="Foto de ingrediente" class="ingredient-cards__image ">
-              </div>
-              	<div class="ingredient-cards__content">
-                  <div class="ingredient-title">
-                    <h2 class="ingredient-cards__title">{$value.singularName}</h2>
-                  </div>
-               		<p class="ingredient-cards__text">{$value.description}</p>
-              	</div>
-            </article>
-        {/loop} -->
     </section>
 </div>

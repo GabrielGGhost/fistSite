@@ -31,8 +31,14 @@
         {/if}
           <div class="box-body">
             <div class="form-group">
-              <label for="name">Nome</label>
-              <input type="text" class="form-control" id="name" name="name" placeholder="Digite o nome do rendimento" maxlength="30" values="{$yieldRegisterValues.name}">
+              <div class="form-double">
+                <label for="singularName">Nome Singular</label>
+                <input type="text" class="form-control" id="singularName" name="singularName" placeholder="Digite o nome do rendimento" maxlength="30" value="{$yieldRegisterValues.singularName}">  
+              </div>
+              <div class="form-double">
+                <label for="pluralName">Nome Plural</label>
+                <input type="text" class="form-control" id="pluralName" name="pluralName" placeholder="Digite o nome do rendimento" maxlength="30" value="{$yieldRegisterValues.pluralName}"> 
+              </div>          
             </div>
           </div>
           <!-- /.box-body -->

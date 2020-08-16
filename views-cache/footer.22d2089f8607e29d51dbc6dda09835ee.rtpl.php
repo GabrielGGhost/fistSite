@@ -19,6 +19,7 @@
         <script src="/res/site/js/menu.js"></script>
         <script src="/res/site/js/carousel.js"></script>
         <script src="/res/site/js/main.js"></script>
+        <script src="/res/site/js/general.js"></script>
 
     </body>
 </html>

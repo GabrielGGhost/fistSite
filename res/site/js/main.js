@@ -11,18 +11,18 @@
     widthEnabled: 1024
   });
 
-  var $carroselImg = new Carousel({
-    container: '.laptop-slider .slideshow',
-    itens:'figure',
-    btnPrev: '.prev',
-    btnNext: '.next'
-  });
+  // var $carroselImg = new Carousel({
+  //   container: '.laptop-slider .slideshow',
+  //   itens:'figure',
+  //   btnPrev: '.prev',
+  //   btnNext: '.next'
+  // });
 
-  var $carroseQuotes = new Carousel({
-    container: '.quote-slideshow',
-    itens:'figure',
-    btnPrev: '.prev',
-    btnNext: '.next'
-  });
+  // var $carroseQuotes = new Carousel({
+  //   container: '.quote-slideshow',
+  //   itens:'figure',
+  //   btnPrev: '.prev',
+  //   btnNext: '.next'
+  // });
 
 })();

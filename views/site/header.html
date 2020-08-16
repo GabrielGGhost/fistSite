@@ -34,7 +34,7 @@
               <li><a href="/recipes-list"></i>Receitas</a></li>
               <li><a href="/ingredients">Ingredientes</a></li>
               <li><a href="#">Categorias</a></li>
-              <li><a href="#">how we help</a></li>
+              <li><a href="">how we help</a></li>
               <li><a href="#">Enviar receita</a></li>
               <li><a href="#">contato</a></li>
               <li><a href="#">Login/Cadastrar</a></li>

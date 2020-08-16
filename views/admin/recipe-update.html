@@ -48,7 +48,7 @@
                     <select class="form-control" id="idYield" name="idYield">
                       {$a = $recipeData.idYield}
                       {loop="$yieldTypes"}
-                        <option value="{$value.idType}" {if="$value.idType == $a"}Selected{/if}>{$value.name}</option>
+                        <option value="{$value.idType}" {if="$value.idType == $a"}Selected{/if}>{$value.singularName}</option>
                       {/loop}
                     </select>
                   </div>
