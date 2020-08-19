@@ -153,3 +153,4 @@
 <!-- /.content -->
 </div>
 <!-- /.content-wrapper -->
+<script src="/res/admin/dist/js/addInput.js"></script>

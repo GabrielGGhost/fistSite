@@ -12,10 +12,10 @@
     <div class="recipe-list">
       <?php $counter1=-1;  if( isset($recipes) && ( is_array($recipes) || $recipes instanceof Traversable ) && sizeof($recipes) ) foreach( $recipes as $key1 => $value1 ){ $counter1++; ?>        
       <div class="recipe-card recipe-card_<?php echo htmlspecialchars( $value1["idRecipe"], ENT_COMPAT, 'UTF-8', FALSE ); ?>"  id="recipe-card">
-        <form role="form" action="/recipes/<?php echo htmlspecialchars( $value1["idRecipe"], ENT_COMPAT, 'UTF-8', FALSE ); ?>" method="get">
+        <form role="form" action="/recipe-detail/<?php echo htmlspecialchars( $value1["idRecipe"], ENT_COMPAT, 'UTF-8', FALSE ); ?>" method="get">
           <div id="keepItTogether">
             <div class="recipe-thumb">
-              <img <?php if( $value1["pathId"] != '' ){ ?> src="/res/site/img/recipe_pictures/<?php echo htmlspecialchars( $value1["pathId"], ENT_COMPAT, 'UTF-8', FALSE ); ?>.jpg" <?php }else{ ?> src="/res/site/img/defaults/no-recipe_image.jpg" <?php } ?> alt="Foto de receitas" class="border-recipe">
+              <img <?php if( $value1["pathId"] != '' ){ ?> src="/res/site/img/recipe_thumbs/<?php echo htmlspecialchars( $value1["pathId"], ENT_COMPAT, 'UTF-8', FALSE ); ?>.jpg" <?php }else{ ?> src="/res/site/img/defaults/no-recipe_image.jpg" <?php } ?> alt="Foto de receitas" class="border-recipe">
             </div>
             <div class="recipeTitle">
               <a class="recipePrincipalText"><?php echo htmlspecialchars( $value1["recipeName"], ENT_COMPAT, 'UTF-8', FALSE ); ?></a>

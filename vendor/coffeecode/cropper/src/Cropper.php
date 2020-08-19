@@ -240,37 +240,46 @@ class Cropper
 
         $this->imageName = $data[0] . "_" . $data[1];
 
-        switch ($this->type) {
-            case 'user':
-                $user = new User();
-
-                $user->updatePictureDB($this->imageName, $this->id);
-
-                $user->setpictureId($this->imageName);
-                break;
-            
-            case 'ingredients':
-
-                $ingredient = new Ingredient();
-
-                $ingredient->updatePictureDB($this->imageName, $this->id);
-
-                $ingredient->setpictureId($this->imageName);
-
-            case 'recipe-picture':
-
-                $recipe = new Recipes();
- 
-                $recipe->insertPictureDB($this->imageName, $this->id);
-
-                $recipe->setpictureId($this->imageName);
-
-            default:
-                break;
-        }
-        // var_dump($this->imageName);
-        // exit;
         imagejpeg($thumb, "{$this->cachePath}/{$this->imageName}.jpg", $this->quality);
+
+        if(file_exists("{$this->cachePath}/{$this->imageName}.jpg")){
+            switch ($this->type) {
+                case 'user':
+                    $user = new User();
+
+                    $user->updatePictureDB($this->imageName, $this->id);
+
+                    $user->setpictureId($this->imageName);
+                    break;
+                
+                case 'ingredients':
+
+                    $ingredient = new Ingredient();
+
+                    $ingredient->updatePictureDB($this->imageName, $this->id);
+
+                    $ingredient->setpictureId($this->imageName);
+
+                case 'recipe-thumb':
+
+                    $recipe = new Recipes();
+     
+                    $recipe->insertPictureDB($this->imageName, NULL, $this->id, 1);
+
+                    $recipe->setpictureId($this->imageName);
+
+                case 'recipe-hd':
+
+                    $recipe = new Recipes();
+     
+                    $recipe->insertPictureDB($this->imageName, NULL, $this->id, 2);
+
+                    $recipe->setpictureId($this->imageName);
+            }
+        } else {
+            var_dump('não achou');
+            exit;
+        }
 
         imagedestroy($thumb);
         imagedestroy($source);

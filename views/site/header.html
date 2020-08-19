@@ -14,8 +14,8 @@
         <link href='http://fonts.googleapis.com/css?family=Sintony:400,700' rel='stylesheet' type='text/css'>
         <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,600,700' rel='stylesheet' type='text/css'>
 
-      <link rel="stylesheet" href="res/site/css/normalize.css">
-      <link rel="stylesheet" href="res/site/css/main.css">
+      <link rel="stylesheet" href="/res/site/css/normalize.css">
+      <link rel="stylesheet" href="/res/site/css/main.css">
 
 
     </head>

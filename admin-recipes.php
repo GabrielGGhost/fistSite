@@ -250,7 +250,10 @@ $app->post("/admin/recipes/:IDRECIPE/images", function($idRecipe){
 
 	$recipe->getRecipeData((int)$idRecipe);
 
-	if($_FILES['file']['name'] !== '') $recipe->setPhoto($_FILES["file"]);
+	if($_FILES['file']['name'] !== '') {
+		$recipe->setPhoto($_FILES["file"]);
+		Recipes::setSuccess('Imagem adiconada com sucesso!');
+	}
 	else Recipes::setError('Nenhuma imagem enviada!');
 
 	header("Location: /admin/recipes/$idRecipe/images");

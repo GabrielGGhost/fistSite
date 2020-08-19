@@ -215,5 +215,6 @@
 </section>
 <!-- /.content -->
 </div>
+<script src="/res/admin/dist/js/addInput.js"></script>
 
 <!-- /.content-wrapper

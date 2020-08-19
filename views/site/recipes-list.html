@@ -12,10 +12,10 @@
     <div class="recipe-list">
       {loop="$recipes"}        
       <div class="recipe-card recipe-card_{$value.idRecipe}"  id="recipe-card">
-        <form role="form" action="/recipes/{$value.idRecipe}" method="get">
+        <form role="form" action="/recipe-detail/{$value.idRecipe}" method="get">
           <div id="keepItTogether">
             <div class="recipe-thumb">
-              <img {if="$value.pathId != ''"} src="/res/site/img/recipe_pictures/{$value.pathId}.jpg" {else} src="/res/site/img/defaults/no-recipe_image.jpg" {/if} alt="Foto de receitas" class="border-recipe">
+              <img {if="$value.pathId != ''"} src="/res/site/img/recipe_thumbs/{$value.pathId}.jpg" {else} src="/res/site/img/defaults/no-recipe_image.jpg" {/if} alt="Foto de receitas" class="border-recipe">
             </div>
             <div class="recipeTitle">
               <a class="recipePrincipalText">{$value.recipeName}</a>

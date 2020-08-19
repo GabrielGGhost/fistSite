@@ -20,18 +20,32 @@ $app->get("/recipes-list", function(){
 
 });
 
-$app->get("/recipes/:IDRECIPE", function($idRecipe){
+$app->get("/recipe-detail/:IDRECIPE", function($idRecipe){
 
 	$page = new Page();
 
-	$recipes = Recipes::listAllActived();
+	$recipe = new Recipes();
 
-	$recipes = encodeData($recipes);
+	$page->setTpl("recipe-detail", [
+		'recipe'=>$recipe->getRecipe((int)$idRecipe),
+		'ingredients'=>$recipe->getRecipeIngredientes((int)$idRecipe)
+	]);
 
-	$recipes = Recipes::getPreviewImages($recipes);
-
-	$page->setTpl("recipe-detail");
 });
+
+
+// $app->get("", function($idRecipe){
+
+// 	$page = new Page();
+
+// 	$recipes = Recipes::listAllActived();
+
+// 	$recipes = encodeData($recipes);
+
+// 	$recipes = Recipes::getPreviewImages($recipes);
+
+// 	$page->setTpl("index");
+// });
 
 
  ?>

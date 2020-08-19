@@ -279,10 +279,18 @@ a{
   font-weight: 600; /*Bold em 600*/
 }
 
-.content p{ /*Formatar todos os paragrafos em contents*/
+.content p, .recipeIngredientList,
+.recipeStepsList, .RecipeName{ /*Formatar todos os paragrafos em contents*/
   color: #929da5; /*Definir cor de texto para metalico claro*/
   font-size: 14px; /*Definir a fonte com 14px*/
   word-spacing: 2px; /*Separar as letras por 2px*/
+}
+
+.RecipeName{
+  font-size: 20px;
+}
+
+.recipeIngredientList{
 }
 
 .form-control {
@@ -493,7 +501,8 @@ a{
 }
 
 .preparationTime, .recipeDifficult,
-.recipeYield, .recipeAuthor{
+.recipeYield, .recipeAuthor,
+.RecipeName{
   text-align: center;
 }
 
@@ -523,7 +532,20 @@ a{
   font-weight: 600;
 }
 
+.recipe_hdImage{
+  width: 100%;
+  border-radius: 15px;
+}
 
+.ingredientTitle{
+  text-align: center;
+  color: #586165;
+}
+
+.recipeIngredient{
+  display: none;
+  font-size: 50px;
+}
 
 @media screen and (min-width: 400px){
   .ingredient-cards{

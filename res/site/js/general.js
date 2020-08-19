@@ -1,5 +1,6 @@
 var recipeCard = document.getElementsByClassName("recipe-card");
 
+
 for (var i = 0; i < recipeCard.length; i++) {
 
 	recipeCard[i].addEventListener('click', function(){

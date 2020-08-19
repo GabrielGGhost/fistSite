@@ -446,33 +446,63 @@ class Recipes extends Model {
 		return $steps;
 	}
 
-	public function checkPhoto() {
+	public function checkPhoto($destination) {
 
-		if(file_exists(
-			$_SERVER['DOCUMENT_ROOT'] .
-			DIRECTORY_SEPARATOR .
-			"res" .
-			DIRECTORY_SEPARATOR .
-			"site" .
-			DIRECTORY_SEPARATOR .
-			"img" .
-			DIRECTORY_SEPARATOR .
-			"recipe_pictures" .
-			DIRECTORY_SEPARATOR .
-			$this->getpictureId() .
-			".jpg"
-		)) {
+		switch ($destination) {
+			case 'thumb':
+					if(file_exists(
+						$_SERVER['DOCUMENT_ROOT'] .
+						DIRECTORY_SEPARATOR .
+						"res" .
+						DIRECTORY_SEPARATOR .
+						"site" .
+						DIRECTORY_SEPARATOR .
+						"img" .
+						DIRECTORY_SEPARATOR .
+						"recipe_thumbs" .
+						DIRECTORY_SEPARATOR .
+						$this->getpictureId() .
+						".jpg"
+					)) {
 
-			$url = "/res/site/img/recipe_pictures/" . $this->getpictureId() . ".jpg";
-		} else {
+						$url = "/res/site/img/recipe_thumbs/" . $this->getpictureId() . ".jpg";
+					} else {
 
-			$url = "/res/site/img/defaults/ingredient-default.jpg";
+						$url = "/res/site/img/defaults/ingredient-default.jpg";
 
+					}
+				break;
+			
+			case 'hd':
+					if(file_exists(
+						$_SERVER['DOCUMENT_ROOT'] .
+						DIRECTORY_SEPARATOR .
+						"res" .
+						DIRECTORY_SEPARATOR .
+						"site" .
+						DIRECTORY_SEPARATOR .
+						"img" .
+						DIRECTORY_SEPARATOR .
+						"recipe_hd" .
+						DIRECTORY_SEPARATOR .
+						$this->getpictureId() .
+						".jpg"
+					)) {
+
+						$url = "/res/site/img/recipe_hd/" . $this->getpictureId() . ".jpg";
+					} else {
+
+						$url = "/res/site/img/defaults/ingredient-default.jpg";
+
+					}
+				break;
 		}
+
+
 
 		$this->setpathPhoto($url);
 
-		$this->resizePicture();
+		$this->resizePicture($destination);
 	}
 
 	public function setPhoto($file){
@@ -502,35 +532,67 @@ class Recipes extends Model {
 		}
 
 		$picture_name = $this->getidRecipe() . "_" . uniqid() .	".jpg";
-
-		$destFolder = $_SERVER['DOCUMENT_ROOT'] .
-						DIRECTORY_SEPARATOR .
-						"res" . 
-						DIRECTORY_SEPARATOR .
-						"site" .
-						DIRECTORY_SEPARATOR .
-						"img" .
-						DIRECTORY_SEPARATOR .
-						"recipe_pictures" .
-						DIRECTORY_SEPARATOR .
-						$picture_name;
-
-		imagejpeg($image, $destFolder);
+		$this->createImage('hd', $picture_name, $image);
+		$this->createImage('thumb', $picture_name, $image);
 		imagedestroy($image);
 
-		$this->setpictureId($picture_name);
-		$this->checkPhoto();
 	}
 
-	public function insertPictureDB($picturePath, $idRecipe){
+	public function createImage($destination, $picture_name, $image){
+
+		switch ($destination) {
+			case 'thumb':
+
+				$destFolder = $_SERVER['DOCUMENT_ROOT'] .
+										DIRECTORY_SEPARATOR .
+										"res" . 
+										DIRECTORY_SEPARATOR .
+										"site" .
+										DIRECTORY_SEPARATOR .
+										"img" .
+										DIRECTORY_SEPARATOR .
+										"recipe_thumbs" .
+										DIRECTORY_SEPARATOR .
+										$picture_name;
+				break;
+
+			case 'hd':
+				$destFolder = $_SERVER['DOCUMENT_ROOT'] .
+										DIRECTORY_SEPARATOR .
+										"res" . 
+										DIRECTORY_SEPARATOR .
+										"site" .
+										DIRECTORY_SEPARATOR .
+										"img" .
+										DIRECTORY_SEPARATOR .
+										"recipe_hd" .
+										DIRECTORY_SEPARATOR .
+										$picture_name;
+				break;
+		}
+
+		
+
+		imagejpeg($image, $destFolder);
+
+		$this->setpictureId($picture_name);
+		$this->checkPhoto($destination);
+	}
+
+	public function insertPictureDB($picturePath, $idIngredient, $idRecipe, $type){
 
 		$sql = new Sql();
 
 		$sql->select("CALL sp_insertPath(:PATH,
-										  :IDRECIPE)", [
+										 :IDRECIPE,
+										 :IDINGREDIENT,
+										 :IDTYPE)", [
 							':PATH'=>$picturePath,
-							':IDRECIPE'=>$idRecipe
+							':IDRECIPE'=>$idRecipe,
+							':IDINGREDIENT'=>$idIngredient,
+							':IDTYPE'=>$type
 						]);
+
 	}
 
 	public function unlinkImage(){
@@ -543,7 +605,7 @@ class Recipes extends Model {
 					DIRECTORY_SEPARATOR .
 					"img" .
 					DIRECTORY_SEPARATOR .
-					"recipe_pictures" .
+					"recipe_thumbs" .
 					DIRECTORY_SEPARATOR .
 					$this->getpath() .
 					".jpg";
@@ -566,33 +628,66 @@ class Recipes extends Model {
 	}
 
 
-	public function resizePicture(){
+	public function resizePicture($destination){
 
-		$path = $_SERVER['DOCUMENT_ROOT'] .
-					DIRECTORY_SEPARATOR .
-					"res" .
-					DIRECTORY_SEPARATOR .
-					"site" .
-					DIRECTORY_SEPARATOR .
-					"img" .
-					DIRECTORY_SEPARATOR .
-					"recipe_pictures" .
-					DIRECTORY_SEPARATOR .
-					$this->getpictureId();
+		switch ($destination) {
+			case 'thumbs':
+				$path = $_SERVER['DOCUMENT_ROOT'] .
+									DIRECTORY_SEPARATOR .
+									"res" .
+									DIRECTORY_SEPARATOR .
+									"site" .
+									DIRECTORY_SEPARATOR .
+									"img" .
+									DIRECTORY_SEPARATOR .
+									"recipe_thumbs" .
+									DIRECTORY_SEPARATOR .
+									$this->getpictureId();
 
-		$dir = $_SERVER['DOCUMENT_ROOT'] .
-					DIRECTORY_SEPARATOR .
-					"res" .
-					DIRECTORY_SEPARATOR .
-					"site" .
-					DIRECTORY_SEPARATOR .
-					"img" .
-					DIRECTORY_SEPARATOR .
-					"recipe_pictures";
+						$dir = $_SERVER['DOCUMENT_ROOT'] .
+									DIRECTORY_SEPARATOR .
+									"res" .
+									DIRECTORY_SEPARATOR .
+									"site" .
+									DIRECTORY_SEPARATOR .
+									"img" .
+									DIRECTORY_SEPARATOR .
+									"recipe_thumbs";
 
-		$c = new Cropper($dir);
+				$c = new Cropper($dir);
 
-		$c->make($path, 300, $this->getidRecipe(), "recipe-picture",  200);
+				$c->make($path, 300, $this->getidRecipe(), "recipe-thumb",  200);
+				break;
+			
+			case 'hd':
+				$path = $_SERVER['DOCUMENT_ROOT'] .
+									DIRECTORY_SEPARATOR .
+									"res" .
+									DIRECTORY_SEPARATOR .
+									"site" .
+									DIRECTORY_SEPARATOR .
+									"img" .
+									DIRECTORY_SEPARATOR .
+									"recipe_hd" .
+									DIRECTORY_SEPARATOR .
+									$this->getpictureId();
+
+						$dir = $_SERVER['DOCUMENT_ROOT'] .
+									DIRECTORY_SEPARATOR .
+									"res" .
+									DIRECTORY_SEPARATOR .
+									"site" .
+									DIRECTORY_SEPARATOR .
+									"img" .
+									DIRECTORY_SEPARATOR .
+									"recipe_hd";
+
+				$c = new Cropper($dir);
+
+				$c->make($path, 1920, $this->getidRecipe(), "recipe-hd",  1080);
+
+				break;
+		}
 
 	}
 
@@ -638,6 +733,21 @@ class Recipes extends Model {
 		}
 
 		return $data;
+	}
+
+	public function getRecipeIngredientes($idRecipe){
+		$sql = new Sql();
+
+		return $sql->select("SELECT i.singularName, i.pluralName, ri.quantity, ri.complement, ri.plural, m.singularName, m.pluralName
+								FROM tb_recipe_ingredients as ri
+									INNER JOIN tb_ingredient AS i
+										USING(idIngredient)
+									INNER JOIN tb_measure as m
+										ON ri.measureType = m.idType
+											WHERE idRecipe = :IDRECIPE
+									", [
+										':IDRECIPE'=>$idRecipe
+									]);
 	}
 
 }
